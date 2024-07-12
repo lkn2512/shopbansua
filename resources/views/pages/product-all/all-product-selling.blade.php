@@ -1,0 +1,92 @@
+@extends('layout')
+@section('content')
+    <div class="row">
+        <div class="col-md-3">
+            @include('pages.filter-product.sort-product')
+            <br>
+            @include('pages.filter-product.brand-filter-left')
+        </div>
+        <div class="col-md-9">
+            @include('pages.filter-product.category-filter')
+            <div class="row category-product">
+                <span class="text">Sản phẩm được bán chạy nhiều nhất</span>
+            </div>
+            <div class="row row-content">
+                @foreach ($product_selling as $key => $value)
+                    <div class="col-md-3">
+                        <div class="col-border">
+                            <div class="mb-5">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <a class="img-center"
+                                            href="{{ URL::to('/chi-tiet-san-pham/' . $value->product_id) }}">
+                                            <img class="img-products"
+                                                src="{{ URL::to('/uploads/product/' . $value->product_image) }}" />
+                                            @if ($value->promotional_price > 0)
+                                                <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                                            @endif
+                                        </a>
+                                        <a href="{{ URL::to('/chi-tiet-san-pham/' . $value->product_id) }}">
+                                            <p class="underline product-name">{{ $value->product_name }}</p>
+                                        </a>
+                                        <div class="price-product">
+                                            @if ($value->promotional_price > 0)
+                                                <div class="price-info">
+                                                    <div class="price-content1">
+                                                        <span
+                                                            class="price-small">{{ number_format($value->product_price, 0, ',', '.') }}
+                                                        </span>
+                                                        <span class="currency-unit">₫</span>
+                                                    </div>
+                                                    <div class="price-content2">
+                                                        <span class="promotional-price">
+                                                            {{ number_format($value->promotional_price, 0, ',', '.') }}
+                                                        </span>
+                                                        <span class="currency-unit">₫</span>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="price-content">
+                                                    <span
+                                                        class="price">{{ number_format($value->product_price, 0, ',', '.') }}
+                                                    </span>
+                                                    <span class="currency-unit">₫</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                <div class="top-20"></div>
+                <footer class="panel-footer" style=" margin-right: 20px;">
+                    {!! $product_selling->withQueryString()->appends(Request::all())->links('pagination::bootstrap-4') !!}
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.form-check-input').forEach(function(element) {
+            element.addEventListener('change', function() {
+                let params = new URLSearchParams(window.location.search);
+                let filterType = this.dataset.filter;
+                let values = [];
+
+                document.querySelectorAll(`.${filterType}-filter:checked`).forEach(function(
+                    checkedElement) {
+                    values.push(checkedElement.value);
+                });
+
+                if (values.length > 0) {
+                    params.set(filterType, values.join(','));
+                } else {
+                    params.delete(filterType);
+                }
+
+                window.location.search = params.toString();
+            });
+        });
+    </script>
+@endsection

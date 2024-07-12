@@ -1,0 +1,167 @@
+.ftco-section {
+    padding: 12em 0;
+}
+
+.ftco-section h2 {
+    margin-bottom: 0;
+}
+
+footer {
+    border-top: 1px solid rgb(214, 214, 214);
+    margin-top: 50px;
+    padding-top: 50px !important;
+    background: white;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    padding-bottom: 20px;
+    color: black;
+}
+
+.footer_title_top {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 40px;
+    text-align: center;
+}
+
+.logo_footer {
+    height: 80px;
+}
+
+.slogan {
+    color: black;
+    text-transform: uppercase;
+    text-align: left;
+    padding-bottom: 10px;
+}
+
+.copyright {
+    line-height: 30px;
+}
+
+/* footer:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    opacity: .2;
+    z-index: -1;
+    background: white;
+    background: -moz-radial-gradient(center, ellipse cover, white 0%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, white), color-stop(100%, rgba(255, 255, 255, 0)));
+    background: -webkit-radial-gradient(center, ellipse cover, white 0%, rgba(255, 255, 255, 0) 100%);
+    background: -o-radial-gradient(center, ellipse cover, white 0%, rgba(255, 255, 255, 0) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, white 0%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-radial-gradient(center, ellipse, white 0%, rgba(255, 255, 255, 0) 100%);
+    background: -o-radial-gradient(center, ellipse, white 0%, rgba(255, 255, 255, 0) 100%);
+    background: radial-gradient(ellipse at center, white 0%, rgba(255, 255, 255, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#ffffff', GradientType=1);
+} */
+
+footer .subheading {
+    /* color: rgba(255, 255, 255, 0.3); */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+footer .heading-section {
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+footer .footer-heading {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+footer .footer-heading .logo {
+    color: #103667;
+}
+
+footer p {
+    color: black;
+}
+
+footer a {
+    color: black;
+}
+
+footer .list-unstyled li a {
+    color: black;
+    opacity: 0.8;
+}
+
+footer .list-unstyled li a:hover {
+    opacity: 1;
+}
+
+footer .subscribe-form {
+    border-radius: 40px;
+    background: none;
+    padding: 3px;
+    border: 1px solid rgb(170, 170, 170);
+}
+
+footer .subscribe-form .form-group {
+    position: relative;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+footer .subscribe-form .form-group input {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    color: rgba(0, 0, 0, 0.3) !important;
+    font-size: 16px;
+    height: 56px;
+    border-radius: 0;
+}
+
+footer .subscribe-form .form-group input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+footer .subscribe-form .form-group input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+footer .subscribe-form .form-group input:-ms-input-placeholder {
+    /* IE 10+ */
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+footer .subscribe-form .form-group input:-moz-placeholder {
+    /* Firefox 18- */
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+footer .subscribe-form .form-group input:focus {
+    outline: none !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+footer .subscribe-form .form-group .submit {
+    color: white !important;
+    display: block;
+    width: 150px;
+    height: 56px;
+    font-size: 14px;
+    background: #103667 !important;
+    border: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 40px;
+}
+
+footer .subscribe-form .form-group .submit:hover,
+footer .subscribe-form .form-group .submit:focus {
+    text-decoration: none !important;
+    outline: none !important;
+}

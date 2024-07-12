@@ -1,0 +1,183 @@
+body {
+    /* background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('/frontend/images/shop/bg1.png'); */
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    position: relative;
+}
+
+.card {
+    border-radius: 10px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    margin-top: 50px;
+}
+
+.title {
+    font-size: 28px;
+    color: #103667;
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.title::before,
+.title::after {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 0px;
+    background-color: #103667;
+}
+
+.title::before {
+    width: 18px;
+    height: 18px;
+    background-color: #103667;
+}
+
+.title::after {
+    width: 18px;
+    height: 18px;
+    animation: pulse 1s linear infinite;
+}
+
+.message,
+.signin {
+    color: gray;
+    float: right;
+}
+
+.home-shop {
+    color: #103667;
+}
+
+.signin a {
+    color: #103667;
+}
+
+.signin a:hover {
+    text-decoration: underline #103667;
+}
+
+.form-control {
+    width: 100%;
+    border-radius: 0px;
+}
+
+.form label {
+    position: relative;
+}
+
+
+.form label .input {
+    padding: 10px 10px 20px 10px;
+    outline: 0;
+    border: 1px solid rgba(160, 160, 160);
+}
+
+.form label .input+span {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    color: grey;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown+span {
+    top: 15px;
+    font-size: 0.9em;
+}
+
+.form label .input:focus+span,
+.form label .input:valid+span {
+    top: 30px;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+.form label .input:valid+span {
+    color: green;
+}
+
+.submit {
+    border: none;
+    outline: none;
+    background-color: #103667;
+    padding: 10px;
+    color: #fff;
+    font-size: 20px;
+    transform: .3s ease;
+}
+
+.submit:disabled {
+    background-color: rgb(160, 160, 160)
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+.error-message,
+#phoneError {
+    color: red;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+#passwordError {
+    color: red;
+    font-size: 15px;
+    margin-top: -5px;
+}
+
+.password-wrapper {
+    display: flex;
+    position: relative;
+    display: inline-block;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
