@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\CategoryProduct;
 use Brian2694\Toastr\Facades\Toastr;
+use Brian2694\Toastr\Toastr as ToastrToastr;
 
 class CartController extends Controller
 {
@@ -77,23 +78,31 @@ class CartController extends Controller
     {
         $data = $request->all();
         $cart = Session::get('cart');
-        if ($cart == true) {
-            $message = '';
+        $message = null;
+
+        if ($cart) {
             foreach ($data['cart_qty'] as $key => $qty) {
-                foreach ($cart as $session => $val) {
-                    if ($val['session_id'] == $key && $qty <= $cart[$session]['product_quantity']) {
-                        $cart[$session]['product_qty'] = $qty;
-                    } elseif ($val['session_id'] == $key && $qty > $cart[$session]['product_quantity']) {
-                        $message .= "Số lượng bạn đặt đã vượt quá số lượng trong kho của chúng tôi";
+                foreach ($cart as $session => $item) {
+                    if ($item['session_id'] == $key) {
+                        if ($qty <= $item['product_quantity']) {
+                            $cart[$session]['product_qty'] = $qty;
+                        } else {
+                            $message = "Số lượng bạn đặt đã vượt quá số lượng trong kho của chúng tôi cho sản phẩm {$item['product_name']}.";
+                            return Redirect()->back()->with('message', $message);
+                        }
+                        break; // Break out of inner loop once found
                     }
                 }
             }
             Session::put('cart', $cart);
-            return Redirect()->back()->with('message', $message);
+            Toastr::success('Đã cập nhật số lượng sản phẩm', '', ['positionClass' => 'toast-bottom-right']);
         } else {
-            return Redirect()->back();
+            $message = 'Giỏ hàng trống hoặc không tồn tại';
         }
+
+        return Redirect()->back()->with('message', $message);
     }
+
     public function hover_cart_view()
     {
         $cartItems = Session::get('cart', []);
