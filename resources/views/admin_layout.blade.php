@@ -101,7 +101,7 @@
         </script>
     @endif
 
-    {{-- Select 22 --}}
+    {{-- Select 2 --}}
     <script>
         $(function() {
             $('.select2').select2()
