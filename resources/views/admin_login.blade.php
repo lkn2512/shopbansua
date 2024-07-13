@@ -38,6 +38,10 @@
                         </span>
                     </div>
                     <div id="error-message" class="text-danger"></div>
+                    <button class="g-recaptcha" data-sitekey="6Lfo-Q4qAAAAAINeTHFWn4lu6BnpCccegETY75NM"
+                        data-callback='onSubmit' data-action='submit'>
+                        Submit
+                    </button>
                     <div class="container-login100-form-btn p-t-10">
                         <button class="login100-form-btn" type="submit">Đăng nhập</button>
                     </div>
@@ -48,6 +52,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="{{ asset('/backend/admin-login/js/main.js') }}"></script>
     <script src="{{ asset('/backend/js/bootstrap.bundle.min.js') }}"></script>
