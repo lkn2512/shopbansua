@@ -215,12 +215,14 @@ Route::get('/danh-muc-bai-viet/{cate_post_id}', 'App\Http\Controllers\PostContro
 Route::get('/bai-viet/{post_id}', 'App\Http\Controllers\PostController@bai_viet');
 
 // all-product-home
-Route::get('/all-products-new', 'App\Http\Controllers\HomeController@all_products_new');
-Route::get('/all-product-selling', 'App\Http\Controllers\HomeController@all_product_selling');
+Route::get('/all-products-new', [HomeController::class, 'all_products_new']);
+Route::get('/all-product-selling', [HomeController::class, 'all_product_selling']);
+Route::get('/san-pham-noi-bat', [HomeController::class, 'all_featuredProducts']);
+Route::get('/duoc-quan-tam-nhieu', [HomeController::class, 'all_product_view']);
 
 //search
-Route::post('/search-items', 'App\Http\Controllers\HomeController@search_items');
-Route::post('/autocomplete-ajax', 'App\Http\Controllers\HomeController@autocomplete_ajax');
+Route::post('/search-items', [HomeController::class, 'search_items']);
+Route::post('/autocomplete-ajax', [HomeController::class, 'autocomplete_ajax']);
 
 //Danh muc san pham trang chu
 Route::get('/danh-muc-san-pham/{category_id}', 'App\Http\Controllers\CategoryproductController@show_category_home');

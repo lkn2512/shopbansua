@@ -36,6 +36,13 @@ class Product extends Model
     {
         return $this->ratings()->avg('rating');
     }
+    // Phương thức scope để lấy sản phẩm nổi bật dựa trên đánh giá sao
+    public function scopeFeatured($query)
+    {
+        return $query->with('ratings')
+            ->withAvg('ratings', 'rating')
+            ->orderByDesc('ratings_avg_rating');
+    }
     public function video()
     {
         return $this->belongsTo(Video::class, 'video_id');

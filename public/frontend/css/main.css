@@ -163,19 +163,38 @@ a#scrollUp i {
 
 .view-all a {
   font-weight: 600;
-  color: white;
-  background: #103667;
-  font-size: 14px;
-  padding: 3px 8px;
-  border-radius: 5px;
-  width: 85px;
-  display: flex;
-  justify-content: end;
-  align-items: center;
+  color: #103667;
+  font-size: 15px;
   float: right;
-  margin-top: 10px;
+  margin-top: 6px;
   margin-right: -12px;
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+  transition: padding-right 0.3s;
 }
+
+.view-all a::after {
+  content: '\f061';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  margin-left: 5px;
+  position: absolute;
+  right: -25px;
+}
+
+.view-all a:hover {
+  padding-right: 20px;
+}
+
+.view-all a:hover::after {
+  opacity: 1;
+  transform: translateX(-25px);
+}
+
+
 
 .title-product {
   margin-top: 10px;
@@ -1008,13 +1027,13 @@ ul.sub-menu {
 .scroll-category {
   overflow-x: hidden;
   overflow-y: hidden;
-  height: 295px;
+  height: 302px;
 }
 
 .scroll-category:hover {
   overflow-x: hidden;
   overflow-y: auto;
-  height: 295px;
+  height: 302px;
 }
 
 .title-category {
@@ -1117,8 +1136,6 @@ h2.title:before {
 }
 
 .category-products {
-  margin-bottom: -30px;
-  padding-bottom: 10px;
   padding-top: 15px;
   background-color: white;
   border: 1px solid rgb(224, 224, 224);
@@ -1415,6 +1432,7 @@ h2.title:before {
 
 .productinfo .price-product {
   padding: 0px 10px;
+  margin-bottom: -45px;
 }
 
 .price-product .price-info {

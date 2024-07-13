@@ -189,6 +189,112 @@
             </div>
         @endif
     @endforeach
+    <div class="title-product">
+        <h2 class="text">Sản phẩm nổi bật</h2>
+    </div>
+    <div class="row row-content">
+        @foreach ($featuredProducts as $key => $avgRat)
+            <div class="col-md-2 col-sm-4 col-lg-2">
+                <div class="col-border">
+                    <div class="mb-5">
+                        <div class="productinfo">
+                            <a class="img-center">
+                                <img class="img-products"
+                                    src="{{ URL::to('/uploads/product/' . $avgRat->product_image) }}" />
+                                @if ($avgRat->promotional_price > 0)
+                                    <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                                @endif
+                            </a>
+                            <a href="{{ URL::to('chi-tiet-san-pham/' . $avgRat->product_id) }}">
+                                <p class="product-name">{{ $avgRat->product_name }}</p>
+                            </a>
+                            <div class="price-product">
+                                @if ($avgRat->promotional_price > 0)
+                                    <div class="price-info">
+                                        <div class="price-content1">
+                                            <span
+                                                class="price-small">{{ number_format($avgRat->product_price, 0, ',', '.') }}
+                                            </span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
+                                        <div class="price-content2">
+                                            <span class="promotional-price">
+                                                {{ number_format($avgRat->promotional_price, 0, ',', '.') }}
+                                            </span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="price-content">
+                                        <span class="price">{{ number_format($avgRat->product_price, 0, ',', '.') }}
+                                        </span>
+                                        <span class="currency-unit">₫</span>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+        <div class="view-all">
+            <a href="{{ url('/san-pham-noi-bat') }}">Xem tất cả</a>
+        </div>
+    </div>
+
+    <div class="title-product">
+        <h2 class="text">Được quan tâm nhiều nhất</h2>
+    </div>
+    <div class="row row-content">
+        @foreach ($view_product as $key => $view)
+            <div class="col-md-2 col-sm-4 col-lg-2">
+                <div class="col-border">
+                    <div class="mb-5">
+                        <div class="productinfo">
+                            <a class="img-center">
+                                <img class="img-products"
+                                    src="{{ URL::to('/uploads/product/' . $view->product_image) }}" />
+                                @if ($view->promotional_price > 0)
+                                    <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                                @endif
+                            </a>
+                            <a href="{{ URL::to('chi-tiet-san-pham/' . $view->product_id) }}">
+                                <p class="product-name">{{ $view->product_name }}</p>
+                            </a>
+                            <div class="price-product">
+                                @if ($view->promotional_price > 0)
+                                    <div class="price-info">
+                                        <div class="price-content1">
+                                            <span
+                                                class="price-small">{{ number_format($view->product_price, 0, ',', '.') }}
+                                            </span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
+                                        <div class="price-content2">
+                                            <span class="promotional-price">
+                                                {{ number_format($view->promotional_price, 0, ',', '.') }}
+                                            </span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="price-content">
+                                        <span class="price">{{ number_format($view->product_price, 0, ',', '.') }}
+                                        </span>
+                                        <span class="currency-unit">₫</span>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+        <div class="view-all">
+            <a href="{{ url('/duoc-quan-tam-nhieu') }}">Xem tất cả</a>
+        </div>
+    </div>
+
     <div class="aboutAs">
         <div class="about-shop">
             <h2 class="text">Về Chúng tôi</h2>

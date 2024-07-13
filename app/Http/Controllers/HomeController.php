@@ -11,6 +11,7 @@ use App\Models\Customer;
 use App\Models\HolidayEvent;
 use App\Models\Information;
 use App\Models\Product;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -36,8 +37,13 @@ class HomeController extends Controller
             // Lấy danh sách sản phẩm thuộc sự kiện hiện tại
             $productsByEvent[$event->holiday_event_id] = $event->products()->get();
         }
+        //sản phẩm được quan tâm nhiều nhất
+        $view_product = Product::where('product_status', '1')->where('product_condition', '1')->where('product_view', '>', 0)->orderBy('product_view', 'desc')->limit(12)->get();
 
-        return view('pages.home')->with(compact('category', 'brand', 'all_product_new', 'slider', 'selling_product', 'contact', 'customer', 'promotional_product', 'holidayEvent', 'productsByEvent'));
+        //sản phẩm nối bật dựa trên đánh giá sao
+        $featuredProducts = Product::with('ratings')->withAvg('ratings', 'rating')->orderByDesc('ratings_avg_rating')->take(12)->get();
+
+        return view('pages.home')->with(compact('category', 'brand', 'all_product_new', 'slider', 'selling_product', 'contact', 'customer', 'promotional_product', 'holidayEvent', 'productsByEvent', 'view_product', 'featuredProducts'));
     }
     public function all_products_new()
     {
@@ -134,6 +140,92 @@ class HomeController extends Controller
         }
         return view('pages.product-all.all-product-selling')->with(compact('product_selling', 'min_price', 'max_price', 'category', 'brand'));
     }
+
+    public function all_featuredProducts()
+    {
+        $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
+        $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
+
+        $min_price = Product::where('product_sold', '>', 0)->min('product_price');
+        $max_price = Product::where('product_sold', '>', 0)->max('product_price');
+
+        $query = Product::with('ratings')->withAvg('ratings', 'rating');
+
+        if (isset($_GET['category'])) {
+            $category_ids = explode(',', $_GET['category']);
+            $query->whereIn('category_id', $category_ids);
+        }
+        if (isset($_GET['brand'])) {
+            $brand_ids = explode(',', $_GET['brand']);
+            $query->whereIn('brand_id', $brand_ids);
+        }
+        if (isset($_GET['sort_by'])) {
+            $sort_by = $_GET['sort_by'];
+            if ($sort_by == 'new') {
+                $featuredProducts = $query->orderBy('product_id', 'desc')->paginate(20);
+            } elseif ($sort_by == 'old') {
+                $featuredProducts = $query->orderBy('product_id', 'asc')->paginate(20);
+            } elseif ($sort_by == 'giam_dan') {
+                $featuredProducts = $query->orderBy('product_price', 'desc')->paginate(20);
+            } elseif ($sort_by == 'tang_dan') {
+                $featuredProducts = $query->orderBy('product_price', 'asc')->paginate(20);
+            } elseif ($sort_by == 'kytu_az') {
+                $featuredProducts = $query->orderBy('product_name', 'asc')->paginate(20);
+            } elseif ($sort_by == 'kytu_za') {
+                $featuredProducts = $query->orderBy('product_name', 'desc')->paginate(20);
+            }
+        } elseif (isset($_GET['start_price']) && ($_GET['end_price'])) {
+            $min_prices = $_GET['start_price'];
+            $max_prices = $_GET['end_price'];
+            $featuredProducts = $query->whereBetween('product_price', [$min_prices, $max_prices])->orderBy('product_price', 'asc')->paginate(20);
+        } else {
+            $featuredProducts = $query->orderByDesc('ratings_avg_rating')->paginate(20);
+        }
+        return view('pages.product-all.all-product-featured')->with(compact('featuredProducts', 'min_price', 'max_price', 'category', 'brand'));
+    }
+    public function all_product_view()
+    {
+        $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
+        $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
+
+        $min_price = Product::where('product_sold', '>', 0)->min('product_price');
+        $max_price = Product::where('product_sold', '>', 0)->max('product_price');
+
+        $query = Product::where('product_status', '1')->where('product_view', '>', '0');
+
+        if (isset($_GET['category'])) {
+            $category_ids = explode(',', $_GET['category']);
+            $query->whereIn('category_id', $category_ids);
+        }
+        if (isset($_GET['brand'])) {
+            $brand_ids = explode(',', $_GET['brand']);
+            $query->whereIn('brand_id', $brand_ids);
+        }
+        if (isset($_GET['sort_by'])) {
+            $sort_by = $_GET['sort_by'];
+            if ($sort_by == 'new') {
+                $product_view = $query->orderBy('product_id', 'desc')->paginate(20);
+            } elseif ($sort_by == 'old') {
+                $product_view = $query->orderBy('product_id', 'asc')->paginate(20);
+            } elseif ($sort_by == 'giam_dan') {
+                $product_view = $query->orderBy('product_price', 'desc')->paginate(20);
+            } elseif ($sort_by == 'tang_dan') {
+                $product_view = $query->orderBy('product_price', 'asc')->paginate(20);
+            } elseif ($sort_by == 'kytu_az') {
+                $product_view = $query->orderBy('product_name', 'asc')->paginate(20);
+            } elseif ($sort_by == 'kytu_za') {
+                $product_view = $query->orderBy('product_name', 'desc')->paginate(20);
+            }
+        } elseif (isset($_GET['start_price']) && ($_GET['end_price'])) {
+            $min_prices = $_GET['start_price'];
+            $max_prices = $_GET['end_price'];
+            $product_view = $query->whereBetween('product_price', [$min_prices, $max_prices])->orderBy('product_price', 'asc')->paginate(20);
+        } else {
+            $product_view = $query->orderBy('product_view', 'desc')->paginate(20);
+        }
+        return view('pages.product-all.all-product-view')->with(compact('product_view', 'min_price', 'max_price', 'category', 'brand'));
+    }
+
 
     public function search_items(Request $request)
     {
