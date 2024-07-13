@@ -23,15 +23,15 @@
                         <img src="{{ asset('backend/images/icon-web.png') }}" alt="AVATAR">
                     </div>
                     <span class="login100-form-title p-t-20 p-b-40">Quản trị viên</span>
-                    <div class="wrap-input100 validate-input m-b-20" data-validate="Username is required">
-                        <input class="input100" type="text" name="admin_email" placeholder="Email">
+                    <div class="wrap-input100 validate-input m-b-20">
+                        <input class="input100" type="email" name="admin_email" placeholder="Email" required>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user"></i>
                         </span>
                     </div>
-                    <div class="wrap-input100 validate-input m-b-20" data-validate="Password is required">
-                        <input class="input100" type="password" name="admin_password" placeholder="Mật khẩu">
+                    <div class="wrap-input100 validate-input m-b-20">
+                        <input class="input100" type="password" name="admin_password" placeholder="Mật khẩu" required>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock"></i>

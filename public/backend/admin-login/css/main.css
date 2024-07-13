@@ -218,7 +218,6 @@ iframe {
 
 .wrap-login100 {
     width: 550px;
-    /* background: 0 0; */
     background-color: rgba(255, 255, 255, 0.1);
     padding: 50px 60px;
     border-radius: 20px;
@@ -513,4 +512,9 @@ iframe {
         padding-left: 15px;
         padding-right: 15px
     }
+}
+
+#error-message {
+    display: block;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
