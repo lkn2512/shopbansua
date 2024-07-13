@@ -45,10 +45,15 @@ class AdminController extends Controller
         if ($result && Hash::check($user_password, $result->password)) {
             Session::put('user_name', $result->name);
             Session::put('user_id', $result->id);
-            return Redirect::to('Admin/dashboard');
+            return response()->json([
+                'success' => true,
+                'redirect_url' => url('Admin/dashboard')
+            ]);
         } else {
-            Session::put('message', "Tài khoản hoặc mật khẩu không chính xác!");
-            return view('admin_login');
+            return response()->json([
+                'success' => false,
+                'message' => 'Tài khoản hoặc mật khẩu không chính xác!'
+            ]);
         }
     }
     public function show_dashboard(Request $request)
