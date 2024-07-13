@@ -525,10 +525,10 @@
     <script>
         function initializeCKEditor(textareaId) {
             CKEDITOR.replace(textareaId, {
-                filebrowserImageBrowseUrl: 'laravel-filemanager?type=Images',
-                filebrowserImageUploadUrl: 'laravel-filemanager/upload?type=Images&_token={{ csrf_token() }}',
-                filebrowserBrowseUrl: 'laravel-filemanager?type=Files',
-                filebrowserUploadUrl: 'laravel-filemanager/upload?type=Files&_token={{ csrf_token() }}',
+                filebrowserImageBrowseUrl: '{{ url('Admin/laravel-filemanager?type=Images') }}',
+                filebrowserImageUploadUrl: '{{ url('Admin/laravel-filemanager/upload?type=Images&_token=' . csrf_token()) }}',
+                filebrowserBrowseUrl: '{{ url('Admin/laravel-filemanager?type=Files') }}',
+                filebrowserUploadUrl: '{{ url('Admin/laravel-filemanager/upload?type=Files&_token=' . csrf_token()) }}',
                 filebrowserUploadMethod: 'form',
                 removeButtons: 'Save,ImageButton,Iframe',
                 removePlugins: 'forms,about,language'

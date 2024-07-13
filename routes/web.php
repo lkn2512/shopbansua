@@ -125,8 +125,8 @@ Route::prefix('Admin')->group(function () {
     Route::post('update-gallery', [Admin_ProductController::class, 'update_gallery']);
     Route::post('/update-img-product', [Admin_ProductController::class, 'update_img_product']);
 
-    Route::post('/uploads-ckeditor', [Admin_ProductController::class, 'ckeditor_image']);
-    Route::get('/file-browser', [Admin_ProductController::class, 'file_browser']);
+    // Route::post('/uploads-ckeditor', [Admin_ProductController::class, 'ckeditor_image']);
+    // Route::get('/file-browser', [Admin_ProductController::class, 'file_browser']);
 
     //Thông tin - infomation
     Route::get('/information', [Admin_ContactController::class, 'information']);

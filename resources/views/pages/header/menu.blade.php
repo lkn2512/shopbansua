@@ -155,10 +155,8 @@
             </ul>
             <ul class="navbar-nav">
                 <li><a class="btn btn-light" href="#">Giới Thiệu</a></li>
-                <li><a class="btn btn-light" href="{{ URL::to('/lien-he') }}">Liên Hệ Với Chúng
-                        Tôi</a></li>
-                <li><a class="btn btn-light" href="#">Thông Báo</a></li>
-                <li><a class="btn btn-light" href="#">Hỗ Trợ</a></li>
+                <li><a class="btn btn-light" href="{{ URL::to('/lien-he') }}">Liên Hệ Với Chúng Tôi</a>
+                </li>
             </ul>
         </div>
     </div>
