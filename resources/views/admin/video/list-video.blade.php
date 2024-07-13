@@ -23,10 +23,9 @@
         <thead>
             <tr>
                 <th>STT</th>
+                <th>Video</th>
                 <th>Link</th>
                 <th>Tiêu đề</th>
-                <th>Video</th>
-                {{-- <th>Trạng thái</th> --}}
                 <th>Tác vụ</th>
             </tr>
         </thead>
@@ -35,20 +34,15 @@
             @foreach ($video as $value)
                 <tr id="video-row-{{ $value->video_id }}">
                     <td>{{ $i++ }}</td>
-                    <td class="width200">{{ $value->video_link }}</td>
-                    <td class="width300">{{ $value->video_title }}</td>
                     <td>
-                        <span>{!! $value->video_iframe !!}</span>
+                        <iframe width="100%" height="250px"
+                            src="https://www.youtube.com/embed/{{ $value->video_code_link }}"
+                            title="{{ $value->video_title }}" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </td>
-                    {{-- <td>
-                        <button type="button" class="toggle-status btn {{ $value->video_status == 1 ? 'active' : '' }}"
-                            data-id="{{ $value->video_id }}"
-                            data-active-url="{{ URL::to('Admin/active-video/' . $value->video_id) }}"
-                            data-inactive-url="{{ URL::to('Admin/unactive-video/' . $value->video_id) }}"
-                            data-toggle="tooltip" data-placement="top"
-                            title="{{ $value->video_status == 1 ? 'Hiển thị' : 'Ẩn' }}">
-                        </button>
-                    </td> --}}
+                    <td class="width200">{{ $value->video_link }}</td>
+                    <td class="width200">{{ $value->video_title }}</td>
                     <td>
                         <a href="{{ URL::to('Admin/edit-video/' . $value->video_id) }}" class="btn-edit"
                             ui-toggle-class=""><i class="fa-regular fa-pen-to-square"></i></a>

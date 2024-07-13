@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label>Mô tả<small class="note">(không bắt buộc)</small></label>
                                 <textarea style="resize:none" rows="3" name="video_description" class="form-control"
-                                    placeholder="Nhập vào mô tả cho thương hiệu sản phẩm"> {{ $edit_value->video_description }}</textarea>
+                                    placeholder="Nhập vào mô tả ngắn" maxlength="255"> {{ $edit_value->video_description }}</textarea>
                             </div>
                         </div>
                     </div>

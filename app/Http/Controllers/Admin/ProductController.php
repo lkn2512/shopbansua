@@ -32,7 +32,12 @@ class ProductController extends Controller
         $cate_product = CategoryProduct::orderBy('category_name', 'asc')->get();
         $brand_product = Brand::orderBy('brand_name', 'asc')->get();
 
-        $videos = Video::orderBy('video_id', 'desc')->get();
+        $videos = Video::leftJoin('tbl_product', 'tbl_video.video_id', '=', 'tbl_product.video_id')
+            ->whereNull('tbl_product.video_id')
+            ->orderBy('tbl_video.video_id', 'desc')
+            ->select('tbl_video.*')
+            ->get();
+
         return view('admin.product.add_product')->with(compact('cate_product', 'brand_product', 'videos'));
     }
 

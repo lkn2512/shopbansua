@@ -73,7 +73,7 @@
                         <div class="form-group">
                             <label>Mô tả<small class="note">(không bắt buộc)</small></label>
                             <textarea style="resize:none" rows="4" name="video_description" class="form-control"
-                                placeholder="Nhập vào mô tả cho thương hiệu sản phẩm"></textarea>
+                                placeholder="Nhập vào mô tả ngắn" maxlength="255"></textarea>
                         </div>
                     </div>
                 </div>

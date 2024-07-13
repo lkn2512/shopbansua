@@ -170,58 +170,10 @@
                                         });
                                     });
 
-                                    // Xử lý phân trang
-                                    var videosPerPage = 16; // Chỉ hiển thị một video trên mỗi trang
+                                    // Hiển thị tất cả các video
                                     var videoItems = document.querySelectorAll('.video-item');
-                                    var totalPages = Math.ceil(videoItems.length / videosPerPage);
-                                    var currentPage = 1;
-
-                                    function showPage(page) {
-                                        // Ẩn tất cả video
-                                        videoItems.forEach(function(item) {
-                                            item.style.display = 'none';
-                                        });
-
-                                        // Hiển thị video của trang hiện tại
-                                        var startIndex = (page - 1) * videosPerPage;
-                                        var endIndex = startIndex + videosPerPage;
-                                        for (var i = startIndex; i < endIndex; i++) {
-                                            if (videoItems[i]) {
-                                                videoItems[i].style.display = 'block';
-                                            }
-                                        }
-
-                                        // Đánh dấu nút phân trang hiện tại là active
-                                        var paginationButtons = document.querySelectorAll('.pagination-btn');
-                                        paginationButtons.forEach(function(button) {
-                                            if (parseInt(button.textContent) === page) {
-                                                button.classList.add('active');
-                                            } else {
-                                                button.classList.remove('active');
-                                            }
-                                        });
-                                    }
-
-                                    // Hiển thị trang đầu tiên khi tải modal
-                                    showPage(currentPage);
-
-                                    // Tạo nút phân trang
-                                    var pagination = document.getElementById('pagination');
-                                    for (var i = 1; i <= totalPages; i++) {
-                                        var button = document.createElement('button');
-                                        button.textContent = i;
-                                        button.classList.add('pagination-btn');
-                                        button.setAttribute('data-page', i);
-                                        pagination.appendChild(button);
-                                    }
-
-                                    // Xử lý khi người dùng chuyển trang
-                                    var paginationButtons = document.querySelectorAll('.pagination-btn');
-                                    paginationButtons.forEach(function(button) {
-                                        button.addEventListener('click', function() {
-                                            currentPage = parseInt(this.getAttribute('data-page'));
-                                            showPage(currentPage);
-                                        });
+                                    videoItems.forEach(function(item) {
+                                        item.style.display = 'block';
                                     });
                                 });
                             </script>
