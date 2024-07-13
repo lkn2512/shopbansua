@@ -111,7 +111,8 @@
                             <p>Tin tức - Bài viết</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li
+                        class="nav-item {{ Request::is('Admin/logo-home') || Request::is('Admin/information') ? 'menu-open' : '' }}">
                         <a href="#"
                             class="nav-link {{ Request::is('Admin/logo-home') || Request::is('Admin/information') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-circle-info"></i>
@@ -121,12 +122,14 @@
                             <li class="nav-item">
                                 <a href="{{ URL::to('Admin/logo-home') }}"
                                     class="nav-link {{ Request::is('Admin/logo-home') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
                                     <p>Logo</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ URL::to('Admin/information') }}"
                                     class="nav-link {{ Request::is('Admin/information') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
                                     <p>Chi tiết Liên hệ</p>
                                 </a>
                             </li>

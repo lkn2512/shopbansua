@@ -80,8 +80,7 @@
                                 </div><br>
                                 <div class="form-group select-button-groupt">
                                     <button class="btn-video" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#videoModal">Chọn
-                                        video
+                                        data-bs-target="#videoModal">Chọn video
                                     </button>
                                     {{-- Xử lý chọn video --}}
                                     <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel"

@@ -121,16 +121,27 @@ class ProductController extends Controller
         $brand_product = Brand::orderBy('brand_name', 'asc')->get();
 
         $edit_product = Product::where('product_id', $product_id)->get();
-        $videos = Video::orderBy('video_id', 'desc')->get();
 
+        // Lấy sản phẩm hiện tại để lấy video_id của nó
         $get_product_id = Product::findOrFail($product_id);
-        $video_id = $get_product_id->video_id;
-        if ($video_id) {
-            $video = Video::findOrFail($video_id);
+        $current_video_id = $get_product_id->video_id;
+
+        // Lấy các video không liên kết với bất kỳ sản phẩm nào hoặc chỉ liên kết với sản phẩm hiện tại
+        $videos = Video::leftJoin('tbl_product', 'tbl_video.video_id', '=', 'tbl_product.video_id')
+            ->whereNull('tbl_product.video_id')
+            ->orWhere('tbl_video.video_id', $current_video_id)
+            ->orderBy('tbl_video.video_id', 'desc')
+            ->select('tbl_video.*')
+            ->get();
+
+        if ($current_video_id) {
+            $video = Video::findOrFail($current_video_id);
             $videoTitle = $video->video_title;
         } else {
             $videoTitle = 'Chưa có video';
         }
+
+
         return view('admin.product.edit_product', compact('edit_product', 'cate_product', 'brand_product', 'videos', 'videoTitle'));
     }
     public function update_product(Request $request, $product_id)
