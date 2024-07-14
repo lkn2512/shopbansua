@@ -30,21 +30,21 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>STT</th>
-                            <th>Mã đơn hàng</th>
-                            <th>Tình trạng</th>
-                            <th>Tổng tiền</th>
-                            <th>Thời gian đặt hàng</th>
-                            <th>Tác vụ</th>
+                            <th class="p-3">STT</th>
+                            <th class="p-3">Mã đơn hàng</th>
+                            <th class="p-3">Tình trạng</th>
+                            <th class="p-3">Tổng tiền</th>
+                            <th class="p-3">Thời gian đặt hàng</th>
+                            <th class="p-3">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $i = 1; @endphp
                         @foreach ($order as $key => $orders)
                             <tr>
-                                <td>{{ $i++ }}</td>
-                                <td style="text-transform: uppercase">#{{ $orders->order_code }}</td>
-                                <td>
+                                <td class="p-3">{{ $i++ }}</td>
+                                <td class="p-3" style="text-transform: uppercase">#{{ $orders->order_code }}</td>
+                                <td class="p-3">
                                     @if ($orders->order_status == 1)
                                         <a class="order-status-waitting">Đang chờ xử lý...</a>
                                     @elseif($orders->order_status == 2)
@@ -53,11 +53,12 @@
                                         <a class="order-status-cancle">Đã huỷ</a>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="p-3">
                                     {{ number_format($orders->order_total, 0, ',', '.') }}đ
                                 </td>
-                                <td> {{ \Carbon\Carbon::parse($orders->created_at)->format('H:i, Y-m-d') }}</td>
-                                <td>
+                                <td class="p-3"> {{ \Carbon\Carbon::parse($orders->created_at)->format('H:i, Y-m-d') }}
+                                </td>
+                                <td class="p-3">
                                     <a href="{{ URL::to('view-history-order/' . $orders->order_code) }}"
                                         class="card-link view-detail-history">
                                         <img class="img-icon-medium" src="{{ asset('frontend/images/home/detail.png') }}"

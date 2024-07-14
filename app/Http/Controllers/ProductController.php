@@ -56,7 +56,7 @@ class ProductController extends Controller
         $product->product_view = $product->product_view + 1;
         $product->save();
         //Sản phẩm khuyến mãi
-        $promotional_product = Product::where('product_status', '1')->where('promotional_price', '>', '0')->whereNotIn('tbl_product.product_id', [$product_id])->orderBy('product_id', 'asc')->limit(5)->get();
+        $promotional_product = Product::where('product_status', '1')->where('promotional_price', '>', '0')->whereNotIn('product_id', [$product_id])->inRandomOrder()->limit(5)->get();
         // Tính toán giá trị trung bình
         $product = Product::find($product_id);
         $averageRating = $product->averageRating();
@@ -70,7 +70,6 @@ class ProductController extends Controller
         return view('pages.productDetail.show_detail')
             ->with(compact('category', 'brand', 'detail_product', 'related', 'gallery', 'product_cate', 'category_id', 'product_name', 'product_id', 'product_id', 'customer', 'favorite', 'promotional_product', 'product', 'averageRating', 'starPercentages'));
     }
-
 
     public function load_comment(Request $request)
     {
