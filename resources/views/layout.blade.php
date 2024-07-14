@@ -3,9 +3,11 @@
 
 <head>
     <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home | KN-Milk</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('/frontend/images/home/icon-web.png') }}">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('/frontend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/prettyPhoto.css') }}">
@@ -24,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('/frontend/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/holiday-event.css') }}">
+    <link rel="stylesheet" href="{{ asset('/frontend/css/templatemo-klassy-cafe.css') }}">
 
 </head>
 

@@ -112,55 +112,49 @@
         </div>
     @endif
 </div>
-<nav class="navbar navbar-expand-lg shadow bg-body-tertiary navbar-header">
-    <div class="container-md">
-        <a class="navbar-brand" href="{{ URL::to('/') }}">Trang Chủ</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Danh Mục Sản Phẩm
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-light dropdown-hover">
-                        @foreach ($category as $key => $cate)
-                            <li>
-                                <a class="dropdown-item item-hover"
-                                    href="{{ URL::to('danh-muc-san-pham/' . $cate->category_id) }}">{{ $cate->category_name }}
-                                </a>
-                            </li>
-                        @endforeach
+
+<header class="header-area shadow-sm position-sticky top-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <ul class="nav">
+                        <li class="scroll-to-section"><a href="{{ URL::to('/') }}"
+                                class="{{ Request::is('/') ? 'active' : '' }}">Trang chủ</a>
+                        </li>
+                        <li class="submenu">
+                            <a href="javascript:;">Danh mục</a>
+                            <ul class="sub-ul">
+                                @foreach ($category as $key => $cate)
+                                    <li class="sub-li">
+                                        <a class="{{ Request::is('danh-muc-san-pham/' . $cate->category_id) ? 'active' : '' }}"
+                                            href="{{ URL::to('danh-muc-san-pham/' . $cate->category_id) }}">{{ $cate->category_name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="javascript:;">Bài viết</a>
+                            <ul class="sub-ul">
+                                @foreach ($category_post_frontend as $key => $blog)
+                                    <li class="sub-li">
+                                        <a class="{{ Request::is('danh-muc-bai-viet/' . $blog->cate_post_id) ? 'active' : '' }}"
+                                            href="{{ URL::to('danh-muc-bai-viet/' . $blog->cate_post_id) }}">{{ $blog->cate_post_name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li class="scroll-to-section "><a class="{{ Request::is('lien-he') ? 'active' : '' }}"
+                                href="{{ URL::to('/lien-he') }}">Liên hệ với chúng tôi</a>
+                        </li>
                     </ul>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Tin Tức
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-light dropdown-hover">
-                        @foreach ($category_post_frontend as $key => $blog)
-                            <li>
-                                <a class="dropdown-item item-hover"
-                                    href="{{ URL::to('danh-muc-bai-viet/' . $blog->cate_post_id) }}">{{ $blog->cate_post_name }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li><a class="btn btn-light" href="{{ URL::to('/lien-he') }}">Liên Hệ Với Chúng Tôi</a>
-                </li>
-            </ul>
+                </nav>
+            </div>
         </div>
     </div>
-</nav>
-
+</header>
 {{-- Danh sách yêu thích --}}
 <div class="modal fade" id="favorites" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-xxl-down">
@@ -184,6 +178,5 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 {{-- Danh sách yêu thích --}}
