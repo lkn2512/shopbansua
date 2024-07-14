@@ -1428,6 +1428,11 @@ h2.title:before {
 
 .productinfo {
   padding: 10px 5px;
+  background: white;
+}
+
+.productinfo .price-info-right-content {
+  margin-bottom: 45px;
 }
 
 .productinfo .price-product {

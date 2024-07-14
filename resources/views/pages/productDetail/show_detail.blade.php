@@ -242,19 +242,21 @@
                                             <a href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
                                                 <p class="product-name-table underline">{{ $product->product_name }}</p>
                                             </a>
-                                            <div class="price-product">
-                                                <div class="price-info">
-                                                    <div class="price-content1">
-                                                        <span
-                                                            class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
-                                                        </span>
-                                                        <span class="currency-unit">₫</span>
-                                                    </div>
-                                                    <div class="price-content2">
-                                                        <span class="promotional-price">
-                                                            {{ number_format($product->promotional_price, 0, ',', '.') }}
-                                                        </span>
-                                                        <span class="currency-unit">₫</span>
+                                            <div class="price-info-right-content">
+                                                <div class="price-product">
+                                                    <div class="price-info">
+                                                        <div class="price-content1">
+                                                            <span
+                                                                class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
+                                                            </span>
+                                                            <span class="currency-unit">₫</span>
+                                                        </div>
+                                                        <div class="price-content2">
+                                                            <span class="promotional-price">
+                                                                {{ number_format($product->promotional_price, 0, ',', '.') }}
+                                                            </span>
+                                                            <span class="currency-unit">₫</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

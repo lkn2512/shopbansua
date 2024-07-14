@@ -55,22 +55,29 @@ class FavoritesListController extends Controller
                                             <a href="' . url('chi-tiet-san-pham/' . $product->product_id) . '">
                                                 <p class="product-name">' . $product->product_name . '</p>
                                             </a>';
+                $output .= '<div class="price-product">';
                 if ($product->promotional_price > 0) {
                     $output .= ' <div class="price-info">
-                                    <small class="price-small">' . number_format($product->product_price, 0, ',', '.') . '
-                                        <span class="currency-unit">₫</span>
-                                    </small>
-                                    <span class="promotional-price">
-                                        ' . number_format($product->product_price, 0, ',', '.') . '
-                                        <span class="currency-unit">₫</span>
-                                    </span>
-                                </div>';
+                                        <div class="price-content1">
+                                            <small class="price-small">' . number_format($product->product_price, 0, ',', '.') . '
+                                            </small>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
+                                        <div class="price-content2">
+                                            <span class="promotional-price">
+                                                ' . number_format($product->product_price, 0, ',', '.') . '
+                                            </span>
+                                             <span class="currency-unit">₫</span>
+                                        </div>
+                                    </div>';
                 } else {
-                    $output .= ' <h2> ' . number_format($product->product_price, 0, ',', '.') . '
-                                    <span class="currency-unit">₫</span>
-                                </h2>';
+                    $output .= '    <div class="price-content">
+                                        <span class="price"> ' . number_format($product->product_price, 0, ',', '.') . '</span>
+                                        <span class="currency-unit">₫</span>
+                                    </div>';
                 }
-                $output .= ' </form>
+                $output .= '    </div>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
