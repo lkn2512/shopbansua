@@ -102,7 +102,9 @@
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   border: 1px solid rgb(220, 220, 220);
   border-radius: 5px;
+  visibility: hidden;
 }
+
 
 .header-area .main-nav .nav li.submenu ul li {
   margin-left: 0px;
