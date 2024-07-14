@@ -21,7 +21,8 @@ class OrderController extends Controller
         $customer_id = Session::get('customer_id');
         if ($customer_id) {
             $order = Order::where('customer_id', $customer_id)->orderby('created_at', 'desc')->paginate(16);
-            return view('pages.history.historyOrder')->with(compact('order', 'category', 'brand'));
+            $order_first = Order::where('customer_id', $customer_id)->first();
+            return view('pages.history.historyOrder')->with(compact('order', 'category', 'brand', 'order_first'));
         } else {
             return view('pages.account-customer.sign-in');
         }

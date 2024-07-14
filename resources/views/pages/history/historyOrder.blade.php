@@ -74,11 +74,11 @@
             <table class="table table-bordered table-hover align-middle">
                 <thead>
                     <tr>
-                        <th class="p-3 text-center">STT</th>
-                        <th class="p-3 text-center">Mã đơn hàng</th>
-                        <th class="p-3 text-center">Trạng thái</th>
-                        <th class="p-3 text-center">Ngày đặt</th>
-                        <th class="p-3 text-center">Tổng tiền</th>
+                        <th class="p-3 ">STT</th>
+                        <th class="p-3 ">Mã đơn hàng</th>
+                        <th class="p-3 ">Trạng thái</th>
+                        <th class="p-3 ">Ngày đặt</th>
+                        <th class="p-3 ">Tổng tiền</th>
                         <th class="p-3 text-center">Hành động</th>
                     </tr>
                 </thead>
@@ -86,9 +86,9 @@
                     @php $i=1;@endphp
                     @foreach ($order as $key => $orders)
                         <tr>
-                            <td class="p-3 text-center">{{ $i++ }}</td>
-                            <td class="p-3 text-center">#{{ $orders->order_code }}</td>
-                            <td class="p-3 text-center">
+                            <td class="p-3 ">{{ $i++ }}</td>
+                            <td class="p-3 ">#{{ $orders->order_code }}</td>
+                            <td class="p-3 ">
                                 @if ($orders->order_status == 1)
                                     <a class="order-status-waitting">Đang chờ xử lý...</a>
                                 @elseif($orders->order_status == 2)
@@ -97,14 +97,14 @@
                                     <a class="order-status-cancle">Đã huỷ</a>
                                 @endif
                             </td>
-                            <td class="p-3 text-center">
+                            <td class="p-3 ">
                                 @php
                                     $createdAt = \Carbon\Carbon::parse($orders->created_at);
                                     echo $createdAt->format('H:i, d-m-Y');
                                 @endphp
                             </td>
-                            <td class="p-3 text-center">{{ number_format($orders->order_total, 0, ',', '.') }}đ</td>
-                            <td class="p-3 text-center">
+                            <td class="p-3 ">{{ number_format($orders->order_total, 0, ',', '.') }}đ</td>
+                            <td class="p-3 ">
                                 <div class="history-footer">
                                     <a href="{{ URL::to('view-history-order/' . $orders->order_code) }}"
                                         class="card-link view-detail-history">
@@ -182,11 +182,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn bg-secondary-subtle" data-bs-dismiss="modal">Đóng</button>
-                        @foreach ($order as $key => $orders)
-                            <button type="button" class="btn bg-success text-white" id="{{ $orders->order_code }}"
-                                onclick="cancellation_order(this.id)" disabled>Xác nhận
-                            </button>
-                        @endforeach
+                        <button type="button" class="btn bg-success text-white" id="{{ $order_first->order_code }}"
+                            onclick="cancellation_order(this.id)" disabled>Xác nhận
+                        </button>
                     </div>
                 </form>
             </div>
