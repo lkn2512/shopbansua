@@ -524,20 +524,20 @@
                             .period),
                         datasets: [{
                                 label: 'Đơn hàng',
-                                backgroundColor: '#103667',
+                                backgroundColor: '#007F54',
                                 data: data.map(item => item
                                     .order)
                             },
                             {
                                 label: 'Số lượng sản phẩm',
-                                backgroundColor: '#8E1E20',
+                                backgroundColor: '#3A2885',
                                 data: data.map(item => item
                                     .quantity
                                 )
                             },
                             {
                                 label: 'Doanh thu',
-                                backgroundColor: '#007F54',
+                                backgroundColor: '#00676B',
                                 data: data.map(item => item
                                     .sales
                                 )
