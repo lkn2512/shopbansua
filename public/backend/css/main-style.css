@@ -8,6 +8,11 @@
     z-index: 9999;
 }
 
+.clock #time,
+.clock #date {
+    color: black;
+}
+
 .progress-bar {
     width: 0%;
     height: 100%;
@@ -171,6 +176,10 @@
 
 .title-filter {
     font-weight: 500;
+}
+
+.chart-content {
+    margin-top: 50px;
 }
 
 .views-list {

@@ -13,7 +13,6 @@
                             <h3>{{ number_format($product_count) }}</h3>
                             <p>Tổng sản phẩm hiện có</p>
                         </div>
-                        <div class="clearfix"> </div>
                     </div>
                 </a>
             </div>
@@ -28,7 +27,6 @@
                             <h3>{{ number_format($customer_count) }}</h3>
                             <p>Tổng khách hàng đăng ký</p>
                         </div>
-                        <div class="clearfix"> </div>
                     </div>
                 </a>
             </div>
@@ -43,7 +41,6 @@
                             <h3>{{ number_format($post_count) }}</h3>
                             <p>Tổng số tin tức đã đăng</p>
                         </div>
-                        <div class="clearfix"> </div>
                     </div>
                 </a>
             </div>
@@ -58,15 +55,13 @@
                             <h3>{{ number_format($order_count) }}</h3>
                             <p>Tổng đơn hàng đã đặt</p>
                         </div>
-                        <div class="clearfix"> </div>
                     </div>
                 </a>
             </div>
-            <div class="clearfix"> </div>
         </div>
         <form autocomplete="off">
             @csrf
-            <div class="row">
+            <div class="row m-0">
                 <p class="title-statistical">THỐNG KÊ ĐƠN HÀNG</p>
                 <div class="col-md-2">
                     <label class="title-filter">Từ ngày</label>
@@ -89,13 +84,16 @@
                         <option value="365ngayqua">365 ngày qua</option>
                     </select>
                 </div>
-                <div class="col-md-12">
-                    <div id="myfirstchart"></div>
+                <div class="col-md-12 chart-content">
+                    <div class="chart">
+                        <canvas id="barChart"
+                            style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%;"></canvas>
+                    </div>
                 </div>
             </div>
         </form>
-
-        <div class="row">
+        <br><br>
+        <div class="row m-0">
             <div class="col-md-6">
                 <label class="title-statistical">Top 10 các bài viết có lượt xem nhiều</label>
                 <ul class="views-list">

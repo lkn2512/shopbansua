@@ -70,12 +70,16 @@
     <script src="{{ asset('/backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <!-- 6 button table -->
     <script src="{{ asset('/backend/plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('/backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    <!-- ChartJS -->
+    <script src="{{ asset('/backend/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('/backend/plugins/select2/js/select2.full.min.js') }}"></script>
 
@@ -112,6 +116,80 @@
     </script>
     {{-- Select 2 --}}
 
+    {{-- <script>
+        $(function() {
+            // Kiểm tra xem thư viện Chart.js đã được tải chưa
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js is not loaded.');
+                return;
+            }
+
+            // Kiểm tra xem phần tử canvas có tồn tại trong DOM không
+            var barChartCanvas = $('#barChart');
+            if (barChartCanvas.length === 0) {
+                console.error('#barChart element not found.');
+                return;
+            }
+            barChartCanvas = barChartCanvas.get(0).getContext('2d');
+
+            // Định nghĩa dữ liệu mẫu nếu areaChartData không được định nghĩa
+            var areaChartData = {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                        label: 'Dataset 1',
+                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        borderColor: 'rgba(60,141,188,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: chart_data.order,
+                    },
+                    {
+                        label: 'Dataset 2',
+                        backgroundColor: 'rgba(210, 214, 222, 1)',
+                        borderColor: 'rgba(210, 214, 222, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                    {
+                        label: 'Dataset 2',
+                        backgroundColor: 'rgba(210, 214, 222, 1)',
+                        borderColor: 'rgba(210, 214, 222, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                ]
+            };
+
+            var barChartData = $.extend(true, {}, areaChartData);
+            var temp0 = areaChartData.datasets[0];
+            var temp1 = areaChartData.datasets[1];
+            barChartData.datasets[0] = temp1;
+            barChartData.datasets[1] = temp0;
+
+            var barChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                datasetFill: false
+            };
+
+            new Chart(barChartCanvas, {
+                type: 'bar',
+                data: barChartData,
+                options: barChartOptions
+            });
+        });
+    </script> --}}
 
     {{-- Xoá dữ liệu trong table --}}
     <script>
@@ -429,20 +507,67 @@
     </script>
     <!-- Hiển thị lịch khi nhấn vào input -->
 
-    <!-- Biểu đồ hình cột -->
+    <!-- Biểu đồ hình cột bar chart -->
     <script>
         $(document).ready(function() {
-            chart30daysorder()
-            var chart = new Morris.Bar({
-                element: 'myfirstchart',
-                parseTime: false,
-                hideHover: 'auto',
-                xkey: 'period',
-                ykeys: ['order', 'sales', 'profit', 'quantity'],
-                labels: ['Đơn hàng', 'Doanh thu', 'Lợi nhuận', 'Số lượng'],
-                barColors: ['#103667', '#007F54', '#976D00', '#8E1E20']
-            });
+            var barChart;
 
+            function initBarChart(data) {
+                var ctx = document.getElementById('barChart').getContext('2d');
+                if (barChart) {
+                    barChart.destroy(); // Hủy biểu đồ hiện tại nếu đã tồn tại
+                }
+                barChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(item => item
+                            .period),
+                        datasets: [{
+                                label: 'Đơn hàng',
+                                backgroundColor: '#103667',
+                                data: data.map(item => item
+                                    .order)
+                            },
+                            {
+                                label: 'Số lượng sản phẩm',
+                                backgroundColor: '#8E1E20',
+                                data: data.map(item => item
+                                    .quantity
+                                )
+                            },
+                            {
+                                label: 'Doanh thu',
+                                backgroundColor: '#007F54',
+                                data: data.map(item => item
+                                    .sales
+                                )
+                            },
+                            {
+                                label: 'Lợi nhuận',
+                                backgroundColor: '#976D00',
+                                data: data.map(item => item
+                                    .profit
+                                )
+                            },
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                stacked: true // Để hiển thị các cột chồng lên nhau
+                            },
+                            y: {
+                                stacked: true, // Để hiển thị các cột chồng lên nhau
+                                beginAtZero: true // Bắt đầu từ giá trị 0
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Hàm gọi AJAX để lấy dữ liệu từ endpoint 'days-order-default'
             function chart30daysorder() {
                 var _token = $("input[name='_token']").val();
                 $.ajax({
@@ -453,10 +578,15 @@
                         _token: _token
                     },
                     success: function(data) {
-                        chart.setData(data);
+                        initBarChart(data); // Gọi hàm để cập nhật biểu đồ với dữ liệu mới lấy được
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
                     }
-                })
+                });
             }
+
+            // Sự kiện khi thay đổi lựa chọn trên dropdown 'dashboard-filter'
             $('.dashboard-filter').change(function() {
                 var dashboard_value = $(this).val();
                 var _token = $("input[name='_token']").val();
@@ -469,10 +599,16 @@
                         _token: _token
                     },
                     success: function(data) {
-                        chart.setData(data);
+                        initBarChart(
+                            data); // Gọi hàm để cập nhật biểu đồ với dữ liệu mới lấy được
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
                     }
-                })
+                });
             });
+
+            // Sự kiện khi click vào nút lọc theo ngày
             $('#btn-dashboard-filter').click(function() {
                 var from_date = $('#datepicker_fromDate').val();
                 var to_date = $('#datepicker_toDate').val();
@@ -487,11 +623,17 @@
                         _token: _token
                     },
                     success: function(data) {
-                        chart.setData(data);
+                        initBarChart(
+                            data); // Gọi hàm để cập nhật biểu đồ với dữ liệu mới lấy được
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
                     }
-                })
-            })
-        })
+                });
+            });
+
+            chart30daysorder(); // Gọi hàm để khởi tạo biểu đồ khi trang được load
+        });
     </script>
     <!-- Biểu đồ hình cột -->
 

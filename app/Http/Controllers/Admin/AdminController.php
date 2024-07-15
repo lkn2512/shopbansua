@@ -127,6 +127,7 @@ class AdminController extends Controller
         $from_date = $data['from_date'];
         $to_date = $data['to_date'];
         $get = Statistic::whereBetween('order_date', [$from_date, $to_date])->orderBy('order_date', 'asc')->get();
+        $chart_data = [];
         foreach ($get as $val) {
             $chart_data[] = array(
                 'period' => $val->order_date,
@@ -136,8 +137,9 @@ class AdminController extends Controller
                 'quantity' => $val->quantity,
             );
         }
-        echo $data = json_encode($chart_data);
+        return response()->json($chart_data);
     }
+
     public function dashboard_filter(Request $request)
     {
         $this->AuthLogin();
@@ -159,6 +161,7 @@ class AdminController extends Controller
         } elseif ($data['dashboard_value'] == '365ngayqua') {
             $get = Statistic::whereBetween('order_date', [$sub365days, $now])->orderBy('order_date', 'asc')->get();
         }
+        $chart_data = [];
         foreach ($get as $val) {
             $chart_data[] = array(
                 'period' => $val->order_date,
@@ -169,14 +172,16 @@ class AdminController extends Controller
             );
         }
 
-        echo $data = json_encode($chart_data);
+        return response()->json($chart_data);
     }
+
     public function days_order_default()
     {
         $this->AuthLogin();
         $sub30days = Carbon::now('Asia/Ho_Chi_Minh')->subDays(30)->toDateString();
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $get = Statistic::whereBetween('order_date', [$sub30days, $now])->orderBy('order_date', 'asc')->get();
+        $chart_data = [];
         foreach ($get as $val) {
             $chart_data[] = array(
                 'period' => $val->order_date,
@@ -186,6 +191,6 @@ class AdminController extends Controller
                 'quantity' => $val->quantity,
             );
         }
-        echo $data = json_encode($chart_data);
+        return response()->json($chart_data);
     }
 }
