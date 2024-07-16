@@ -748,7 +748,7 @@
                     }]
                 },
                 options: {
-                    indexAxis: 'y', // Đặt biểu đồ thành ngang
+                    indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
@@ -756,16 +756,14 @@
                             title: {
                                 display: true,
                                 text: 'Lượt xem'
-                            }
+                            },
                         },
                         y: {
                             title: {
                                 display: true,
                                 text: 'Bài viết'
                             },
-                            ticks: {
-                                display: false // Ẩn nhãn trên trục y
-                            }
+
                         }
                     },
 

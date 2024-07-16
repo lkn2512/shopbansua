@@ -362,6 +362,10 @@
     border-radius: 5px;
 }
 
+.card .card-header {
+    user-select: none;
+}
+
 .card-header .title,
 .card-body .title {
     padding-bottom: 10px;

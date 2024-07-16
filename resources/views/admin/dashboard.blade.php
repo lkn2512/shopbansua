@@ -102,7 +102,7 @@
         </div>
         <p class="title-statistical m-2 mt-4">THỐNG KÊ Lượt xem</p>
         <div class="row m-0">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <label class="card-title">Top 10 các sản phẩm được quan tâm nhiều</label>
@@ -112,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <label class="card-title">Top 10 các bài viết có lượt xem nhiều</label>
