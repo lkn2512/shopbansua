@@ -59,8 +59,8 @@
                 </a>
             </div>
         </div>
-        <p class="title-statistical m-2 mt-5">THỐNG KÊ DOANH THU</p>
-        <div class="card">
+        <p class="title-statistical m-2 mt-4">THỐNG KÊ DOANH THU</p>
+        <div class="card m-2">
             <div class="card-body">
                 <form autocomplete="off">
                     @csrf
@@ -100,7 +100,7 @@
                 </form>
             </div>
         </div>
-        <p class="title-statistical m-2 mt-5">THỐNG KÊ Lượt xem</p>
+        <p class="title-statistical m-2 mt-4">THỐNG KÊ Lượt xem</p>
         <div class="row m-0">
             <div class="col-md-6">
                 <div class="card">
