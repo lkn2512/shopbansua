@@ -59,10 +59,10 @@
                 </a>
             </div>
         </div>
+        <p class="title-statistical m-2">THỐNG KÊ DOANH THU</p>
         <form autocomplete="off">
             @csrf
             <div class="row m-0">
-                <p class="title-statistical">THỐNG KÊ ĐƠN HÀNG</p>
                 <div class="col-md-2">
                     <label class="title-filter">Từ ngày</label>
                     <input type="text" id="datepicker_fromDate" class="form-control">

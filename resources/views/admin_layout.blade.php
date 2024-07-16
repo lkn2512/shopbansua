@@ -32,7 +32,6 @@
     <link href="{{ asset('/backend/css/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/backend/css/style-responsive.css') }}" rel="stylesheet" />
     <link href="{{ asset('/backend/css/ionicons.min.css') }}" rel="stylesheet" />
-    {{-- <link href="{{ asset('/backend/css/jquery-ui.css') }}" rel="stylesheet" /> --}}
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
@@ -511,146 +510,6 @@
     <!-- Hiển thị lịch khi nhấn vào input -->
 
     <!-- Biểu đồ - chart -->
-    {{-- <script>
-        $(document).ready(function() {
-            var barChart;
-
-            function initBarChart(data) {
-                var ctx = document.getElementById('barChart').getContext('2d');
-                if (barChart) {
-                    barChart.destroy(); // Hủy biểu đồ hiện tại nếu đã tồn tại
-                }
-                barChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: data.map(item => item
-                            .period),
-                        datasets: [{
-                                label: 'Đơn hàng',
-                                backgroundColor: '#007F54',
-                                data: data.map(item => item
-                                    .order)
-                            },
-                            {
-                                label: 'Số lượng sản phẩm',
-                                backgroundColor: '#3A2885',
-                                data: data.map(item => item
-                                    .quantity
-                                )
-                            },
-                            {
-                                label: 'Doanh thu',
-                                backgroundColor: '#00676B',
-                                data: data.map(item => item
-                                    .sales
-                                )
-                            },
-                            {
-                                label: 'Lợi nhuận',
-                                backgroundColor: '#976D00',
-                                data: data.map(item => item
-                                    .profit
-                                )
-                            },
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            x: {
-                                stacked: true // Để hiển thị các cột chồng lên nhau
-                            },
-                            y: {
-                                stacked: true, // Để hiển thị các cột chồng lên nhau
-                                beginAtZero: true // Bắt đầu từ giá trị 0
-                            }
-                        }
-                    }
-                });
-            }
-
-            function fetchData(url, requestData) {
-                return $.ajax({
-                    url: url,
-                    method: "POST",
-                    dataType: "JSON",
-                    data: requestData,
-                });
-            }
-
-            function updateCharts(data) {
-                initBarChart(data);
-                initDonutChart(data);
-            }
-            // Hàm gọi AJAX để lấy dữ liệu từ endpoint 'days-order-default'
-            function chart30daysorder() {
-                var _token = $("input[name='_token']").val();
-                $.ajax({
-                    url: "{{ url('Admin/days-order-default') }}",
-                    method: "POST",
-                    dataType: "JSON",
-                    data: {
-                        _token: _token
-                    },
-                    success: function(data) {
-                        initBarChart(data); // Gọi hàm để cập nhật biểu đồ với dữ liệu mới lấy được
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching data:', error);
-                    }
-                });
-            }
-
-            // Sự kiện khi thay đổi lựa chọn trên dropdown 'dashboard-filter'
-            $('.dashboard-filter').change(function() {
-                var dashboard_value = $(this).val();
-                var _token = $("input[name='_token']").val();
-                $.ajax({
-                    url: "{{ url('Admin/dashboard-filter') }}",
-                    method: "POST",
-                    dataType: "JSON",
-                    data: {
-                        dashboard_value: dashboard_value,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        initBarChart(
-                            data); // Gọi hàm để cập nhật biểu đồ với dữ liệu mới lấy được
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching data:', error);
-                    }
-                });
-            });
-
-            // Sự kiện khi click vào nút lọc theo ngày
-            $('#btn-dashboard-filter').click(function() {
-                var from_date = $('#datepicker_fromDate').val();
-                var to_date = $('#datepicker_toDate').val();
-                var _token = $("input[name='_token']").val();
-                $.ajax({
-                    url: "{{ url('Admin/filter-by-date') }}",
-                    method: "POST",
-                    dataType: "JSON",
-                    data: {
-                        from_date: from_date,
-                        to_date: to_date,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        initBarChart(
-                            data); // Gọi hàm để cập nhật biểu đồ với dữ liệu mới lấy được
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching data:', error);
-                    }
-                });
-            });
-
-            chart30daysorder(); // Gọi hàm để khởi tạo biểu đồ khi trang được load
-        });
-    </script> --}}
     <script>
         $(document).ready(function() {
             var barChart;
@@ -811,7 +670,7 @@
             chart30daysorder();
         });
     </script>
-    <!-- Biểu đồ hình cột -->
+    <!-- Biểu đồ -->
 
     <!-- Bình luận -->
     <script>
