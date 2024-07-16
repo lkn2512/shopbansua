@@ -32,9 +32,10 @@
     <link href="{{ asset('/backend/css/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/backend/css/style-responsive.css') }}" rel="stylesheet" />
     <link href="{{ asset('/backend/css/ionicons.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('/backend/css/jquery-ui.css') }}" rel="stylesheet" />
+    {{-- <link href="{{ asset('/backend/css/jquery-ui.css') }}" rel="stylesheet" /> --}}
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -95,6 +96,8 @@
     <script src="{{ asset('/backend/ckeditor/ckeditor.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 
     {{-- <script src="{{ asset('/backend/js/jquery-3.6.0.min.js') }}"></script> (đụng độ js) --}}
     {!! Toastr::message() !!}
@@ -507,8 +510,8 @@
     </script>
     <!-- Hiển thị lịch khi nhấn vào input -->
 
-    <!-- Biểu đồ hình cột bar chart -->
-    <script>
+    <!-- Biểu đồ - chart -->
+    {{-- <script>
         $(document).ready(function() {
             var barChart;
 
@@ -567,6 +570,19 @@
                 });
             }
 
+            function fetchData(url, requestData) {
+                return $.ajax({
+                    url: url,
+                    method: "POST",
+                    dataType: "JSON",
+                    data: requestData,
+                });
+            }
+
+            function updateCharts(data) {
+                initBarChart(data);
+                initDonutChart(data);
+            }
             // Hàm gọi AJAX để lấy dữ liệu từ endpoint 'days-order-default'
             function chart30daysorder() {
                 var _token = $("input[name='_token']").val();
@@ -633,6 +649,166 @@
             });
 
             chart30daysorder(); // Gọi hàm để khởi tạo biểu đồ khi trang được load
+        });
+    </script> --}}
+    <script>
+        $(document).ready(function() {
+            var barChart;
+            var donutChart;
+
+            function formatNumber(number) {
+                return new Intl.NumberFormat('vi-VN').format(number);
+            }
+
+            function formatDate(dateString) {
+                return moment(dateString).format('DD/MM/YYYY');
+            }
+
+            function initBarChart(data) {
+                var ctx = document.getElementById('barChart').getContext('2d');
+                if (barChart) {
+                    barChart.destroy();
+                }
+                barChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(item => formatDate(item.period)),
+                        datasets: [{
+                                label: 'Đơn hàng',
+                                backgroundColor: '#007F54',
+                                data: data.map(item => item.order)
+                            },
+                            {
+                                label: 'Số lượng sản phẩm',
+                                backgroundColor: '#635BA2',
+                                data: data.map(item => item.quantity)
+                            },
+                            {
+                                label: 'Doanh thu',
+                                backgroundColor: '#00676B',
+                                data: data.map(item => item.sales)
+                            },
+                            {
+                                label: 'Lợi nhuận',
+                                backgroundColor: '#FF8C00',
+                                data: data.map(item => item.profit)
+                            },
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                stacked: true
+                            },
+                            y: {
+                                stacked: true,
+                                beginAtZero: true
+                            }
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                                    var value = dataset.data[tooltipItem.index];
+                                    return dataset.label + ': ' + formatNumber(value);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function initDonutChart(data) {
+                var ctx = document.getElementById('donutChart').getContext('2d');
+                if (donutChart) {
+                    donutChart.destroy();
+                }
+                var totalOrders = data.reduce((sum, item) => sum + item.order, 0);
+                var totalSales = data.reduce((sum, item) => sum + item.sales, 0);
+                var totalProfit = data.reduce((sum, item) => sum + item.profit, 0);
+                var totalQuantity = data.reduce((sum, item) => sum + item.quantity, 0);
+
+                donutChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Đơn hàng', 'Số lượng sản phẩm', 'Doanh thu', 'Lợi nhuận', ],
+                        datasets: [{
+                            data: [totalOrders, totalQuantity, totalSales, totalProfit],
+                            backgroundColor: ['#007F54', '#635BA2', '#00676B', '#FF8C00']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                                    var value = dataset.data[tooltipItem.index];
+                                    return data.labels[tooltipItem.index] + ': ' + formatNumber(value);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function fetchData(url, requestData) {
+                return $.ajax({
+                    url: url,
+                    method: "POST",
+                    dataType: "JSON",
+                    data: requestData,
+                });
+            }
+
+            function updateCharts(data) {
+                initBarChart(data);
+                initDonutChart(data);
+            }
+
+            function chart30daysorder() {
+                var _token = $("input[name='_token']").val();
+                fetchData("{{ url('Admin/days-order-default') }}", {
+                        _token: _token
+                    })
+                    .done(updateCharts)
+                    .fail(function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
+                    });
+            }
+
+            $('.dashboard-filter').change(function() {
+                var dashboard_value = $(this).val();
+                var _token = $("input[name='_token']").val();
+                fetchData("{{ url('Admin/dashboard-filter') }}", {
+                        dashboard_value: dashboard_value,
+                        _token: _token
+                    })
+                    .done(updateCharts)
+                    .fail(function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
+                    });
+            });
+
+            $('#btn-dashboard-filter').click(function() {
+                var from_date = $('#datepicker_fromDate').val();
+                var to_date = $('#datepicker_toDate').val();
+                var _token = $("input[name='_token']").val();
+                fetchData("{{ url('Admin/filter-by-date') }}", {
+                        from_date: from_date,
+                        to_date: to_date,
+                        _token: _token
+                    })
+                    .done(updateCharts)
+                    .fail(function(xhr, status, error) {
+                        console.error('Error fetching data:', error);
+                    });
+            });
+
+            chart30daysorder();
         });
     </script>
     <!-- Biểu đồ hình cột -->

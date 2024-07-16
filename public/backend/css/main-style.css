@@ -11,6 +11,7 @@
 .clock #time,
 .clock #date {
     color: black;
+    font-size: 1em;
 }
 
 .progress-bar {
@@ -144,7 +145,8 @@
 }
 
 .dropdown-menu .dropdown-item:hover {
-    background: rgb(224, 224, 224)
+    background: rgb(224, 224, 224);
+    color: black;
 }
 
 .brand-link span.active {
@@ -163,7 +165,7 @@
     background: #184785;
     border: 1px solid #184785;
     color: white;
-    margin-top: 34px;
+    margin-top: 32px;
     border-radius: 5px;
 }
 
@@ -176,10 +178,6 @@
 
 .title-filter {
     font-weight: 500;
-}
-
-.chart-content {
-    margin-top: 50px;
 }
 
 .views-list {

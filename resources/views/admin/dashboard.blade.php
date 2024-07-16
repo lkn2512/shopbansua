@@ -84,16 +84,19 @@
                         <option value="365ngayqua">365 ngày qua</option>
                     </select>
                 </div>
-                <div class="col-md-12 chart-content">
-                    <div class="chart">
-                        <canvas id="barChart"
-                            style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%;"></canvas>
+                <div class="col-md-12 mt-4">
+                    <div class="row">
+                        <div class="chart col-md-9">
+                            <canvas id="barChart" style="height: 350px; max-width: 100%;"></canvas>
+                        </div>
+                        <div class="chart col-md-3">
+                            <canvas id="donutChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
-        <br><br>
-        <div class="row m-0">
+        <div class="row m-0 mt-5">
             <div class="col-md-6">
                 <label class="title-statistical">Top 10 các bài viết có lượt xem nhiều</label>
                 <ul class="views-list">

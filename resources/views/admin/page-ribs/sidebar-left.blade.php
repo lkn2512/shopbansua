@@ -1,4 +1,4 @@
-    <aside class="main-sidebar sidebar-dark-primary elevation-4 bg-black bg-gradient">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a class="brand-link">
             <span class="brand-text font-bold active">Quản trị viên</span>
         </a>
