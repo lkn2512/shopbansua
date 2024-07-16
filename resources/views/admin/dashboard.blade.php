@@ -59,138 +59,71 @@
                 </a>
             </div>
         </div>
-        <p class="title-statistical m-2">THỐNG KÊ DOANH THU</p>
-        <form autocomplete="off">
-            @csrf
-            <div class="row m-0">
-                <div class="col-md-2">
-                    <label class="title-filter">Từ ngày</label>
-                    <input type="text" id="datepicker_fromDate" class="form-control">
-                </div>
-                <div class="col-md-2">
-                    <label class="title-filter">Đến ngày</label>
-                    <input type="text" id="datepicker_toDate" class="form-control">
-                </div>
-                <div class="col-md-2">
-                    <button type="button" id="btn-dashboard-filter" class="btn-filter">Lọc kết quả</button>
-                </div>
-                <div class="col-md-2 offset-md-4">
-                    <label class="title-filter">Lọc theo</label>
-                    <select class="dashboard-filter form-select">
-                        <option value="">--Chọn--</option>
-                        <option value="7ngay"> 7 ngày qua</option>
-                        <option value="thangtruoc">Tháng trước</option>
-                        <option value="thangnay">Tháng này</option>
-                        <option value="365ngayqua">365 ngày qua</option>
-                    </select>
-                </div>
-                <div class="col-md-12 mt-4">
-                    <div class="row">
-                        <div class="chart col-md-9">
-                            <canvas id="barChart" style="height: 350px; max-width: 100%;"></canvas>
+        <p class="title-statistical m-2 mt-5">THỐNG KÊ DOANH THU</p>
+        <div class="card">
+            <div class="card-body">
+                <form autocomplete="off">
+                    @csrf
+                    <div class="row m-0">
+                        <div class="col-md-2">
+                            <label class="title-filter">Từ ngày</label>
+                            <input type="text" id="datepicker_fromDate" class="form-control">
                         </div>
-                        <div class="chart col-md-3">
-                            <canvas id="donutChart"></canvas>
+                        <div class="col-md-2">
+                            <label class="title-filter">Đến ngày</label>
+                            <input type="text" id="datepicker_toDate" class="form-control">
                         </div>
+                        <div class="col-md-2">
+                            <button type="button" id="btn-dashboard-filter" class="btn-filter">Lọc kết quả</button>
+                        </div>
+                        <div class="col-md-2 offset-md-4">
+                            <label class="title-filter">Lọc theo</label>
+                            <select class="dashboard-filter form-select">
+                                <option value="">--Chọn--</option>
+                                <option value="7ngay"> 7 ngày qua</option>
+                                <option value="thangtruoc">Tháng trước</option>
+                                <option value="thangnay">Tháng này</option>
+                                <option value="365ngayqua">365 ngày qua</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <div class="row">
+                                <div class="chart col-md-9">
+                                    <canvas id="barChart" style="height: 350px; max-width: 100%;"></canvas>
+                                </div>
+                                <div class="chart col-md-3">
+                                    <canvas id="donutChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <p class="title-statistical m-2 mt-5">THỐNG KÊ Lượt xem</p>
+        <div class="row m-0">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <label class="card-title">Top 10 các sản phẩm được quan tâm nhiều</label>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="horizontalBarChart1" style="height: 350px; max-width: 100%;"></canvas>
                     </div>
                 </div>
             </div>
-        </form>
-        <div class="row m-0 mt-5">
             <div class="col-md-6">
-                <label class="title-statistical">Top 10 các bài viết có lượt xem nhiều</label>
-                <ul class="views-list">
-                    @foreach ($post_views as $pv)
-                        <li class="views-li">
-                            <a class="title-view underline" target="_blank"
-                                href="{{ url('bai-viet/' . $pv->post_id) }}">{{ $pv->post_title }}
-                            </a>
-                            <span class="number-views">({{ number_format($pv->post_view) }} lượt xem)</span>
-                        </li>
-                    @endforeach
-                </ul>
+                <div class="card">
+                    <div class="card-header">
+                        <label class="card-title">Top 10 các bài viết có lượt xem nhiều</label>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="horizontalBarChart2"
+                            style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label class="title-statistical">Top 10 Các sản phẩm được quan tâm nhiều</label>
-                <ul class="views-list">
-                    @foreach ($product_views as $pr)
-                        <li class="views-li">
-                            <a class="title-view underline" target="_blank"
-                                href="{{ url('/chi-tiet-san-pham/' . $pr->product_id) }}">{{ $pr->product_name }}
-                            </a>
-                            <span class="number-views">({{ number_format($pr->product_view) }} lượt xem)</span>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
+
         </div>
     </div>
-    {{-- <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v1</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>150</h3>
-                    <p>New Orders</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-bag"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                    <p>Bounce Rate</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3>44</h3>
-
-                    <p>User Registrations</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-person-add"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-danger">
-                <div class="inner">
-                    <h3>65</h3>
-
-                    <p>Unique Visitors</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-    </div> --}}
 @endsection
