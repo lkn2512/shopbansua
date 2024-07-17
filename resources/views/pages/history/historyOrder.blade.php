@@ -23,7 +23,7 @@
         <div id="gridView" class="row">
             @foreach ($order as $key => $orders)
                 <div class="col-md-3">
-                    <div class="card mb-0 rounded">
+                    <div class="card mb-0 mb-4 rounded">
                         <div class="card-body p-4">
                             <h6 class="card-subtitle">Mã đơn hàng</h6>
                             <h5 class="card-title">

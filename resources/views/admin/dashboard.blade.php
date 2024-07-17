@@ -110,6 +110,59 @@
                     <div class="card-body">
                         <canvas id="horizontalBarChart1" style="height: 350px; max-width: 100%;"></canvas>
                     </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var ctx = document.getElementById('horizontalBarChart1').getContext('2d');
+
+                            var productViews = @json($product_views); // Lấy dữ liệu từ controller
+                            var labels = productViews.map(pr => pr.product_name);
+                            var data = productViews.map(pr => pr.product_view);
+
+                            var horizontalBarChart = new Chart(ctx, {
+                                type: 'horizontalBar',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Lượt xem',
+                                        backgroundColor: '#4682B4',
+                                        borderColor: 'rgba(0, 123, 255, 1)',
+                                        data: data,
+                                        fill: false
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        x: {
+                                            title: {
+                                                display: true,
+                                                text: 'Lượt xem'
+                                            }
+                                        },
+                                        y: {
+                                            title: {
+                                                display: true,
+                                                text: 'Sản phẩm'
+                                            }
+                                        }
+                                    },
+                                    tooltips: {
+                                        callbacks: {
+                                            label: function(tooltipItem, data) {
+                                                var dataset = data.datasets[tooltipItem.datasetIndex];
+                                                var value = dataset.data[tooltipItem.index];
+                                                var fullProductName = productViews[tooltipItem.index]
+                                                    .product_name; // Tên sản phẩm đầy đủ
+                                                return new Intl.NumberFormat('vi-VN').format(
+                                                    value) + ' lượt xem';
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    </script>
                 </div>
             </div>
             <div class="col-md-12">
@@ -118,12 +171,66 @@
                         <label class="card-title">Top 10 các bài viết có lượt xem nhiều</label>
                     </div>
                     <div class="card-body">
-                        <canvas id="horizontalBarChart2"
-                            style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%;"></canvas>
+                        <canvas id="horizontalBarChart2" style="height: 350px; max-width: 100%;"></canvas>
                     </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var ctx = document.getElementById('horizontalBarChart2').getContext('2d');
+
+                            var postViews = @json($post_views); // Lấy dữ liệu từ controller
+                            var labels = postViews.map(pv => pv.post_title); // Tên bài viết
+                            var data = postViews.map(pv => pv.post_view); // Lượt xem
+
+                            var horizontalBarChart = new Chart(ctx, {
+                                type: 'horizontalBar',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Lượt xem',
+                                        backgroundColor: '#4682B4',
+                                        borderColor: 'rgba(0, 123, 255, 1)',
+                                        data: data,
+                                        fill: false
+                                    }]
+                                },
+                                options: {
+                                    indexAxis: 'y',
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        x: {
+                                            title: {
+                                                display: true,
+                                                text: 'Lượt xem'
+                                            },
+                                        },
+                                        y: {
+                                            title: {
+                                                display: true,
+                                                text: 'Bài viết'
+                                            },
+
+                                        }
+                                    },
+
+                                    tooltips: {
+                                        callbacks: {
+                                            label: function(tooltipItem, data) {
+                                                var dataset = data.datasets[tooltipItem.datasetIndex];
+                                                var value = dataset.data[tooltipItem.index];
+                                                var fullPostTitle = postViews[tooltipItem.index]
+                                                    .post_title; // Tên bài viết đầy đủ
+                                                return new Intl.NumberFormat('vi-VN').format(
+                                                    value) + ' lượt xem';
+                                            }
+                                        }
+                                    }
+                                },
+                            });
+                        });
+                    </script>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="{{ asset('/frontend/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/holiday-event.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/css/templatemo-klassy-cafe.css') }}">
 
 </head>
 

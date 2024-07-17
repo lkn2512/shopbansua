@@ -1,12 +1,13 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a class="brand-link">
-            <span class="brand-text font-bold active">Quản trị viên</span>
+            <img src="{{ asset('backend/images/AdminLTELogo.png') }}" class="brand-image img-circle elevation-3">
+            <span class="brand-text font-weight-light"> Quản Trị Viên</span>
         </a>
         <div class="sidebar">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 @foreach ($get_user as $us)
                     <div class="image">
-                        <img src="/uploads/user/{{ $us->avatar }}" class="img-circle elevation-2 rounded-circle" />
+                        <img src="/uploads/user/{{ $us->avatar }}" class="img-circle elevation-2" />
                     </div>
                     <div class="info">
                         <a href="{{ URL::to('Admin/profile/' . Session::get('user_id')) }}"

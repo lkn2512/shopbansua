@@ -98,6 +98,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+
 
     {{-- <script src="{{ asset('/backend/js/jquery-3.6.0.min.js') }}"></script> (đụng độ js) --}}
     {!! Toastr::message() !!}
@@ -672,118 +675,6 @@
         });
     </script>
     <!-- Biểu đồ thống kê doanh thu -->
-
-    {{-- Biểu đồ hiển thị lượt xem --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var ctx = document.getElementById('horizontalBarChart1').getContext('2d');
-
-            var productViews = @json($product_views); // Lấy dữ liệu từ controller
-            var labels = productViews.map(pr => pr.product_name);
-            var data = productViews.map(pr => pr.product_view);
-
-            var horizontalBarChart = new Chart(ctx, {
-                type: 'horizontalBar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Lượt xem',
-                        backgroundColor: '#4682B4',
-                        borderColor: 'rgba(0, 123, 255, 1)',
-                        data: data,
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Lượt xem'
-                            }
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Sản phẩm'
-                            }
-                        }
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var dataset = data.datasets[tooltipItem.datasetIndex];
-                                var value = dataset.data[tooltipItem.index];
-                                var fullProductName = productViews[tooltipItem.index]
-                                    .product_name; // Tên sản phẩm đầy đủ
-                                return new Intl.NumberFormat('vi-VN').format(
-                                    value) + ' lượt xem';
-                            }
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var ctx = document.getElementById('horizontalBarChart2').getContext('2d');
-
-            var postViews = @json($post_views); // Lấy dữ liệu từ controller
-            var labels = postViews.map(pv => pv.post_title); // Tên bài viết
-            var data = postViews.map(pv => pv.post_view); // Lượt xem
-
-            var horizontalBarChart = new Chart(ctx, {
-                type: 'horizontalBar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Lượt xem',
-                        backgroundColor: '#4682B4',
-                        borderColor: 'rgba(0, 123, 255, 1)',
-                        data: data,
-                        fill: false
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Lượt xem'
-                            },
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Bài viết'
-                            },
-
-                        }
-                    },
-
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var dataset = data.datasets[tooltipItem.datasetIndex];
-                                var value = dataset.data[tooltipItem.index];
-                                var fullPostTitle = postViews[tooltipItem.index]
-                                    .post_title; // Tên bài viết đầy đủ
-                                return new Intl.NumberFormat('vi-VN').format(
-                                    value) + ' lượt xem';
-                            }
-                        }
-                    }
-                },
-            });
-        });
-    </script>
-    {{-- Biểu đồ hiển thị lượt xem --}}
 
     <!-- Bình luận -->
     <script>
