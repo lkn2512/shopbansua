@@ -38,11 +38,6 @@ class CheckoutController extends Controller
             return view('pages.account-customer.sign-in');
         }
     }
-    public function getShippingCost($province_id)
-    {
-        $province = ProvinceCity::find($province_id);
-        return response()->json(['shipping_cost' => $province->shipping_cost]);
-    }
 
     public function check_coupon(Request $request)
     {
