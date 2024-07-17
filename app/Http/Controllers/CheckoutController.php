@@ -11,6 +11,7 @@ use App\Models\OrderDetails;
 use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Notification;
+use App\Models\ProvinceCity;
 use Carbon\Carbon;
 
 
@@ -36,6 +37,11 @@ class CheckoutController extends Controller
         } else {
             return view('pages.account-customer.sign-in');
         }
+    }
+    public function getShippingCost($province_id)
+    {
+        $province = ProvinceCity::find($province_id);
+        return response()->json(['shipping_cost' => $province->shipping_cost]);
     }
 
     public function check_coupon(Request $request)

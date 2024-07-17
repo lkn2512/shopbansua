@@ -9,7 +9,7 @@ class ProvinceCity extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['name', 'shipping_cost', 'type'];
     protected $primaryKey = 'matp';
     protected $table = 'tbl_tinhthanhpho';
 

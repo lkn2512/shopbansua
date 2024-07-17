@@ -173,7 +173,7 @@
                         </div>
                         <div class="d-flex justify-content-between mb-1">
                             <span>Vận chuyển</span>
-                            <span>
+                            <span id="shipping_fee">
                                 {{ number_format(20000, 0, ',', '.') }}đ
                             </span>
                         </div>
@@ -206,9 +206,7 @@
                                 <input type="hidden" class="order_total" name="order_total"
                                     value="{{ $total_after }}">
                             </strong>
-
                         </div>
-
                         <!-- coupon -->
                         <form action="{{ url('/check-coupon') }}" method="post">
                             @csrf

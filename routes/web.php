@@ -271,6 +271,7 @@ Route::post('/select-delivery-home', [CheckoutController::class, 'select_deliver
 Route::post('/calculate-fee', [CheckoutController::class, 'calculate_fee']);
 Route::get('/del-fee', [CheckoutController::class, 'del_fee']);
 Route::post('/confirm-order', [CheckoutController::class, 'confirm_order']);
+Route::get('/api/get-shipping-cost/{province_id}', [CheckoutController::class, 'getShippingCost']);
 
 
 //địa chỉ hành chính
