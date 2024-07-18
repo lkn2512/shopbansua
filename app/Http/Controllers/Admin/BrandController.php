@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreBrandRequest;
 use App\Models\Brand;
 use App\Models\Product;
 use Brian2694\Toastr\Facades\Toastr;

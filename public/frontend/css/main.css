@@ -451,6 +451,15 @@ a#scrollUp i {
   font-size: 17px;
 }
 
+.delete-coupon-text {
+  color: gray;
+  font-weight: 400;
+}
+
+.delete-coupon-text:hover {
+  text-decoration: underline !important;
+}
+
 .reason_cancel {
   color: red;
   font-size: 16px;
@@ -1369,22 +1378,35 @@ h2.title:before {
   height: 100%;
 }
 
-.check_coupon {
-  background-color: #103667;
-  color: white;
-  padding: 5px 8px;
-  font-size: 15px;
-  border: 1px solid #103667;
-  border-radius: 5px;
-  text-align: center;
-  width: 100%;
+.coupon-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.check_coupon:hover {
-  background: none;
-  color: #103667;
-  border: 1px solid #103667;
+.coupon-input {
+  flex: 1 1 70%;
+  min-width: 200px;
+  padding: 8px;
+  border: 1px solid rgb(200, 200, 200);
 }
+
+.check_coupon {
+  flex: 1 1 20%;
+  padding: 8px 0px;
+  background-color: #006241;
+  border: 1px solid #006241;
+  color: white;
+  border: none;
+}
+
+.coupon-used {
+  color: #006241;
+  font-weight: 400;
+}
+
 
 .save-info-checkout {
   padding-bottom: 20px;

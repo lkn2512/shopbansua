@@ -10,10 +10,6 @@
         <div class="title-product">
             <h2 class="text mb-3">Giỏ hàng của bạn</h2>
         </div>
-        @php
-            use Illuminate\Support\Facades\Session;
-            $total = 0;
-        @endphp
         @if (Session::get('cart') == true)
             <form action="{{ url('/update-cart') }}" method="POST">
                 @csrf
@@ -35,6 +31,7 @@
                         <tbody>
                             @foreach (Session::get('cart') as $key => $cart)
                                 @php
+                                    $total = 0;
                                     $subtotal = $cart['product_price'] * $cart['product_qty'];
                                     $total += $subtotal;
                                 @endphp
@@ -67,19 +64,58 @@
                                         {{ number_format($cart['product_price'], 0, ',', '.') }}đ</td>
                                     <td class="text-center text-lg text-medium">
                                         {{ number_format($subtotal, 0, ',', '.') }}đ</td>
-                                    <td class="text-center"><a class="remove-from-cart"
+                                    <td class="text-center">
+                                        <a class="remove-from-cart"
                                             href="{{ url('delete-product-cart/' . $cart['session_id']) }}"
                                             data-toggle="tooltip" title="" data-original-title="Remove item"><i
-                                                class="fa fa-trash"></i></a>
+                                                class="fa fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
                             <tr>
-                                <th class="p-4"></th>
-                                <th colspan="2" class="text-center"><span class="total">Thành tiền:</span>
+                                <th class="p-4">
+                                    @if (Session::get('coupon'))
+                                        <span class="coupon-used">
+                                            <i class="fa-regular fa-circle-check"></i>&nbsp;Đã sử dụng mã giảm giá:&nbsp;
+                                            @foreach (Session::get('coupon') as $key => $cou)
+                                                @if ($cou['coupon_condition'] == 1)
+                                                    -{{ $cou['coupon_number'] }}%
+                                                @elseif ($cou['coupon_condition'] == 2)
+                                                    -{{ number_format($cou['coupon_number'], 0, ',', '.') }}đ
+                                                @endif
+                                            @endforeach
+                                        </span>
+                                    @endif
                                 </th>
-                                <th class="text-center"><span
-                                        class="total">{{ number_format($total, 0, ',', '.') }}đ</span></th>
+                                <th class="text-center">
+                                    @if (Session::get('coupon'))
+                                        <a href="{{ url('/remove-coupon') }}" class="delete-coupon-text"
+                                            title="Xoá mã giảm giá">Xoá mã giảm giá
+                                        </a>
+                                    @endif
+                                </th>
+                                <th class="text-center"><span class="total">Thành Tiền:</span>
+                                </th>
+                                <th class="text-center">
+                                    <span class="total">
+                                        <?php
+                                        if (Session::get('coupon')) {
+                                            foreach (Session::get('coupon') as $key => $cou) {
+                                                if ($cou['coupon_condition'] == 1) {
+                                                    $total_coupon = ($total * $cou['coupon_number']) / 100;
+                                                    $total_after_coupon = $total - $total_coupon;
+                                                } elseif ($cou['coupon_condition'] == 2) {
+                                                    $total_after_coupon = $total - $cou['coupon_number'];
+                                                }
+                                            }
+                                            $total_after = $total_after_coupon;
+                                        } elseif (!Session::get('coupon')) {
+                                            $total_after = $total;
+                                        }
+                                        echo number_format($total_after, 0, ',', '.') . 'đ';
+                                        ?>
+                                </th>
                                 <th></th>
                             </tr>
                             <button type="submit" id="updateCartSubmit"></button>
@@ -94,6 +130,15 @@
                             <i class="fa-solid fa-arrow-left arrow-icon"></i>&nbsp;Tiếp tục mua sắm
                         </span>
                     </a>
+                </div>
+                <div class="column">
+                    <form action="{{ url('/check-coupon') }}" method="post">
+                        @csrf
+                        <div class="coupon-container">
+                            <input type="text" class="coupon-input" name="coupon" placeholder="Mã giảm giá" />
+                            <button type="submit" class="check_coupon" name="check_coupon">Áp dụng</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="column">
                     <a class="checkout-btn-cart"

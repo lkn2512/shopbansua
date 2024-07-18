@@ -9,9 +9,8 @@ use App\Models\Shipping;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Coupon;
-use App\Models\Customer;
 use App\Models\Notification;
-use App\Models\ProvinceCity;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 
 
@@ -85,7 +84,7 @@ class CheckoutController extends Controller
                         Session::put('coupon', $cou);
                     }
                     Session::save();
-                    Session::put('message', "Đã áp dụng mã giảm giá");
+                    Toastr::success('Đã áp dụng mã giảm giá', '', ['positionClass' => 'toast-bottom-right']);
                     return Redirect()->back();
                 }
             } else {
@@ -99,6 +98,7 @@ class CheckoutController extends Controller
         $coupon = Session::get('coupon');
         if ($coupon == true) {
             Session::forget('coupon');
+            Toastr::success('Đã xoá mã giảm giá', '', ['positionClass' => 'toast-bottom-right']);
             return Redirect()->back();
         } else {
             return Redirect()->back();

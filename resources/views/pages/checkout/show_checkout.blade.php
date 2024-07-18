@@ -208,7 +208,7 @@
                             </strong>
                         </div>
                         <!-- coupon -->
-                        <form action="{{ url('/check-coupon') }}" method="post">
+                        {{-- <form action="{{ url('/check-coupon') }}" method="post">
                             @csrf
                             <div class="row">
                                 <label class="form-label">Mã giảm giá (Nếu có)</label>
@@ -220,7 +220,7 @@
                                     <button type="submit" class="check_coupon" name="check_coupon">Áp dụng</button>
                                 </div>
                             </div>
-                        </form>
+                        </form> --}}
                         <!-- END - coupon -->
                     </div>
                 </div>
