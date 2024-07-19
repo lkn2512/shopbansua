@@ -36,7 +36,7 @@
             @foreach ($all_slider as $key => $slide)
                 <tr id="slider-row-{{ $slide->slider_id }}">
                     <td>{{ $i++ }}</td>
-                    <td><img class="bannerImage" src="/uploads/slider/{{ $slide->slider_image }}"></td>
+                    <td><img class="bannerImage" src="{{ asset('uploads/slider/' . $slide->slider_image) }}"></td>
                     <td class="width200">{{ $slide->slider_name }}</td>
                     <td class="width200">{{ $slide->slider_desc }}</td>
                     <td class="width200">{{ $slide->product ? $slide->product->product_name : '' }}</td>

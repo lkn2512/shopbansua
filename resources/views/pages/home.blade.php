@@ -134,7 +134,8 @@
     @endphp
     @foreach ($holidayEvent as $value)
         @if ($currentDate >= $value->event_date && $currentDate <= $value->event_end_date)
-            <div class="row row-content holiday-carosel">
+            <div class="row row-content holiday-carosel"
+                style="background-image: url('{{ asset('frontend/images/home/bgBlue.jpg') }}');">
                 <div class="col-md-4 carosel-left">
                     <span class="holiday-name">{{ $value->event_name }}</span>
                     <span class="holiday-end-date">Ngày kết thúc:

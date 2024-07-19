@@ -37,10 +37,10 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>
                         @if ($cus->customer_image)
-                            <img class="img-customer" src="/uploads/customer/{{ $cus->customer_image }}"
+                            <img class="img-customer" src="{{ asset('uploads/customer/' . $cus->customer_image) }}"
                                 alt="Customer Image">
                         @else
-                            <img class="img-customer" src="/backend/images/user.png" alt="Default User Image">
+                            <img class="img-customer" src="{{ asset('backend/images/user.png') }}" alt="Default User Image">
                         @endif
                         {{ $cus->customer_name }}
                     </td>

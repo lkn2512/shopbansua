@@ -1,5 +1,5 @@
 .holiday-carosel {
-    background-image: url('/frontend/images/home/bgBlue.jpg');
+    /* background-image: url('/frontend/images/home/bgBlue.jpg'); */
     object-fit: cover;
     background-size: cover;
     margin-top: 25px;

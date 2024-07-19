@@ -222,9 +222,9 @@
                             <div class="image-container">
                                 @if ($customer->customer_image)
                                     <img class="img-avatar-medium"
-                                        src="/uploads/customer/{{ $customer->customer_image }}">
+                                        src="{{ asset('uploads/customer/' . $customer->customer_image) }}">
                                 @else
-                                    <img class="img-avatar-medium" src="/backend/images/user.png">
+                                    <img class="img-avatar-medium" src="{{ asset('backend/images/user.png') }}">
                                 @endif
                             </div>
                             <div class="info-right">

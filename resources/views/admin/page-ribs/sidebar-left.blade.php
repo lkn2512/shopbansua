@@ -7,7 +7,7 @@
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 @foreach ($get_user as $us)
                     <div class="image">
-                        <img src="/uploads/user/{{ $us->avatar }}" class="img-circle elevation-2" />
+                        <img src="{{ asset('uploads/user/' . $us->avatar) }}" class="img-circle elevation-2" />
                     </div>
                     <div class="info">
                         <a href="{{ URL::to('Admin/profile/' . Session::get('user_id')) }}"

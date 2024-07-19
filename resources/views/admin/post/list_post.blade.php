@@ -34,7 +34,7 @@
             @foreach ($all_post as $key => $post)
                 <tr id="post-row-{{ $post->post_id }}">
                     <td>{{ $i++ }}</td>
-                    <td><img class="img-post" src="/uploads/post/{{ $post->post_image }}"></td>
+                    <td><img class="img-post" src="{{ asset('uploads/post/' . $post->post_image) }}"></td>
                     <td>{{ $post->post_title }}</td>
                     <td class="text-auto">{{ $post->post_desc }}</td>
                     <td>{{ $post->cate_post_name }}</td>

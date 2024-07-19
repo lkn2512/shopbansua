@@ -101,8 +101,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
 
-
-    {{-- <script src="{{ asset('/backend/js/jquery-3.6.0.min.js') }}"></script> (đụng độ js) --}}
+    {{-- 
+    <script src="{{ asset('/backend/js/jquery-3.6.0.min.js') }}"></script> (đụng độ js) --}}
     {!! Toastr::message() !!}
 
     @if (session('error_alert'))
@@ -122,80 +122,6 @@
     </script>
     {{-- Select 2 --}}
 
-    {{-- <script>
-        $(function() {
-            // Kiểm tra xem thư viện Chart.js đã được tải chưa
-            if (typeof Chart === 'undefined') {
-                console.error('Chart.js is not loaded.');
-                return;
-            }
-
-            // Kiểm tra xem phần tử canvas có tồn tại trong DOM không
-            var barChartCanvas = $('#barChart');
-            if (barChartCanvas.length === 0) {
-                console.error('#barChart element not found.');
-                return;
-            }
-            barChartCanvas = barChartCanvas.get(0).getContext('2d');
-
-            // Định nghĩa dữ liệu mẫu nếu areaChartData không được định nghĩa
-            var areaChartData = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                        label: 'Dataset 1',
-                        backgroundColor: 'rgba(60,141,188,0.9)',
-                        borderColor: 'rgba(60,141,188,0.8)',
-                        pointRadius: false,
-                        pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: chart_data.order,
-                    },
-                    {
-                        label: 'Dataset 2',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
-                        pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                    {
-                        label: 'Dataset 2',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
-                        pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                ]
-            };
-
-            var barChartData = $.extend(true, {}, areaChartData);
-            var temp0 = areaChartData.datasets[0];
-            var temp1 = areaChartData.datasets[1];
-            barChartData.datasets[0] = temp1;
-            barChartData.datasets[1] = temp0;
-
-            var barChartOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                datasetFill: false
-            };
-
-            new Chart(barChartCanvas, {
-                type: 'bar',
-                data: barChartData,
-                options: barChartOptions
-            });
-        });
-    </script> --}}
 
     {{-- Xoá dữ liệu trong table --}}
     <script>
@@ -383,7 +309,7 @@
     {{-- Thu gọn sidebar --}}
 
     <!-- Thêm hình ảnh phụ cho sản phẩm -->
-    {{-- <script>
+    <script>
         $(document).ready(function() {
             load_gallery();
 
@@ -477,7 +403,7 @@
                 })
             })
         });
-    </script> --}}
+    </script>
     <!-- Thêm hình ảnh phụ cho sản phẩm -->
 
     <!-- Hiển thị lịch, ngày tháng khi nhấn vào input, đồng thời kiểm tra điều kiện (nếu có) -->

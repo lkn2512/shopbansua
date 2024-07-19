@@ -44,10 +44,10 @@
             @foreach ($all_product as $key => $pro)
                 <tr id="product-row-{{ $pro->product_id }}">
                     <td>{{ $i++ }}</td>
-                    <td class="info-product">
-                        <img class="img-product" src="/uploads/product/{{ $pro->product_image }}">
+                    <td class="info-product text-center">
+                        <img class="img-product" src="{{ asset('uploads/product/' . $pro->product_image) }}">
                         <a class="image-library" href="{{ 'add-gallery/' . $pro->product_id }}" title="Thêm thư viện ảnh">
-                            <img src="/backend/images/add_image2.png" alt="">
+                            <img src="{{ asset('backend/images/add_image2.png') }}" alt="add-gallery">
                         </a>
                     </td>
                     <td>{{ $pro->product_code }}</td>

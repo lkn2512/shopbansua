@@ -15,7 +15,7 @@ class Comment extends Model
 
     public function product()
     {
-        return $this->belongsTo(product::class, 'comment_product_id');
+        return $this->belongsTo(Product::class, 'comment_product_id');
     }
     public function customer()
     {

@@ -200,9 +200,6 @@ Route::prefix('Admin')->group(function () {
 });
 
 
-
-
-
 /**************************frontend**************************/
 
 Route::get('/', [HomeController::class, 'index']);

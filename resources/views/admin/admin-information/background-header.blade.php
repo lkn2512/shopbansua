@@ -3,9 +3,9 @@
         <img class="img-adminInfo" src="{{ URL::to('/backend/images/backgroundAdmin.jpg') }}" alt="">
         <div class="image-container">
             @if ($ad->avatar)
-                <img class="img-avatar-admin" src="/uploads/user/{{ $ad->avatar }}">
+                <img class="img-avatar-admin" src="{{ asset('uploads/user/' . $ad->avatar) }}">
             @else
-                <img class="img-avatar-admin" src="/backend/images/user.png">
+                <img class="img-avatar-admin" src="{{ asset('backend/images/user.png') }}">
             @endif
             <form id="upload-avatar-form" action="{{ URL::to('Admin/update-avatar-admin/' . $ad->id) }}" method="post"
                 enctype="multipart/form-data">

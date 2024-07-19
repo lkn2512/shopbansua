@@ -30,9 +30,9 @@
                         <div class="info-customer">
                             <div class="image-container">
                                 @if ($cus->customer_image)
-                                    <img class="img-avatar" src="/uploads/customer/{{ $cus->customer_image }}">
+                                    <img class="img-avatar" src="{{ asset('uploads/customer/' . $cus->customer_image) }}">
                                 @else
-                                    <img class="img-avatar" src="/backend/images/user.png">
+                                    <img class="img-avatar" src="{{ asset('backend/images/user.png') }}">
                                 @endif
                                 <form id="upload-avatar-form" action="{{ URL::to('Admin/update-avatar-customer') }}"
                                     method="post" enctype="multipart/form-data">

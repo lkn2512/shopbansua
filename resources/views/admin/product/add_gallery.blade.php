@@ -54,7 +54,7 @@
                 </div>
                 <div class="card-body text-center">
                     <div class="image-container">
-                        <img class="width200" src="/uploads/product/{{ $product_image }}">
+                        <img class="width200" src="{{ asset('uploads/product/' . $product_image) }}">
                         <form id="upload-form" action="{{ URL::to('Admin/update-img-product') }}" method="post"
                             enctype="multipart/form-data" style="display: none;">
                             @csrf

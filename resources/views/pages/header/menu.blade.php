@@ -70,9 +70,9 @@
                 <h5 class="offcanvas-title" id="offcanvasRightLabel">
                     @foreach ($customer as $cus2)
                         @if ($cus->customer_image)
-                            <img class="img-user" src="/uploads/customer/{{ $cus2->customer_image }}">
+                            <img class="img-user" src="{{ asset('uploads/customer/' . $cus2->customer_image) }}">
                         @else
-                            <img class="img-user" src="/frontend/images/home/avatar-default.jpg">
+                            <img class="img-user" src="{{ asset('frontend/images/home/avatar-default.jpg') }}">
                         @endif
                         {{ $cus2->customer_name }}
                     @endforeach

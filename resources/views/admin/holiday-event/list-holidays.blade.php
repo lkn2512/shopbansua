@@ -43,7 +43,7 @@
                     <td>{{ $i++ }}</td>
                     <td>{{ $value->event_name }}</td>
                     <td>
-                        <img class="img-event-list" src="/uploads/event/{{ $value->event_image }}">
+                        <img class="img-event-list" src="{{ asset('uploads/event/' . $value->event_image) }}">
                     </td>
                     <td>{{ \Carbon\Carbon::parse($value->event_date)->format('d-m-Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($value->event_end_date)->format('d-m-Y') }}</td>
