@@ -16,7 +16,7 @@
                     <div class="col-statistics">
                         <span class="title">Tổng chi tiêu</span>
                         <b>{{ number_format($order_delivered, 0, ',', '.') }}đ</b>
-                        <span class="sub-tile">Cho 1 đơn hàng đã được giao</span>
+                        <span class="sub-tile">Cho {{ $order_delivered_count }} đơn hàng đã được giao</span>
                     </div>
                     <div class="col-statistics">
                         <span class="title">Trung bình mỗi đơn hàng</span>
