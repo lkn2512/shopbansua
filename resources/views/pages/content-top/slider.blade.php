@@ -21,7 +21,7 @@
             <div class="slider-container">
                 @foreach ($slider as $key => $slide)
                     <div class="card-slider">
-                        <img class="card-background" src="/uploads/slider/{{ $slide->slider_image }}">
+                        <img class="card-background" src="{{ asset('uploads/slider/' . $slide->slider_image) }}">
                         <div class="view">
                             <a class="icon" href="{{ URL::to('chi-tiet-san-pham/' . $slide->product_id) }}"><i
                                     class="fa-solid fa-bars-staggered"></i></a>

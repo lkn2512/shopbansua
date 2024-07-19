@@ -207,21 +207,6 @@
                                     value="{{ $total_after }}">
                             </strong>
                         </div>
-                        <!-- coupon -->
-                        {{-- <form action="{{ url('/check-coupon') }}" method="post">
-                            @csrf
-                            <div class="row">
-                                <label class="form-label">Mã giảm giá (Nếu có)</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="coupon"
-                                        placeholder="Mã giảm giá" /><br>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="submit" class="check_coupon" name="check_coupon">Áp dụng</button>
-                                </div>
-                            </div>
-                        </form> --}}
-                        <!-- END - coupon -->
                     </div>
                 </div>
             </div>

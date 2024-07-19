@@ -211,7 +211,8 @@ iframe {
     height: 100%;
     top: 0;
     left: 0;
-    background-image: url('/backend/images/bg-dark.jpg');
+    /* background-image: url('/backend/images/bg-dark.jpg'); */
+
     object-fit: cover;
     background-size: cover;
 }

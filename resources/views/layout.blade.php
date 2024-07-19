@@ -71,7 +71,7 @@
     <script>
         $(document).ready(function() {
             $.ajax({
-                url: '/api/get-provinces',
+                url: '{{ url('/api/get-provinces') }}',
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -88,7 +88,7 @@
                 var province_id = $(this).val();
                 if (province_id) {
                     $.ajax({
-                        url: '/api/get-districts/' + province_id,
+                        url: '{{ url('/api/get-wards/') }}/' + district_id,
                         type: 'GET',
                         dataType: 'json',
                         success: function(data) {
@@ -112,7 +112,7 @@
                 var district_id = $(this).val();
                 if (district_id) {
                     $.ajax({
-                        url: '/api/get-wards/' + district_id,
+                        url: '{{ url('/api/get-wards/') }}/' + district_id,
                         type: 'GET',
                         dataType: 'json',
                         success: function(data) {

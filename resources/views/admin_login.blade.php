@@ -4,7 +4,7 @@
     <title>Đăng nhập</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="icon" type="image/png" href="{{ asset('backend/images/login.png') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('backend/images/icon-web.png') }}" />
 
     <link href="{{ asset('/backend/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/backend/admin-login/css/main.css') }}" rel="stylesheet" />
@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="limiter">
+    <div class="limiter" style="background-image: url('{{ url('backend/images/bg-dark.jpg') }}');">
         <div class="container-login100">
             <div class="wrap-login100">
                 <form class="login100-form validate-form" id="loginForm" action="{{ URL::to('Admin/admin-check') }}"
