@@ -88,20 +88,17 @@ class CategoryProductController extends Controller
             $output .= '<div class="row row-content">';
             foreach ($product as $val) {
                 $output .= '
-                    <div class="col-md-2 tab-panel fade active show">
-                    <div class="col-border">
-                            <div class="mb-5">
-                                <div class="productinfo">
-                                    <form>
-                                        <a class="img-center">
-                                            <img class="img-products" src="' . url('/uploads/product/' . $val->product_image) . '" />';
+                    <div class="col-md-2 product-column tab-panel fade active show">
+                        <div class="productinfo">
+                            <a class="img-center">
+                                <img class="img-products" src="' . url('/uploads/product/' . $val->product_image) . '" />';
                 if ($val->promotional_price > 0) {
                     $output .= ' <span class="header-image-promotional">Khuyến mãi đặc biệt</span>';
                 }
                 $output .= '</a>
-                                        <a href="' . url('chi-tiet-san-pham/' . $val->product_id) . '">
-                                            <p class="product-name">' . $val->product_name . '</p>
-                                        </a>';
+                            <a href="' . url('chi-tiet-san-pham/' . $val->product_id) . '">
+                                <p class="product-name">' . $val->product_name . '</p>
+                            </a>';
                 $output .= '<div class="price-product">';
                 if ($val->promotional_price > 0) {
                     $output .= '<div class="price-info">
@@ -109,13 +106,13 @@ class CategoryProductController extends Controller
                                         <span
                                             class="price-small">' . number_format($val->product_price, 0, ',', '.') . '
                                         </span>
-                                         <span class="currency-unit">₫</span>
+                                            <span class="currency-unit">₫</span>
                                     </div>
                                         <div class="price-content2">
                                             <span class="promotional-price">
                                             ' . number_format($val->promotional_price, 0, ',', '.') . '
                                         </span>
-                                         <span class="currency-unit">₫</span>
+                                            <span class="currency-unit">₫</span>
                                     </div>
                                 </div>';
                 } else {
@@ -124,20 +121,45 @@ class CategoryProductController extends Controller
                                     <span class="currency-unit">₫</span>
                                 </div>';
                 }
-                $output .= ' </div>
-                                    </form>
+                $output .= '</div>';
+                $output .= '<form>
+                                <input type="hidden" name="_token" value="' . csrf_token() . '">
+                                <input type="hidden" class="cart_product_id_' . $val->product_id . '"
+                                    value="' . $val->product_id . '">
+                                <input type="hidden" class="cart_product_name_' . $val->product_id . '"
+                                    value="' . $val->product_name . '">
+                                <input type="hidden" class="cart_product_image_' . $val->product_id . '"
+                                    value="' . $val->product_image . '">
+                                <input type="hidden" class="cart_product_quantity_' . $val->product_id . '"
+                                    value="' . $val->product_quantity . '">';
+                if ($val->promotional_price > 0) {
+                    $output .= '<input type="hidden" class="cart_product_price_' . $val->product_id . '"
+                                        value="' . $val->promotional_price . '">';
+                } else {
+                    $output .= '<input type="hidden" class="cart_product_price_' . $val->product_id . '"
+                                        value="' . $val->product_price . '">';
+                }
+                $output .= '    <input type="hidden" class="cart_category_product_' . $val->product_id . '"
+                                    value="' . $val->category->category_name . '">
+                                <input type="hidden" class="cart_brand_product_' . $val->product_id . '"
+                                    value="' . $val->brand->brand_name . '">
+                                <input type="hidden" class="cart_product_qty_' . $val->product_id . '" value="1">
+
+                                <div class="order-button">
+                                    <a class="add-to-cart" data-id="' . $val->product_id . '"><i
+                                            class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                                    </a>
                                 </div>
-                            </div>
-                         </div>
-                    </div>
-                ';
+                            </form>';
+                $output .= '
+                        </div>
+                    </div>';
             }
-            $output .= '<div class="view-all">
+            $output .= '
+            <div class="view-all">
                 <a href="' . url('danh-muc-san-pham/' . $val->category_id) . '">Xem tất cả</a>
             </div>';
-            $output .= '</div>';
         }
-
         echo $output;
     }
 }

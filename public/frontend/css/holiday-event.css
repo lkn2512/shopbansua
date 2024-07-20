@@ -1,5 +1,4 @@
 .holiday-carosel {
-    /* background-image: url('/frontend/images/home/bgBlue.jpg'); */
     object-fit: cover;
     background-size: cover;
     margin-top: 25px;
@@ -9,7 +8,6 @@
 
 .owl-carousel {
     position: relative;
-    background: white;
     margin-block: 10px;
 }
 
@@ -39,8 +37,6 @@
     font-size: 12px;
     font-weight: 400;
 }
-
-.carosel-right {}
 
 .owl-carousel .owl-item {
     opacity: 1;
@@ -95,7 +91,6 @@
 
 .owl-carousel .owl-dots {
     text-align: center;
-    /* margin-top: 10px; */
     display: none;
 }
 
@@ -136,10 +131,7 @@
 }
 
 .blog-entry {
-    width: 117%;
-    background: #fff;
-    padding: 10px;
-    border: 1px solid rgb(200, 200, 200);
+    width: 100%;
 }
 
 .blog-entry .block-20 {

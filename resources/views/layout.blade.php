@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="{{ asset('/frontend/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/holiday-event.css') }}">
-
 </head>
 
 <body>
@@ -58,6 +57,8 @@
     <script src="{{ asset('/frontend/js/toastr.min.js') }}"></script>
     <script src="{{ asset('/frontend/js/holiday-event.js') }}"></script>
 
+
+
     {!! Toastr::message() !!}
 
     @if (Session::has('message'))
@@ -66,6 +67,58 @@
         </script>
         {{ Session::forget('message') }}
     @endif
+
+    {{-- load-layout-space-between --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
+                    if (mutation.type === "childList") {
+                        const rowContents = document.querySelectorAll(".row-content");
+                        rowContents.forEach(productContainer => {
+                            const productColumns = productContainer.getElementsByClassName(
+                                "product-column");
+
+                            if (productColumns.length >= 6) {
+                                productContainer.classList.add("space-between");
+                                Array.from(productColumns).forEach(column => {
+                                    column.classList.remove("with-spacing");
+                                });
+                            } else {
+                                productContainer.classList.remove("space-between");
+                                Array.from(productColumns).forEach(column => {
+                                    column.classList.add("with-spacing");
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+            // Bắt đầu quan sát
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+            // Nếu cần kiểm tra ngay lập tức khi trang tải xong
+            const rowContents = document.querySelectorAll(".row-content");
+            rowContents.forEach(productContainer => {
+                const productColumns = productContainer.getElementsByClassName("product-column");
+
+                if (productColumns.length >= 6) {
+                    productContainer.classList.add("space-between");
+                    Array.from(productColumns).forEach(column => {
+                        column.classList.remove("with-spacing");
+                    });
+                } else {
+                    productContainer.classList.remove("space-between");
+                    Array.from(productColumns).forEach(column => {
+                        column.classList.add("with-spacing");
+                    });
+                }
+            });
+        });
+    </script>
+    {{-- load-layout-space-between --}}
 
     {{-- Chọn địa chỉ hành chính --}}
     <script>
@@ -134,7 +187,6 @@
             });
         });
     </script>
-
     {{-- Chọn địa chỉ hành chính --}}
 
     {{-- input number --}}
@@ -549,7 +601,7 @@
             });
         });
         $(document).ready(function() {
-            $('.add-to-cart').click(function() {
+            $(document).on('click', '.add-to-cart', function() {
                 var id = $(this).data('id');
                 var cart_product_id = $('.cart_product_id_' + id).val();
                 var cart_product_name = $('.cart_product_name_' + id).val();

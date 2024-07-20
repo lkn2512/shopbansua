@@ -11,51 +11,43 @@
                     <span class="text">{{ $name->category_name }}</span>
                 @endforeach
             </div>
-            <div class="row row-content">
+            <div class="row row-content-9">
                 @foreach ($category_by_id as $key => $product)
-                    <div class="col-md-3 col-sm-6">
-                        <div class="col-border">
-                            <div class="mb-5">
-                                <div class="single-products">
-                                    <div class="productinfo">
-                                        <a class="img-center"
-                                            href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
-                                            <img class="img-products"
-                                                src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
-                                            @if ($product->promotional_price > 0)
-                                                <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
-                                            @endif
-                                        </a>
-                                        <a href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
-                                            <p class="product-name">{{ $product->product_name }}</p>
-                                        </a>
-                                        <div class="price-product">
-                                            @if ($product->promotional_price > 0)
-                                                <div class="price-info">
-                                                    <div class="price-content1">
-                                                        <span
-                                                            class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
-                                                        </span>
-                                                        <span class="currency-unit">₫</span>
-                                                    </div>
-                                                    <div class="price-content2">
-                                                        <span class="promotional-price">
-                                                            {{ number_format($product->promotional_price, 0, ',', '.') }}
-                                                        </span>
-                                                        <span class="currency-unit">₫</span>
-                                                    </div>
-                                                </div>
-                                            @else
-                                                <div class="price-content">
-                                                    <span
-                                                        class="price">{{ number_format($product->product_price, 0, ',', '.') }}
-                                                    </span>
-                                                    <span class="currency-unit">₫</span>
-                                                </div>
-                                            @endif
+                    <div class="col-md-3 product-column-3">
+                        <div class="productinfo">
+                            <a class="img-center" href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
+                                <img class="img-products"
+                                    src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
+                                @if ($product->promotional_price > 0)
+                                    <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                                @endif
+                            </a>
+                            <a href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
+                                <p class="product-name">{{ $product->product_name }}</p>
+                            </a>
+                            <div class="price-product">
+                                @if ($product->promotional_price > 0)
+                                    <div class="price-info">
+                                        <div class="price-content1">
+                                            <span
+                                                class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
+                                            </span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
+                                        <div class="price-content2">
+                                            <span class="promotional-price">
+                                                {{ number_format($product->promotional_price, 0, ',', '.') }}
+                                            </span>
+                                            <span class="currency-unit">₫</span>
                                         </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="price-content">
+                                        <span class="price">{{ number_format($product->product_price, 0, ',', '.') }}
+                                        </span>
+                                        <span class="currency-unit">₫</span>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

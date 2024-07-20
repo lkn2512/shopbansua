@@ -1,9 +1,9 @@
 @extends('layout')
 @section('content')
     @include('pages.content-top.slider')
-    <div class="row title-product text-center">
-        <h2 class="text">DANH MỤC SẢN PHẨM</h2>
-    </div>
+
+    {{-- danh mục sản phẩm --}}
+    <h2 class="title-product text-center mb-3">DANH MỤC SẢN PHẨM</h2>
     <div class="tr-job-posted section-padding">
         <div class="job-tab">
             <div class="text-center">
@@ -24,50 +24,72 @@
             </div>
         </div>
     </div>
+    {{-- danh mục sản phẩm --}}
 
-    <div class="title-product">
-        <h2 class="text">Sản phẩm mới nhất</h2>
-    </div>
-    <div class="row row-content">
+    {{-- sản phẩm mới nhất --}}
+    <h2 class="title-product">Sản phẩm mới nhất</h2>
+    <div class="row">
         @foreach ($all_product_new as $key => $new)
-            <div class="col-md-2 col-sm-4 col-lg-2 ">
-                <div class="col-border">
-                    <div class="mb-5">
-                        <div class="productinfo">
-                            <a class="img-center">
-                                <img class="img-products" src="{{ URL::to('/uploads/product/' . $new->product_image) }}" />
-                                @if ($new->promotional_price > 0)
-                                    <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
-                                @endif
-                            </a>
-                            <a href="{{ URL::to('chi-tiet-san-pham/' . $new->product_id) }}">
-                                <p class="product-name">{{ $new->product_name }}</p>
-                            </a>
-                            <div class="price-product">
-                                @if ($new->promotional_price > 0)
-                                    <div class="price-info">
-                                        <div class="price-content1">
-                                            <span class="price-small">{{ number_format($new->product_price, 0, ',', '.') }}
-                                            </span>
-                                            <span class="currency-unit">₫</span>
-                                        </div>
-                                        <div class="price-content2">
-                                            <span class="promotional-price">
-                                                {{ number_format($new->promotional_price, 0, ',', '.') }}
-                                            </span>
-                                            <span class="currency-unit">₫</span>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="price-content">
-                                        <span class="price">{{ number_format($new->product_price, 0, ',', '.') }}
-                                        </span>
-                                        <span class="currency-unit">₫</span>
-                                    </div>
-                                @endif
+            <div class="col-lg-2 col-md-4 col-sm-6 product-content">
+                <div class="productinfo">
+                    <a class="img-center">
+                        <img class="img-products" src="{{ URL::to('/uploads/product/' . $new->product_image) }}" />
+                        @if ($new->promotional_price > 0)
+                            <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                        @endif
+                    </a>
+                    <a href="{{ URL::to('chi-tiet-san-pham/' . $new->product_id) }}">
+                        <p class="product-name">{{ $new->product_name }}</p>
+                    </a>
+                    <div class="price-product">
+                        @if ($new->promotional_price > 0)
+                            <div class="price-info">
+                                <div class="price-content1">
+                                    <span class="price-small">{{ number_format($new->product_price, 0, ',', '.') }}</span>
+                                    <span class="currency-unit">₫</span>
+                                </div>
+                                <div class="price-content2">
+                                    <span
+                                        class="promotional-price">{{ number_format($new->promotional_price, 0, ',', '.') }}</span>
+                                    <span class="currency-unit">₫</span>
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="price-content">
+                                <span class="price">{{ number_format($new->product_price, 0, ',', '.') }}</span>
+                                <span class="currency-unit">₫</span>
+                            </div>
+                        @endif
                     </div>
+                    <form>
+                        @csrf
+                        <input type="hidden" class="cart_product_id_{{ $new->product_id }}"
+                            value="{{ $new->product_id }}">
+                        <input type="hidden" class="cart_product_name_{{ $new->product_id }}"
+                            value="{{ $new->product_name }}">
+                        <input type="hidden" class="cart_product_image_{{ $new->product_id }}"
+                            value="{{ $new->product_image }}">
+                        <input type="hidden" class="cart_product_quantity_{{ $new->product_id }}"
+                            value="{{ $new->product_quantity }}">
+                        @if ($new->promotional_price > 0)
+                            <input type="hidden" class="cart_product_price_{{ $new->product_id }}"
+                                value="{{ $new->promotional_price }}">
+                        @else
+                            <input type="hidden" class="cart_product_price_{{ $new->product_id }}"
+                                value="{{ $new->product_price }}">
+                        @endif
+                        <input type="hidden" class="cart_category_product_{{ $new->product_id }}"
+                            value="{{ $new->category->category_name }}">
+                        <input type="hidden" class="cart_brand_product_{{ $new->product_id }}"
+                            value="{{ $new->brand->brand_name }}">
+                        <input type="hidden" class="cart_product_qty_{{ $new->product_id }}" value="1">
+
+                        <div class="order-button">
+                            <a class="add-to-cart" data-id="{{ $new->product_id }}"><i
+                                    class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         @endforeach
@@ -75,52 +97,75 @@
             <a href="{{ url('/all-products-new') }}">Xem tất cả</a>
         </div>
     </div>
+    {{-- sản phẩm mới nhất --}}
 
-    <div class="title-product">
-        <h2 class="text">Sản phẩm bán chạy được nhiều người tin dùng</h2>
-    </div>
-    <div class="row row-content">
+    {{-- Sản phẩm bán chạy được nhiều người tin dùng --}}
+    <h2 class="title-product">Sản phẩm bán chạy được nhiều người tin dùng</h2>
+    <div class="row">
         @foreach ($selling_product as $key => $sell)
-            <div class="col-md-2 col-sm-4 col-lg-2">
-                <div class="col-border">
-                    <div class="mb-5">
-                        <div class="productinfo">
-                            <a class="img-center">
-                                <img class="img-products"
-                                    src="{{ URL::to('/uploads/product/' . $sell->product_image) }}" />
-                                @if ($sell->promotional_price > 0)
-                                    <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
-                                @endif
-                            </a>
-                            <a href="{{ URL::to('chi-tiet-san-pham/' . $sell->product_id) }}">
-                                <p class="product-name">{{ $sell->product_name }}</p>
-                            </a>
-                            <div class="price-product">
-                                @if ($sell->promotional_price > 0)
-                                    <div class="price-info">
-                                        <div class="price-content1">
-                                            <span
-                                                class="price-small">{{ number_format($sell->product_price, 0, ',', '.') }}
-                                            </span>
-                                            <span class="currency-unit">₫</span>
-                                        </div>
-                                        <div class="price-content2">
-                                            <span class="promotional-price">
-                                                {{ number_format($sell->promotional_price, 0, ',', '.') }}
-                                            </span>
-                                            <span class="currency-unit">₫</span>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="price-content">
-                                        <span class="price">{{ number_format($sell->product_price, 0, ',', '.') }}
-                                        </span>
-                                        <span class="currency-unit">₫</span>
-                                    </div>
-                                @endif
+            <div class="col-lg-2 col-md-4 col-sm-6 product-content">
+                <div class="productinfo">
+                    <a class="img-center">
+                        <img class="img-products" src="{{ URL::to('/uploads/product/' . $sell->product_image) }}" />
+                        @if ($sell->promotional_price > 0)
+                            <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                        @endif
+                    </a>
+                    <a href="{{ URL::to('chi-tiet-san-pham/' . $sell->product_id) }}">
+                        <p class="product-name">{{ $sell->product_name }}</p>
+                    </a>
+                    <div class="price-product">
+                        @if ($sell->promotional_price > 0)
+                            <div class="price-info">
+                                <div class="price-content1">
+                                    <span class="price-small">{{ number_format($sell->product_price, 0, ',', '.') }}
+                                    </span>
+                                    <span class="currency-unit">₫</span>
+                                </div>
+                                <div class="price-content2">
+                                    <span class="promotional-price">
+                                        {{ number_format($sell->promotional_price, 0, ',', '.') }}
+                                    </span>
+                                    <span class="currency-unit">₫</span>
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="price-content">
+                                <span class="price">{{ number_format($sell->product_price, 0, ',', '.') }}
+                                </span>
+                                <span class="currency-unit">₫</span>
+                            </div>
+                        @endif
                     </div>
+                    <form>
+                        @csrf
+                        <input type="hidden" class="cart_product_id_{{ $sell->product_id }}"
+                            value="{{ $sell->product_id }}">
+                        <input type="hidden" class="cart_product_name_{{ $sell->product_id }}"
+                            value="{{ $sell->product_name }}">
+                        <input type="hidden" class="cart_product_image_{{ $sell->product_id }}"
+                            value="{{ $sell->product_image }}">
+                        <input type="hidden" class="cart_product_quantity_{{ $sell->product_id }}"
+                            value="{{ $sell->product_quantity }}">
+                        @if ($sell->promotional_price > 0)
+                            <input type="hidden" class="cart_product_price_{{ $sell->product_id }}"
+                                value="{{ $sell->promotional_price }}">
+                        @else
+                            <input type="hidden" class="cart_product_price_{{ $sell->product_id }}"
+                                value="{{ $sell->product_price }}">
+                        @endif
+                        <input type="hidden" class="cart_category_product_{{ $sell->product_id }}"
+                            value="{{ $sell->category->category_name }}">
+                        <input type="hidden" class="cart_brand_product_{{ $sell->product_id }}"
+                            value="{{ $sell->brand->brand_name }}">
+                        <input type="hidden" class="cart_product_qty_{{ $sell->product_id }}" value="1">
+
+                        <div class="order-button">
+                            <a class="add-to-cart" data-id="{{ $sell->product_id }}"><i
+                                    class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         @endforeach
@@ -128,13 +173,16 @@
             <a href="{{ url('/all-product-selling') }}">Xem tất cả</a>
         </div>
     </div>
+    {{-- Sản phẩm bán chạy được nhiều người tin dùng --}}
+
+    {{-- sự kiện sản phẩm --}}
     @php
         use Carbon\Carbon;
         $currentDate = Carbon::now()->toDateString();
     @endphp
     @foreach ($holidayEvent as $value)
         @if ($currentDate >= $value->event_date && $currentDate <= $value->event_end_date)
-            <div class="row row-content holiday-carosel"
+            <div class="row holiday-carosel"
                 style="background-image: url('{{ asset('frontend/images/home/bgBlue.jpg') }}');">
                 <div class="col-md-4 carosel-left">
                     <span class="holiday-name">{{ $value->event_name }}</span>
@@ -148,40 +196,71 @@
                     <div class="featured-carousel owl-carousel">
                         @foreach ($productsByEvent[$value->holiday_event_id] as $product)
                             <div class="blog-entry">
-                                <a class="img-center">
-                                    <img src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
-                                    @if ($product->promotional_price > 0)
-                                        <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
-                                    @endif
-                                </a>
-                                <div class="text">
-                                    <h3 class="heading"><a
-                                            href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">{{ $product->product_name }}</a>
-                                    </h3>
-                                </div>
-                                <div class="price-product">
-                                    @if ($product->promotional_price > 0)
-                                        <div class="price-info">
-                                            <div class="price-content1">
+                                <div class="productinfo">
+                                    <a class="img-center">
+                                        <img src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
+                                        @if ($product->promotional_price > 0)
+                                            <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                                        @endif
+                                    </a>
+                                    <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
+                                        <p class="product-name">{{ $product->product_name }}</p>
+                                    </a>
+                                    <div class="price-product">
+                                        @if ($product->promotional_price > 0)
+                                            <div class="price-info">
+                                                <div class="price-content1">
+                                                    <span
+                                                        class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
+                                                    </span>
+                                                    <span class="currency-unit">₫</span>
+                                                </div>
+                                                <div class="price-content2">
+                                                    <span class="promotional-price">
+                                                        {{ number_format($product->promotional_price, 0, ',', '.') }}
+                                                    </span>
+                                                    <span class="currency-unit">₫</span>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="price-content">
                                                 <span
-                                                    class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
+                                                    class="price">{{ number_format($product->product_price, 0, ',', '.') }}
                                                 </span>
                                                 <span class="currency-unit">₫</span>
                                             </div>
-                                            <div class="price-content2">
-                                                <span class="promotional-price">
-                                                    {{ number_format($product->promotional_price, 0, ',', '.') }}
-                                                </span>
-                                                <span class="currency-unit">₫</span>
-                                            </div>
+                                        @endif
+                                    </div>
+                                    <form>
+                                        @csrf
+                                        <input type="hidden" class="cart_product_id_{{ $product->product_id }}"
+                                            value="{{ $product->product_id }}">
+                                        <input type="hidden" class="cart_product_name_{{ $product->product_id }}"
+                                            value="{{ $product->product_name }}">
+                                        <input type="hidden" class="cart_product_image_{{ $product->product_id }}"
+                                            value="{{ $product->product_image }}">
+                                        <input type="hidden" class="cart_product_quantity_{{ $product->product_id }}"
+                                            value="{{ $product->product_quantity }}">
+                                        @if ($product->promotional_price > 0)
+                                            <input type="hidden" class="cart_product_price_{{ $product->product_id }}"
+                                                value="{{ $product->promotional_price }}">
+                                        @else
+                                            <input type="hidden" class="cart_product_price_{{ $product->product_id }}"
+                                                value="{{ $product->product_price }}">
+                                        @endif
+                                        <input type="hidden" class="cart_category_product_{{ $product->product_id }}"
+                                            value="{{ $product->category->category_name }}">
+                                        <input type="hidden" class="cart_brand_product_{{ $product->product_id }}"
+                                            value="{{ $product->brand->brand_name }}">
+                                        <input type="hidden" class="cart_product_qty_{{ $product->product_id }}"
+                                            value="1">
+
+                                        <div class="order-button">
+                                            <a class="add-to-cart" data-id="{{ $product->product_id }}"><i
+                                                    class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                                            </a>
                                         </div>
-                                    @else
-                                        <div class="price-content">
-                                            <span class="price">{{ number_format($product->product_price, 0, ',', '.') }}
-                                            </span>
-                                            <span class="currency-unit">₫</span>
-                                        </div>
-                                    @endif
+                                    </form>
                                 </div>
                             </div>
                         @endforeach
@@ -190,51 +269,75 @@
             </div>
         @endif
     @endforeach
-    <div class="title-product">
-        <h2 class="text">Sản phẩm nổi bật</h2>
-    </div>
-    <div class="row row-content">
+    {{-- sự kiện sản phẩm --}}
+
+    {{-- Sản phẩm nổi bật --}}
+    <h2 class="title-product">Sản phẩm nổi bật</h2>
+    <div class="row">
         @foreach ($featuredProducts as $key => $avgRat)
-            <div class="col-md-2 col-sm-4 col-lg-2">
-                <div class="col-border">
-                    <div class="mb-5">
-                        <div class="productinfo">
-                            <a class="img-center">
-                                <img class="img-products"
-                                    src="{{ URL::to('/uploads/product/' . $avgRat->product_image) }}" />
-                                @if ($avgRat->promotional_price > 0)
-                                    <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
-                                @endif
-                            </a>
-                            <a href="{{ URL::to('chi-tiet-san-pham/' . $avgRat->product_id) }}">
-                                <p class="product-name">{{ $avgRat->product_name }}</p>
-                            </a>
-                            <div class="price-product">
-                                @if ($avgRat->promotional_price > 0)
-                                    <div class="price-info">
-                                        <div class="price-content1">
-                                            <span
-                                                class="price-small">{{ number_format($avgRat->product_price, 0, ',', '.') }}
-                                            </span>
-                                            <span class="currency-unit">₫</span>
-                                        </div>
-                                        <div class="price-content2">
-                                            <span class="promotional-price">
-                                                {{ number_format($avgRat->promotional_price, 0, ',', '.') }}
-                                            </span>
-                                            <span class="currency-unit">₫</span>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="price-content">
-                                        <span class="price">{{ number_format($avgRat->product_price, 0, ',', '.') }}
-                                        </span>
-                                        <span class="currency-unit">₫</span>
-                                    </div>
-                                @endif
+            <div class="col-lg-2 col-md-4 col-sm-6 product-content">
+                <div class="productinfo">
+                    <a class="img-center">
+                        <img class="img-products" src="{{ URL::to('/uploads/product/' . $avgRat->product_image) }}" />
+                        @if ($avgRat->promotional_price > 0)
+                            <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                        @endif
+                    </a>
+                    <a href="{{ URL::to('chi-tiet-san-pham/' . $avgRat->product_id) }}">
+                        <p class="product-name">{{ $avgRat->product_name }}</p>
+                    </a>
+                    <div class="price-product">
+                        @if ($avgRat->promotional_price > 0)
+                            <div class="price-info">
+                                <div class="price-content1">
+                                    <span class="price-small">{{ number_format($avgRat->product_price, 0, ',', '.') }}
+                                    </span>
+                                    <span class="currency-unit">₫</span>
+                                </div>
+                                <div class="price-content2">
+                                    <span class="promotional-price">
+                                        {{ number_format($avgRat->promotional_price, 0, ',', '.') }}
+                                    </span>
+                                    <span class="currency-unit">₫</span>
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="price-content">
+                                <span class="price">{{ number_format($avgRat->product_price, 0, ',', '.') }}
+                                </span>
+                                <span class="currency-unit">₫</span>
+                            </div>
+                        @endif
                     </div>
+                    <form>
+                        @csrf
+                        <input type="hidden" class="cart_product_id_{{ $avgRat->product_id }}"
+                            value="{{ $avgRat->product_id }}">
+                        <input type="hidden" class="cart_product_name_{{ $avgRat->product_id }}"
+                            value="{{ $avgRat->product_name }}">
+                        <input type="hidden" class="cart_product_image_{{ $avgRat->product_id }}"
+                            value="{{ $avgRat->product_image }}">
+                        <input type="hidden" class="cart_product_quantity_{{ $avgRat->product_id }}"
+                            value="{{ $avgRat->product_quantity }}">
+                        @if ($avgRat->promotional_price > 0)
+                            <input type="hidden" class="cart_product_price_{{ $avgRat->product_id }}"
+                                value="{{ $avgRat->promotional_price }}">
+                        @else
+                            <input type="hidden" class="cart_product_price_{{ $avgRat->product_id }}"
+                                value="{{ $avgRat->product_price }}">
+                        @endif
+                        <input type="hidden" class="cart_category_product_{{ $avgRat->product_id }}"
+                            value="{{ $avgRat->category->category_name }}">
+                        <input type="hidden" class="cart_brand_product_{{ $avgRat->product_id }}"
+                            value="{{ $avgRat->brand->brand_name }}">
+                        <input type="hidden" class="cart_product_qty_{{ $avgRat->product_id }}" value="1">
+
+                        <div class="order-button">
+                            <a class="add-to-cart" data-id="{{ $avgRat->product_id }}"><i
+                                    class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         @endforeach
@@ -242,52 +345,75 @@
             <a href="{{ url('/san-pham-noi-bat') }}">Xem tất cả</a>
         </div>
     </div>
+    {{-- Sản phẩm nổi bật --}}
 
-    <div class="title-product">
-        <h2 class="text">Được quan tâm nhiều nhất</h2>
-    </div>
-    <div class="row row-content">
+    {{-- được quan tâm nhiều --}}
+    <h2 class="title-product">Được quan tâm nhiều nhất</h2>
+    <div class="row">
         @foreach ($view_product as $key => $view)
-            <div class="col-md-2 col-sm-4 col-lg-2">
-                <div class="col-border">
-                    <div class="mb-5">
-                        <div class="productinfo">
-                            <a class="img-center">
-                                <img class="img-products"
-                                    src="{{ URL::to('/uploads/product/' . $view->product_image) }}" />
-                                @if ($view->promotional_price > 0)
-                                    <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
-                                @endif
-                            </a>
-                            <a href="{{ URL::to('chi-tiet-san-pham/' . $view->product_id) }}">
-                                <p class="product-name">{{ $view->product_name }}</p>
-                            </a>
-                            <div class="price-product">
-                                @if ($view->promotional_price > 0)
-                                    <div class="price-info">
-                                        <div class="price-content1">
-                                            <span
-                                                class="price-small">{{ number_format($view->product_price, 0, ',', '.') }}
-                                            </span>
-                                            <span class="currency-unit">₫</span>
-                                        </div>
-                                        <div class="price-content2">
-                                            <span class="promotional-price">
-                                                {{ number_format($view->promotional_price, 0, ',', '.') }}
-                                            </span>
-                                            <span class="currency-unit">₫</span>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="price-content">
-                                        <span class="price">{{ number_format($view->product_price, 0, ',', '.') }}
-                                        </span>
-                                        <span class="currency-unit">₫</span>
-                                    </div>
-                                @endif
+            <div class="col-lg-2 col-md-4 col-sm-6 product-content">
+                <div class="productinfo">
+                    <a class="img-center">
+                        <img class="img-products" src="{{ URL::to('/uploads/product/' . $view->product_image) }}" />
+                        @if ($view->promotional_price > 0)
+                            <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                        @endif
+                    </a>
+                    <a href="{{ URL::to('chi-tiet-san-pham/' . $view->product_id) }}">
+                        <p class="product-name">{{ $view->product_name }}</p>
+                    </a>
+                    <div class="price-product">
+                        @if ($view->promotional_price > 0)
+                            <div class="price-info">
+                                <div class="price-content1">
+                                    <span class="price-small">{{ number_format($view->product_price, 0, ',', '.') }}
+                                    </span>
+                                    <span class="currency-unit">₫</span>
+                                </div>
+                                <div class="price-content2">
+                                    <span class="promotional-price">
+                                        {{ number_format($view->promotional_price, 0, ',', '.') }}
+                                    </span>
+                                    <span class="currency-unit">₫</span>
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="price-content">
+                                <span class="price">{{ number_format($view->product_price, 0, ',', '.') }}
+                                </span>
+                                <span class="currency-unit">₫</span>
+                            </div>
+                        @endif
                     </div>
+                    <form>
+                        @csrf
+                        <input type="hidden" class="cart_product_id_{{ $view->product_id }}"
+                            value="{{ $view->product_id }}">
+                        <input type="hidden" class="cart_product_name_{{ $view->product_id }}"
+                            value="{{ $view->product_name }}">
+                        <input type="hidden" class="cart_product_image_{{ $view->product_id }}"
+                            value="{{ $view->product_image }}">
+                        <input type="hidden" class="cart_product_quantity_{{ $view->product_id }}"
+                            value="{{ $view->product_quantity }}">
+                        @if ($view->promotional_price > 0)
+                            <input type="hidden" class="cart_product_price_{{ $view->product_id }}"
+                                value="{{ $view->promotional_price }}">
+                        @else
+                            <input type="hidden" class="cart_product_price_{{ $view->product_id }}"
+                                value="{{ $view->product_price }}">
+                        @endif
+                        <input type="hidden" class="cart_category_product_{{ $view->product_id }}"
+                            value="{{ $view->category->category_name }}">
+                        <input type="hidden" class="cart_brand_product_{{ $view->product_id }}"
+                            value="{{ $view->brand->brand_name }}">
+                        <input type="hidden" class="cart_product_qty_{{ $view->product_id }}" value="1">
+
+                        <div class="order-button">
+                            <a class="add-to-cart" data-id="{{ $view->product_id }}"><i
+                                    class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         @endforeach
@@ -295,6 +421,7 @@
             <a href="{{ url('/duoc-quan-tam-nhieu') }}">Xem tất cả</a>
         </div>
     </div>
+    {{-- được quan tâm nhiều --}}
 
     <div class="aboutAs">
         <div class="about-shop">

@@ -47,9 +47,18 @@ class ProductController extends Controller
             ->where('tbl_category_product.category_id', $category_id)
             ->where('product_condition', '1')
             ->where('product_status', '1')
-            ->whereNotIn('tbl_product.product_id', [$product_id])->limit(12)->get();
-
-        // dd($related);
+            ->whereNotIn('tbl_product.product_id', [$product_id])->get();
+        // sản phẩm cùng thương hiệu
+        $same_brand = DB::table('tbl_product')
+            ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
+            ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+            ->where('tbl_brand.brand_id', $brand_id) // Lấy sản phẩm cùng thương hiệu
+            // ->where('tbl_category_product.category_id', '!=', $category_id) // Không thuộc cùng loại
+            ->where('product_condition', '1')
+            ->where('product_status', '1')
+            ->whereNotIn('tbl_product.product_id', [$product_id])
+            ->limit(12)
+            ->get();
         $customer = Customer::where('customer_id', Session::get('customer_id'))->get();
         //update-views
         $product = Product::where('product_id', $product_id)->first();
@@ -68,7 +77,7 @@ class ProductController extends Controller
             $starPercentages[$star] = $totalRatings > 0 ? ($count / $totalRatings) * 100 : 0;
         }
         return view('pages.productDetail.show_detail')
-            ->with(compact('category', 'brand', 'detail_product', 'related', 'gallery', 'product_cate', 'category_id', 'product_name', 'product_id', 'product_id', 'customer', 'favorite', 'promotional_product', 'product', 'averageRating', 'starPercentages'));
+            ->with(compact('category', 'brand', 'detail_product', 'related', 'same_brand', 'gallery', 'product_cate', 'category_id', 'product_name', 'product_id', 'product_id', 'customer', 'favorite', 'promotional_product', 'product', 'averageRating', 'starPercentages'));
     }
 
     public function load_comment(Request $request)

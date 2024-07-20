@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+
     @foreach ($detail_product as $key => $value)
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -9,6 +10,7 @@
                 <li class="breadcrumb-items active" aria-current="page">{{ $product_name }}</li>
             </ol>
         </nav>
+        {{-- Chi tiết sản phẩm --}}
         <div class="product-details row">
             <div class="col-md-4">
                 <div class="view-product text-center">
@@ -114,6 +116,7 @@
                     @endif
                 </div>
             </div>
+            {{-- Trung bình đánh giá sao sản phẩm --}}
             <div class="col-md-3">
                 <div class="rating-summary">
                     <div class="average-rating">
@@ -155,9 +158,117 @@
                     </div>
                 </div>
             </div>
+            {{-- Trung bình đánh giá sao sản phẩm --}}
         </div>
+        {{-- Chi tiết sản phẩm --}}
+
+        {{-- Sản phẩm cùng loại --}}
+        @if ($related->count() > 0)
+            <div class="product-carosel product-related">
+                <h2 class="title-product">Sản phẩm cùng loại</h2>
+                <div class="arrow arrow-left"><i class="fa-solid fa-square-caret-left"></i></div>
+                <div class="arrow arrow-right"><i class="fa-solid fa-square-caret-right"></i></div>
+                <div class="row row-content-carosel">
+                    @foreach ($related as $key => $relate)
+                        <div class="col-md-2 product-column-carosel">
+                            <div class="productinfo">
+                                <a class="img-center">
+                                    <img src="{{ URL::to('uploads/product/' . $relate->product_image) }}"
+                                        class="img-products" />
+                                    @if ($relate->promotional_price > 0)
+                                        <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                                    @endif
+                                </a>
+                                <a href="{{ URL::to('chi-tiet-san-pham/' . $relate->product_id) }}">
+                                    <p class="product-name">{{ $relate->product_name }}</p>
+                                </a>
+                                <div class="price-product">
+                                    @if ($relate->promotional_price > 0)
+                                        <div class="price-info">
+                                            <div class="price-content1">
+                                                <span
+                                                    class="price-small">{{ number_format($relate->product_price, 0, ',', '.') }}</span>
+                                                <span class="currency-unit">₫</span>
+                                            </div>
+                                            <div class="price-content2">
+                                                <span
+                                                    class="promotional-price">{{ number_format($relate->promotional_price, 0, ',', '.') }}</span>
+                                                <span class="currency-unit">₫</span>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="price-content">
+                                            <span
+                                                class="price">{{ number_format($relate->product_price, 0, ',', '.') }}</span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
+                                    @endif
+                                </div>
+                                <form>
+                                    @csrf
+                                    <input type="hidden" class="cart_product_id_{{ $relate->product_id }}"
+                                        value="{{ $relate->product_id }}">
+                                    <input type="hidden" class="cart_product_name_{{ $relate->product_id }}"
+                                        value="{{ $relate->product_name }}">
+                                    <input type="hidden" class="cart_product_image_{{ $relate->product_id }}"
+                                        value="{{ $relate->product_image }}">
+                                    <input type="hidden" class="cart_product_quantity_{{ $relate->product_id }}"
+                                        value="{{ $relate->product_quantity }}">
+                                    @if ($relate->promotional_price > 0)
+                                        <input type="hidden" class="cart_product_price_{{ $relate->product_id }}"
+                                            value="{{ $relate->promotional_price }}">
+                                    @else
+                                        <input type="hidden" class="cart_product_price_{{ $relate->product_id }}"
+                                            value="{{ $relate->product_price }}">
+                                    @endif
+                                    <input type="hidden" class="cart_category_product_{{ $relate->product_id }}"
+                                        value="{{ $relate->category_name }}">
+                                    <input type="hidden" class="cart_brand_product_{{ $relate->product_id }}"
+                                        value="{{ $relate->brand_name }}">
+                                    <input type="hidden" class="cart_product_qty_{{ $relate->product_id }}"
+                                        value="1">
+
+                                    <div class="order-button">
+                                        <a class="add-to-cart" data-id="{{ $relate->product_id }}"><i
+                                                class="fa-solid fa-cart-arrow-down"></i>Đặt hàng</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const rowContent = document.querySelector('.row-content-carosel');
+                const leftArrow = document.querySelector('.arrow-left');
+                const rightArrow = document.querySelector('.arrow-right');
+
+                leftArrow.addEventListener('click', function() {
+                    rowContent.scrollBy({
+                        top: 0,
+                        left: -rowContent.clientWidth /
+                            2, // Cuộn nửa chiều rộng của phần tử chứa sản phẩm
+                        behavior: 'smooth'
+                    });
+                });
+
+                rightArrow.addEventListener('click', function() {
+                    rowContent.scrollBy({
+                        top: 0,
+                        left: rowContent.clientWidth /
+                            2, // Cuộn nửa chiều rộng của phần tử chứa sản phẩm
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        </script>
+        {{-- Sản phẩm cùng loại --}}
+
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-10 position-sticky top-0">
+                {{-- Mô tả sản phẩm --}}
                 <div class="product-details-desc">
                     <h5 class="titleDetails">Mô tả sản phẩm</h5>
                     <span class="content-desc">
@@ -173,6 +284,9 @@
                         @endif
                     </span>
                 </div>
+                {{-- Mô tả sản phẩm --}}
+
+                {{-- Đánh giá sản phẩm --}}
                 <div class="comment">
                     <h4 class="title">Đánh giá sản phẩm</h4>
                     <div class="comment-write">
@@ -221,7 +335,9 @@
                             thêm bình luận</button>
                     </form>
                 </div>
+                {{-- Đánh giá sản phẩm --}}
             </div>
+            {{-- Sản phẩm khuyến mãi --}}
             <div class="col-md-2">
                 <table class="table-product table-bordered position-sticky top-0">
                     <thead>
@@ -268,63 +384,57 @@
                     </tbody>
                 </table>
             </div>
+            {{-- Sản phẩm khuyến mãi --}}
         </div>
     @endforeach
 
-    <div class="product-related">
-        <div class="row title-product">
-            <div class="col-md-9">
-                <h2 class="text">Sản phẩm cùng loại</h2>
-            </div>
-        </div>
-        <div class="row row-content">
-            @foreach ($related as $key => $relate)
-                <div class="col-md-2">
-                    <div class="col-border">
-                        <div class="mb-5">
-                            <div class="single-products">
-                                <div class="productinfo">
-                                    <a class="img-center">
-                                        <img src="{{ URL::to('uploads/product/' . $relate->product_image) }}"
-                                            class="img-products" />
-                                        @if ($relate->promotional_price > 0)
-                                            <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
-                                        @endif
-                                    </a>
-                                    <a href="{{ URL::to('chi-tiet-san-pham/' . $relate->product_id) }}">
-                                        <p class="product-name">{{ $relate->product_name }}</p>
-                                    </a>
-                                    <div class="price-product">
-                                        @if ($relate->promotional_price > 0)
-                                            <div class="price-info">
-                                                <div class="price-content1">
-                                                    <span
-                                                        class="price-small">{{ number_format($relate->product_price, 0, ',', '.') }}
-                                                    </span>
-                                                    <span class="currency-unit">₫</span>
-                                                </div>
-                                                <div class="price-content2">
-                                                    <span class="promotional-price">
-                                                        {{ number_format($relate->promotional_price, 0, ',', '.') }}
-                                                    </span>
-                                                    <span class="currency-unit">₫</span>
-                                                </div>
-                                            </div>
-                                        @else
-                                            <div class="price-content">
-                                                <span
-                                                    class="price">{{ number_format($relate->product_price, 0, ',', '.') }}
-                                                </span>
-                                                <span class="currency-unit">₫</span>
-                                            </div>
-                                        @endif
+    {{-- Sản phẩm cùng thương hiệu --}}
+    @if ($same_brand->count() > 0)
+        <div class="product-same-brand ">
+            <h2 class="title-product">Sản phẩm cùng thương hiệu</h2>
+            <div class="row row-content">
+                @foreach ($same_brand as $key => $relate)
+                    <div class="col-md-2 product-column">
+                        <div class="productinfo">
+                            <a class="img-center">
+                                <img src="{{ URL::to('uploads/product/' . $relate->product_image) }}"
+                                    class="img-products" />
+                                @if ($relate->promotional_price > 0)
+                                    <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
+                                @endif
+                            </a>
+                            <a href="{{ URL::to('chi-tiet-san-pham/' . $relate->product_id) }}">
+                                <p class="product-name">{{ $relate->product_name }}</p>
+                            </a>
+                            <div class="price-product">
+                                @if ($relate->promotional_price > 0)
+                                    <div class="price-info">
+                                        <div class="price-content1">
+                                            <span
+                                                class="price-small">{{ number_format($relate->product_price, 0, ',', '.') }}</span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
+                                        <div class="price-content2">
+                                            <span
+                                                class="promotional-price">{{ number_format($relate->promotional_price, 0, ',', '.') }}</span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="price-content">
+                                        <span
+                                            class="price">{{ number_format($relate->product_price, 0, ',', '.') }}</span>
+                                        <span class="currency-unit">₫</span>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
+    @endif
+    {{-- Sản phẩm cùng thương hiệu --}}
+
+
 @endsection
