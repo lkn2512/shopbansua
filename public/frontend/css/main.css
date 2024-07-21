@@ -11,9 +11,6 @@ body {
   margin: 0 auto;
 }
 
-.menu {
-  background: #103667;
-}
 
 .navbar-header {
   position: -webkit-sticky;
@@ -218,10 +215,10 @@ a#scrollUp i {
 }
 
 .header-top {
-  margin-left: 0;
-  margin-right: 0;
-  padding-bottom: 10px;
-  padding-top: 0px;
+  padding-block: 10px;
+  padding-inline: 0px;
+  margin: 0px;
+  background: #103667;
 }
 
 .sort-product {
@@ -499,6 +496,11 @@ a#scrollUp i {
   color: orange;
 }
 
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
 .row-header {
   display: flex;
   align-items: center;
@@ -511,16 +513,11 @@ a#scrollUp i {
 .img-logo img {
   width: auto;
   height: 65px;
-}
-
-.search-center {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  text-align: center;
 }
 
 .search_box .input-group {
-  width: 800px;
+  width: 100%;
 }
 
 .search_box input {
@@ -529,30 +526,24 @@ a#scrollUp i {
   color: black;
   font-weight: 300;
   height: 50px;
-  outline: medium none;
-  background-repeat: no-repeat;
-  background-position: 130px;
-  display: inline;
+  display: block;
 }
 
 #search_ajax {
   margin-left: -1px;
 }
 
-.cart-header {
-  padding-left: 10px;
-  padding-right: 10px;
-}
 
 .cart-icon {
   height: 40px;
   width: 45px;
+  margin-top: 5px;
 }
 
 .cart-view {
   margin-top: 10px;
   position: absolute;
-  width: 480px;
+  width: 450px;
   background-color: white;
   border: 1px solid #ddd;
   box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
@@ -667,18 +658,20 @@ a#scrollUp i {
   }
 }
 
-
 .user-customer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+.btn-sign-in {
+  display: block;
 }
 
 .btn-sign-up {
   border: 1px solid white;
   padding: 3px 6px;
   border-radius: 5px;
-  margin-left: 10px;
   text-align: center;
 }
 
@@ -5773,12 +5766,6 @@ select.form-controls {
   color: black !important;
 }
 
-.slogan {
-  font-size: 15px;
-  background: linear-gradient(to right, #FF7F50, #FFD700, #00FF00, #00BFFF, #8A2BE2);
-  -webkit-background-clip: text;
-  color: transparent;
-}
 
 /*************************************
 ************** Tr Job Post ***********

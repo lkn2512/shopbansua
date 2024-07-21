@@ -1,20 +1,20 @@
-<div class="menu">
-    @php
-        $customer_id = Session::get('customer_id');
-        $shipping_id = Session::get('shipping_id');
-    @endphp
-    <div class="header-top">
-        <div class="container">
-            <div class="row-header">
-                <div class="col-logo">
-                    @foreach ($contact_footer as $cont_header)
-                        <a class="img-logo" href="{{ URL::to('/') }}">
-                            <img src="{{ asset('/uploads/contact/' . $cont_header->info_image) }}" />
-                        </a>
-                    @endforeach
-                </div>
-                <div class="search-center">
-                    <div class="search_box">
+@php
+    $customer_id = Session::get('customer_id');
+    $shipping_id = Session::get('shipping_id');
+@endphp
+<div class="header-top">
+    <div class="container">
+        <div class="row header-container">
+            <div class="col-lg-2 col-md-3 col-sm-5">
+                @foreach ($contact_footer as $cont_header)
+                    <a class="img-logo" href="{{ URL::to('/') }}">
+                        <img src="{{ asset('/uploads/contact/' . $cont_header->info_image) }}" />
+                    </a>
+                @endforeach
+            </div>
+            <div class="col-lg-8 col-md-5 col-sm-6 px-2">
+                <div class="row">
+                    <div class="search_box col-lg-11 col-md-10 col-sm-10">
                         <form action="{{ URL::to('/search-items') }}" autocomplete="off" method="POST">
                             {{ csrf_field() }}
                             <div class="input-group">
@@ -27,7 +27,7 @@
                             <div id="search_ajax"></div>
                         </form>
                     </div>
-                    <div class="cart-header">
+                    <div class="cart-header col-lg-1 col-md-1 col-sm-1">
                         <a href="{{ URL::to('/your-cart') }}">
                             <span class="position-relative">
                                 <img src="{{ URL::to('/frontend/images/cart/cart.png') }}" class="cart-icon" />
@@ -38,81 +38,80 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-customer">
-                    <div class="user-customer">
-                        @if ($customer_id)
-                            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                                aria-controls="offcanvasRight">
-                                @foreach ($customer as $cus)
-                                    @if ($cus->customer_image)
-                                        <img class="img-user"
-                                            src="{{ asset('uploads/customer/' . $cus->customer_image) }}">
-                                    @else
-                                        <img class="img-user"
-                                            src="{{ asset('frontend/images/home/avatar-default.jpg') }}">
-                                    @endif
-                                    {{ $cus->customer_name }}
-                                @endforeach
-                            </a>
-                        @else
-                            <a href="{{ URL::to('/login') }}" class="btn-sign-in">Đăng nhập</a>
-                            <a href="{{ URL::to('/register') }}" class="btn-sign-up">Đăng ký</a>
-                        @endif
-                    </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-12 p-0">
+                <div class="user-customer">
+                    @if ($customer_id)
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                            aria-controls="offcanvasRight">
+                            @foreach ($customer as $cus)
+                                @if ($cus->customer_image)
+                                    <img class="img-user" src="{{ asset('uploads/customer/' . $cus->customer_image) }}">
+                                @else
+                                    <img class="img-user" src="{{ asset('frontend/images/home/avatar-default.jpg') }}">
+                                @endif
+                                {{ $cus->customer_name }}
+                            @endforeach
+                        </a>
+                    @else
+                        <a href="{{ URL::to('/login') }}" class="btn-sign-in">Đăng nhập</a>
+                        <a href="{{ URL::to('/register') }}" class="btn-sign-up">Đăng ký</a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-    @if ($customer_id)
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
-            style="width: 320px;">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">
-                    @foreach ($customer as $cus2)
-                        @if ($cus->customer_image)
-                            <img class="img-user" src="{{ asset('uploads/customer/' . $cus2->customer_image) }}">
-                        @else
-                            <img class="img-user" src="{{ asset('frontend/images/home/avatar-default.jpg') }}">
-                        @endif
-                        {{ $cus2->customer_name }}
-                    @endforeach
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <a href="{{ URL::to('/thong-tin-ca-nhan') }}">
-                    <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/user.png') }}">Thông tin
-                    cá nhân
-                </a>
-                <hr class="hr">
-                <a href="{{ URL::to('/your-cart') }}">
-                    <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/cart.png') }}">Giỏ hàng
-                </a>
-                <a href="{{ URL::to('/checkout') }}"><img class="icon-offcan"
-                        src="{{ URL::to('/frontend/images/home/checkout.png') }}" alt="">Thanh toán
-                </a>
-                <input class="favorite_customer_id" type="hidden" value="{{ Session::get('customer_id') }}">
-                <a href="#" class="show-favorites" data-bs-toggle="modal" data-bs-target="#favorites">
-                    <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/favorite.png') }}">Danh
-                    sách yêu thích
-                </a>
-                <a href="{{ url('history-order') }}">
-                    <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/history.png') }}">Lịch
-                    sử đơn hàng
-                </a>
-                <hr class="hr">
-                <a href="#">
-                    <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/support.png') }}" alt="Hỗ trợ">
-                    Hỗ trợ
-                </a>
-                <a href="{{ URL::to('/setting') }}">
-                    <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/setting.png') }}">Cài đặt
-                </a>
-                <hr class="hr">
-                <a class="sign-out-text" href="{{ URL::to('/logout') }}">Đăng xuất</a>
-            </div>
+</div>
+@if ($customer_id)
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+        style="width: 320px;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">
+                @foreach ($customer as $cus2)
+                    @if ($cus->customer_image)
+                        <img class="img-user" src="{{ asset('uploads/customer/' . $cus2->customer_image) }}">
+                    @else
+                        <img class="img-user" src="{{ asset('frontend/images/home/avatar-default.jpg') }}">
+                    @endif
+                    {{ $cus2->customer_name }}
+                @endforeach
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-    @endif
+        <div class="offcanvas-body">
+            <a href="{{ URL::to('/thong-tin-ca-nhan') }}">
+                <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/user.png') }}">Thông tin
+                cá nhân
+            </a>
+            <hr class="hr">
+            <a href="{{ URL::to('/your-cart') }}">
+                <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/cart.png') }}">Giỏ hàng
+            </a>
+            <a href="{{ URL::to('/checkout') }}"><img class="icon-offcan"
+                    src="{{ URL::to('/frontend/images/home/checkout.png') }}" alt="">Thanh toán
+            </a>
+            <input class="favorite_customer_id" type="hidden" value="{{ Session::get('customer_id') }}">
+            <a href="#" class="show-favorites" data-bs-toggle="modal" data-bs-target="#favorites">
+                <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/favorite.png') }}">Danh
+                sách yêu thích
+            </a>
+            <a href="{{ url('history-order') }}">
+                <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/history.png') }}">Lịch
+                sử đơn hàng
+            </a>
+            <hr class="hr">
+            <a href="#">
+                <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/support.png') }}" alt="Hỗ trợ">
+                Hỗ trợ
+            </a>
+            <a href="{{ URL::to('/setting') }}">
+                <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/setting.png') }}">Cài đặt
+            </a>
+            <hr class="hr">
+            <a class="sign-out-text" href="{{ URL::to('/logout') }}">Đăng xuất</a>
+        </div>
+    </div>
+@endif
 </div>
 
 <header class="header-area shadow-sm position-sticky top-0">

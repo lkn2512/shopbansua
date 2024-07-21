@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home | KN-Milk</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('/frontend/images/home/icon-web.png') }}">
