@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="{{ asset('/frontend/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/contact.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/css/holiday-event.css') }}">
 </head>
 
 <body>
@@ -68,57 +67,6 @@
         {{ Session::forget('message') }}
     @endif
 
-    {{-- load-layout-space-between --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const observer = new MutationObserver(mutations => {
-                mutations.forEach(mutation => {
-                    if (mutation.type === "childList") {
-                        const rowContents = document.querySelectorAll(".row-content");
-                        rowContents.forEach(productContainer => {
-                            const productColumns = productContainer.getElementsByClassName(
-                                "product-column");
-
-                            if (productColumns.length >= 6) {
-                                productContainer.classList.add("space-between");
-                                Array.from(productColumns).forEach(column => {
-                                    column.classList.remove("with-spacing");
-                                });
-                            } else {
-                                productContainer.classList.remove("space-between");
-                                Array.from(productColumns).forEach(column => {
-                                    column.classList.add("with-spacing");
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-            // Bắt đầu quan sát
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-            // Nếu cần kiểm tra ngay lập tức khi trang tải xong
-            const rowContents = document.querySelectorAll(".row-content");
-            rowContents.forEach(productContainer => {
-                const productColumns = productContainer.getElementsByClassName("product-column");
-
-                if (productColumns.length >= 6) {
-                    productContainer.classList.add("space-between");
-                    Array.from(productColumns).forEach(column => {
-                        column.classList.remove("with-spacing");
-                    });
-                } else {
-                    productContainer.classList.remove("space-between");
-                    Array.from(productColumns).forEach(column => {
-                        column.classList.add("with-spacing");
-                    });
-                }
-            });
-        });
-    </script>
-    {{-- load-layout-space-between --}}
 
     {{-- Chọn địa chỉ hành chính --}}
     <script>

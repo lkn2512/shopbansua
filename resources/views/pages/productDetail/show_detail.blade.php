@@ -164,13 +164,14 @@
 
         {{-- Sản phẩm cùng loại --}}
         @if ($related->count() > 0)
-            <div class="product-carosel product-related">
-                <h2 class="title-product">Sản phẩm cùng loại</h2>
+            <div class="product-carosel">
+                <h2 class="title-product hr-title">Sản phẩm cùng loại
+                </h2>
                 <div class="arrow arrow-left"><i class="fa-solid fa-square-caret-left"></i></div>
                 <div class="arrow arrow-right"><i class="fa-solid fa-square-caret-right"></i></div>
                 <div class="row row-content-carosel">
                     @foreach ($related as $key => $relate)
-                        <div class="col-md-2 product-column-carosel">
+                        <div class="col-lg-2 col-md-4 col-sm-6 product-content">
                             <div class="productinfo">
                                 <a class="img-center">
                                     <img src="{{ URL::to('uploads/product/' . $relate->product_image) }}"
@@ -267,7 +268,7 @@
         {{-- Sản phẩm cùng loại --}}
 
         <div class="row">
-            <div class="col-md-10 position-sticky top-0">
+            <div class="col-lg-10 col-md-9 col-sm-10 position-sticky top-0 pe-0">
                 {{-- Mô tả sản phẩm --}}
                 <div class="product-details-desc">
                     <h5 class="titleDetails">Mô tả sản phẩm</h5>
@@ -338,51 +339,36 @@
                 {{-- Đánh giá sản phẩm --}}
             </div>
             {{-- Sản phẩm khuyến mãi --}}
-            <div class="col-md-2">
-                <table class="table-product table-bordered position-sticky top-0">
-                    <thead>
-                        <tr class="tr-promotional">
-                            <th class="title-promotional text-center">khuyến mãi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($promotional_product as $key => $product)
-                            <tr>
-                                <th scope="row">
-                                    <div class="single-products">
-                                        <div class="productinfo">
-                                            <a class="img-center">
-                                                <img class="img-products"
-                                                    src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
-                                            </a>
-                                            <a href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
-                                                <p class="product-name-table underline">{{ $product->product_name }}</p>
-                                            </a>
-                                            <div class="price-info-right-content">
-                                                <div class="price-product">
-                                                    <div class="price-info">
-                                                        <div class="price-content1">
-                                                            <span
-                                                                class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
-                                                            </span>
-                                                            <span class="currency-unit">₫</span>
-                                                        </div>
-                                                        <div class="price-content2">
-                                                            <span class="promotional-price">
-                                                                {{ number_format($product->promotional_price, 0, ',', '.') }}
-                                                            </span>
-                                                            <span class="currency-unit">₫</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+            <div class="col-lg-2 col-md-3 col-sm-2">
+                <div class="position-sticky top-0">
+                    @foreach ($promotional_product as $key => $product)
+                        <div class="productinfo product-content-right">
+                            <a class="img-center">
+                                <img class="img-products"
+                                    src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
+                            </a>
+                            <a href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
+                                <p class="product-name-table underline">{{ $product->product_name }}</p>
+                            </a>
+                            <div class="price-product">
+                                <div class="price-info">
+                                    <div class="price-content1">
+                                        <span
+                                            class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
+                                        </span>
+                                        <span class="currency-unit">₫</span>
                                     </div>
-                                </th>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                    <div class="price-content2">
+                                        <span class="promotional-price">
+                                            {{ number_format($product->promotional_price, 0, ',', '.') }}
+                                        </span>
+                                        <span class="currency-unit">₫</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
             {{-- Sản phẩm khuyến mãi --}}
         </div>
@@ -390,11 +376,11 @@
 
     {{-- Sản phẩm cùng thương hiệu --}}
     @if ($same_brand->count() > 0)
-        <div class="product-same-brand ">
+        <div class="product-same-brand">
             <h2 class="title-product">Sản phẩm cùng thương hiệu</h2>
-            <div class="row row-content">
+            <div class="row product-row-container">
                 @foreach ($same_brand as $key => $relate)
-                    <div class="col-md-2 product-column">
+                    <div class="col-lg-2 col-md-4 col-sm-6 product-content">
                         <div class="productinfo">
                             <a class="img-center">
                                 <img src="{{ URL::to('uploads/product/' . $relate->product_image) }}"

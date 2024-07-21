@@ -77,7 +77,6 @@ class CategoryProductController extends Controller
             ->with(compact('category', 'brand', 'category_by_id', 'category_name', 'min_price', 'max_price'));
     }
 
-
     public function product_tabs(Request $request)
     {
         $data = $request->all();
@@ -85,10 +84,10 @@ class CategoryProductController extends Controller
         $product = Product::where('category_id', $data['cate_id'])->orderBy('product_id', 'desc')->limit(6)->get();
         $product_count = $product->count();
         if ($product_count > 0) {
-            $output .= '<div class="row row-content">';
+            $output .= '<div class="row product-row-container">';
             foreach ($product as $val) {
                 $output .= '
-                    <div class="col-md-2 product-column tab-panel fade active show">
+                    <div class="col-lg-2 col-md-4 col-sm-6 product-content tab-panel fade active show">
                         <div class="productinfo">
                             <a class="img-center">
                                 <img class="img-products" src="' . url('/uploads/product/' . $val->product_image) . '" />';

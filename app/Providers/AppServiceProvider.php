@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('pages.*', function ($view) {
             $viewName = $view->getName();
 
-            if ($viewName !== 'pages.category.show_category' && $viewName !== 'pages.product-all.all_product_new' &&  $viewName !== 'pages.product-all.all-product-selling') {
+            if ($viewName !== 'pages.category.show_category' && $viewName !== 'pages.product-all.all_product_new' &&  $viewName !== 'pages.product-all.all-product-selling' && $viewName !== 'pages.product-all.all-product-featured' && $viewName !== 'pages.product-all.all-product-view') {
                 $min_price = '';
                 $max_price = '';
                 $view->with(compact('min_price', 'max_price'));

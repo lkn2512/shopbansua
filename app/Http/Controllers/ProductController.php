@@ -108,9 +108,9 @@ class ProductController extends Controller
             $output .= '<div class="row comment-show d-flex">';
             $output .= '<div class="col-lg-1"><div class="comment-image">';
             if ($getImage) {
-                $output .= '<img src="/uploads/customer/' . $getImage . '">';
+                $output .= '<img src="' . asset('uploads/customer/' . $getImage) . '">';
             } else {
-                $output .= '<img src="/frontend/images/home/avatar-default.jpg">';
+                $output .= '<img src="' . asset('frontend/images/home/avatar-default.jpg') . '">';
             }
             $output .= '</div></div>';
             $output .= '<div class="col-lg-11 comment-customer">';

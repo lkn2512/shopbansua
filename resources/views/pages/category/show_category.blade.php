@@ -11,9 +11,9 @@
                     <span class="text">{{ $name->category_name }}</span>
                 @endforeach
             </div>
-            <div class="row row-content-9">
+            <div class="row product-row-container">
                 @foreach ($category_by_id as $key => $product)
-                    <div class="col-md-3 product-column-3">
+                    <div class="col-lg-3 col-md-4 col-sm-6 product-content p-2">
                         <div class="productinfo">
                             <a class="img-center" href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
                                 <img class="img-products"

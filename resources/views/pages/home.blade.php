@@ -28,7 +28,7 @@
 
     {{-- sản phẩm mới nhất --}}
     <h2 class="title-product">Sản phẩm mới nhất</h2>
-    <div class="row">
+    <div class="row product-row-container">
         @foreach ($all_product_new as $key => $new)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
                 <div class="productinfo">
@@ -101,7 +101,7 @@
 
     {{-- Sản phẩm bán chạy được nhiều người tin dùng --}}
     <h2 class="title-product">Sản phẩm bán chạy được nhiều người tin dùng</h2>
-    <div class="row">
+    <div class="row product-row-container">
         @foreach ($selling_product as $key => $sell)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
                 <div class="productinfo">
@@ -184,7 +184,7 @@
         @if ($currentDate >= $value->event_date && $currentDate <= $value->event_end_date)
             <div class="row holiday-carosel"
                 style="background-image: url('{{ asset('frontend/images/home/bgBlue.jpg') }}');">
-                <div class="col-md-4 carosel-left">
+                <div class="col-lg-4 col-md-6 col-sm-12 carosel-left">
                     <span class="holiday-name">{{ $value->event_name }}</span>
                     <span class="holiday-end-date">Ngày kết thúc:
                         {{ \Carbon\Carbon::parse($value->event_end_date)->format('d-m-Y') }}
@@ -192,12 +192,12 @@
                     <img src="{{ asset('/uploads/event/' . $value->event_image) }}" alt=""
                         style="width: 100%; height: 100%; object-fit: cover">
                 </div>
-                <div class="col-md-8 carosel-right">
+                <div class="col-lg-8 col-md-6 col-sm-12 carosel-right">
                     <div class="featured-carousel owl-carousel">
                         @foreach ($productsByEvent[$value->holiday_event_id] as $product)
                             <div class="blog-entry">
                                 <div class="productinfo">
-                                    <a class="img-center">
+                                    <a class="img-center blog-20">
                                         <img src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
                                         @if ($product->promotional_price > 0)
                                             <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
@@ -273,7 +273,7 @@
 
     {{-- Sản phẩm nổi bật --}}
     <h2 class="title-product">Sản phẩm nổi bật</h2>
-    <div class="row">
+    <div class="row product-row-container">
         @foreach ($featuredProducts as $key => $avgRat)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
                 <div class="productinfo">
@@ -349,7 +349,7 @@
 
     {{-- được quan tâm nhiều --}}
     <h2 class="title-product">Được quan tâm nhiều nhất</h2>
-    <div class="row">
+    <div class="row product-row-container">
         @foreach ($view_product as $key => $view)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
                 <div class="productinfo">
@@ -429,7 +429,7 @@
             <img class="img" src="{{ URL::to('/frontend/images/home/gc.png') }}" alt="Image">
         </div>
         <div class="site-section bg-left-half mb-5">
-            <div class=" owl-2-style">
+            <div class="owl-2-style">
                 <div class="owl-carousel owl-2">
                     <div class="media-29101">
                         <img src="{{ URL::to('/frontend/images/home/taste.png') }}" alt="Image" class="img-fluid">
