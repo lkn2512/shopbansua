@@ -55,8 +55,6 @@
     <script src="{{ asset('/frontend/js/toastr.min.js') }}"></script>
     <script src="{{ asset('/frontend/js/holiday-event.js') }}"></script>
 
-
-
     {!! Toastr::message() !!}
 
     @if (Session::has('message'))
@@ -65,7 +63,6 @@
         </script>
         {{ Session::forget('message') }}
     @endif
-
 
     {{-- Chọn địa chỉ hành chính --}}
     <script>
@@ -258,6 +255,18 @@
                 var customerId = $('.favorite-product').data('customer_id');
                 var _token = $('input[name="_token"]').val();
 
+                if (!customerId) {
+                    // Hiển thị Modal thông báo
+                    var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                    loginModal.show();
+
+                    // Xử lý sự kiện nút "Đăng nhập"
+                    $('#confirmLogin').off('click').on('click', function() {
+                        window.location.href = "{{ url('/login') }}";
+                    });
+
+                    return;
+                }
                 $.ajax({
                     url: "{{ url('/add-favorites-list') }}",
                     type: 'POST',

@@ -504,5 +504,22 @@
     @endif
     {{-- Sản phẩm cùng thương hiệu --}}
 
-
+    <!-- Modal thông báo đăng nhập trước khi thêm yêu thích -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label class="modal-title" id="loginModalLabel">Thông báo</label>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span class="text">Bạn cần đăng nhập để thêm sản phẩm vào danh sách yêu thích.</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancle" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn-submit" id="confirmLogin">Đăng nhập</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

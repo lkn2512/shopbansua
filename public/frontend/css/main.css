@@ -6602,3 +6602,51 @@ svg {
   letter-spacing: 1px;
   color: rgba(0, 0, 0, 0.4);
 }
+
+
+
+.modal-content {
+  border-radius: 0px !important
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-header label {
+  font-size: 18px;
+}
+
+.modal-footer {
+  border-top: none
+}
+
+.modal-body {
+  padding: 10px 15px
+}
+
+.modal-body .text {
+  margin: 0px
+}
+
+.modal-footer .btn-cancle {
+  background: none;
+  border: 1px solid #375172;
+  color: #103667;
+  padding: 5px 10px;
+}
+
+.modal-footer .btn-cancle:hover {
+  background: whitesmoke;
+}
+
+.modal-footer .btn-submit {
+  background: #103667;
+  border: 1px solid #103667;
+  color: white;
+  padding: 5px 10px;
+}
+
+.modal-footer .btn-submit:hover {
+  background: #0c284d;
+}

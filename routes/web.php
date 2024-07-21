@@ -238,7 +238,6 @@ Route::post('/add-favorites-list', [FavoritesListController::class, 'add_favorit
 Route::post('/delete-favorite', [FavoritesListController::class, 'delete_favorite']);
 Route::post('/check-favorite', [FavoritesListController::class, 'checkFavorite'])->name('checkFavorite');
 
-
 //bài viết footer
 Route::get('/quy-dinh-chung/{post_id}', [PostController::class, 'quy_dinh_chung']);
 
@@ -271,7 +270,6 @@ Route::post('/select-delivery-home', [CheckoutController::class, 'select_deliver
 Route::post('/calculate-fee', [CheckoutController::class, 'calculate_fee']);
 Route::get('/del-fee', [CheckoutController::class, 'del_fee']);
 Route::post('/confirm-order', [CheckoutController::class, 'confirm_order']);
-
 
 //địa chỉ hành chính
 Route::get('api/get-provinces', [AddressController::class, 'getProvinces']);
