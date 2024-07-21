@@ -5775,7 +5775,6 @@ select.form-controls {
 .job-tab .nav-tabs {
   margin-bottom: 20px;
   border-bottom: 0;
-
 }
 
 .job-tab .nav-tabs>li {
@@ -5808,6 +5807,10 @@ select.form-controls {
   z-index: -1;
 }
 
+.mt-minus-10 {
+  margin-top: -10px !important;
+}
+
 .job-tab .nav-tabs>li a {
   display: inline-block;
   background: none;
@@ -5816,6 +5819,7 @@ select.form-controls {
   font-size: 18px;
   color: #000;
   padding: 8px 30px;
+  margin-bottom: 10px;
 }
 
 .job-tab .nav-tabs>li>a.active,

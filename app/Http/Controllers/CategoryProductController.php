@@ -84,7 +84,7 @@ class CategoryProductController extends Controller
         $product = Product::where('category_id', $data['cate_id'])->orderBy('product_id', 'desc')->limit(6)->get();
         $product_count = $product->count();
         if ($product_count > 0) {
-            $output .= '<div class="row product-row-container">';
+            $output .= '<div class="row product-row-container mt-minus-10">';
             foreach ($product as $val) {
                 $output .= '
                     <div class="col-lg-2 col-md-4 col-sm-6 product-content tab-panel fade active show">
