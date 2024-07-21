@@ -286,10 +286,10 @@ a#scrollUp i {
 
 .hr-title {
   color: #103667 !important;
-  border-bottom: 3px solid #103667 !important;
+  border-bottom: 2px solid #103667 !important;
   padding-bottom: 5px;
   margin-bottom: 5px;
-  width: 50%;
+  width: 280px;
 }
 
 .category-product {
@@ -1642,8 +1642,13 @@ h2.title:before {
   border: 1px solid rgb(224, 224, 224);
   background: white;
   width: 100%;
+  overflow: hidden;
+  transition: border 0.3s ease;
 }
 
+.productinfo:hover {
+  border: 1px solid #103667;
+}
 
 .productinfo .product-name {
   font-size: 16px;
@@ -1669,6 +1674,12 @@ h2.title:before {
   height: 170px;
   max-width: 100%;
   object-fit: cover;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.productinfo:hover .img-products {
+  transform: scale(1.1);
 }
 
 .order-button {
@@ -1683,12 +1694,15 @@ h2.title:before {
   width: 90%;
   bottom: 10px;
   left: 50%;
-  transform: translateX(-50%) translateY(20px);
+  transform: translateX(-50%) translateY(0px);
   padding: 6px 0px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .order-button a {
+  text-align: center;
   color: white;
+  font-weight: 500;
 }
 
 .order-button a i {
@@ -1696,6 +1710,7 @@ h2.title:before {
 }
 
 .blog-entry:hover .order-button,
+.productinfo:hover .order-button,
 .product-content:hover .order-button {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
@@ -1739,7 +1754,7 @@ h2.title:before {
   left: 16px;
   background-color: red;
   color: white;
-  padding: 2px 10px;
+  padding: 2px 5px;
   font-size: 12px;
   white-space: nowrap;
   border-radius: 4px;
@@ -1770,6 +1785,10 @@ h2.title:before {
   border: none;
   background: none;
   margin-bottom: -200px;
+}
+
+.promotional-product {
+  margin-top: 14px;
 }
 
 .unFavorite {
@@ -2462,18 +2481,27 @@ h2.title:before {
   font-size: 20px;
 }
 
+.rating-summary .starts-container {
+  display: flex;
+  justify-content: center;
+}
 
 .rating-summary .stars .star {
   display: flex;
   align-items: center;
   margin-bottom: 0px;
   cursor: default !important;
+  justify-content: flex-start;
 }
 
 .rating-summary .stars .star span {
   font-size: 1.6em;
   color: #FF9900;
-  margin-left: 5px;
+  margin-left: 10px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .rating-summary .stars .progress-bar {
@@ -2484,7 +2512,6 @@ h2.title:before {
   height: 10px;
   margin-right: 0px;
   position: relative;
-
 }
 
 .rating-summary .stars .progress-bar div {
@@ -2495,7 +2522,7 @@ h2.title:before {
 }
 
 .rating-summary .stars .star .count {
-  width: 45px;
+  width: 50px;
   text-align: left;
   font-size: 18px;
   color: rgb(65, 65, 65);
@@ -2537,10 +2564,11 @@ h2.title:before {
 .product-information .name {
   color: #103667;
   font-size: 28px;
+  font-weight: 400;
   margin-top: 10px;
   margin-bottom: 20px;
   text-transform: capitalize;
-  line-height: 45px;
+  line-height: 1.4;
   word-wrap: break-word;
   border-bottom: 1px solid rgb(224, 224, 224);
   display: block;
@@ -2548,21 +2576,46 @@ h2.title:before {
 
 .product-information .name .logo {
   display: block;
+  padding-top: 10px;
   font-size: 14px;
   text-transform: uppercase;
+  color: black;
+  opacity: 0.7;
 }
 
-.product-information p {
-  font-size: 18px;
-  font-weight: 400;
+.row-information {
+  margin-block: 20px;
+  font-size: 16px;
 }
 
-.product-information p .text-detail {
+.row-information .title {
+  color: #103667;
   font-weight: 500;
 }
 
+.row-information .code {
+  opacity: 0.8;
+}
+
+.row-information .status-stocking {
+  color: green;
+  font-weight: bold;
+}
+
+.row-information .status-stocking .fa-circle {
+  color: green;
+  font-weight: bold;
+  font-size: 8px;
+  margin-right: 6px;
+}
+
+.row-information .text {
+  color: black;
+}
+
+
 .product-information .text-sold {
-  background: linear-gradient(to right, #ffcccc, #ff9999, #ff6666, #ff3333);
+  background: linear-gradient(to right, #a0c4ff, #80bfff, #5a9bd9, #2a6ab0, #01528b);
   padding: 3px 10px;
   border-radius: 100px;
   width: 200px;
@@ -2631,23 +2684,27 @@ h2.title:before {
 }
 
 .button_favorite {
+  position: absolute;
+  top: 75px;
+  right: 10px;
   border: 1px solid #184785;
   background: #184785;
   float: right;
   border-radius: 5px;
-  margin-top: 5px;
+  padding: 3px 8px;
 }
 
 .button_favorite:hover {
   border: 1px solid #184785;
   background: none;
-
 }
 
 .favorite-red {
+  position: absolute;
+  top: 75px;
+  right: 10px;
   color: red;
-  font-size: 18px;
-  float: right;
+  font-size: 20px;
   margin-top: 15px;
 }
 
@@ -2655,8 +2712,6 @@ h2.title:before {
   font-size: 15px;
   background: none;
   display: flex;
-  margin-top: -10px;
-  margin-bottom: -10px;
   color: white;
 }
 
@@ -2667,7 +2722,6 @@ h2.title:before {
 
 
 .button_favorite .favorite-text .icon-favo {
-  margin-top: 15px;
   padding-right: 5px;
 }
 

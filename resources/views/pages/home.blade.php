@@ -71,13 +71,8 @@
                             value="{{ $new->product_image }}">
                         <input type="hidden" class="cart_product_quantity_{{ $new->product_id }}"
                             value="{{ $new->product_quantity }}">
-                        @if ($new->promotional_price > 0)
-                            <input type="hidden" class="cart_product_price_{{ $new->product_id }}"
-                                value="{{ $new->promotional_price }}">
-                        @else
-                            <input type="hidden" class="cart_product_price_{{ $new->product_id }}"
-                                value="{{ $new->product_price }}">
-                        @endif
+                        <input type="hidden" class="cart_product_price_{{ $new->product_id }}"
+                            value="{{ $new->promotional_price }}">
                         <input type="hidden" class="cart_category_product_{{ $new->product_id }}"
                             value="{{ $new->category->category_name }}">
                         <input type="hidden" class="cart_brand_product_{{ $new->product_id }}"

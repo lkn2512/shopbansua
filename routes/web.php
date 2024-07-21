@@ -18,15 +18,17 @@ use App\Http\Controllers\Admin\CustomerController as Admin_CustomerController;
 use App\Http\Controllers\Admin\ProfileAdminController as Admin_ProfileAdminController;
 use App\Http\Controllers\Admin\VideoController as Admin_VideoController;
 use App\Http\Controllers\Admin\HolidayEventController as Admin_HolidayEventController;
-
+use App\Http\Controllers\BrandProduct;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FavoritesListController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginCustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\PrintPDFController;
 use App\Http\Controllers\ProductController;
 use UniSharp\LaravelFilemanager\Lfm;
@@ -208,8 +210,8 @@ Route::get('/lien-he', [ContactController::class, 'lien_he']);
 Route::post('/product-tabs', [CategoryProductController::class, 'product_tabs']);
 
 //post
-Route::get('/danh-muc-bai-viet/{cate_post_id}', 'App\Http\Controllers\PostController@danh_muc_bai_viet');
-Route::get('/bai-viet/{post_id}', 'App\Http\Controllers\PostController@bai_viet');
+Route::get('/danh-muc-bai-viet/{cate_post_id}', [PostController::class, 'danh_muc_bai_viet']);
+Route::get('/bai-viet/{post_id}', [PostController::class, 'bai_viet']);
 
 // all-product-home
 Route::get('/all-products-new', [HomeController::class, 'all_products_new']);
@@ -222,8 +224,8 @@ Route::post('/search-items', [HomeController::class, 'search_items']);
 Route::post('/autocomplete-ajax', [HomeController::class, 'autocomplete_ajax']);
 
 //Danh muc san pham trang chu
-Route::get('/danh-muc-san-pham/{category_id}', 'App\Http\Controllers\CategoryproductController@show_category_home');
-Route::get('/thuong-hieu-san-pham/{brand_id}', 'App\Http\Controllers\BrandProduct@show_brand_home');
+Route::get('/danh-muc-san-pham/{category_id}', [CategoryproductController::class, 'show_category_home']);
+Route::get('/thuong-hieu-san-pham/{brand_id}', [BrandProduct::class, 'show_brand_home']);
 Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
 
 Route::post('/load-comment', [ProductController::class, 'load_comment']);
@@ -231,13 +233,14 @@ Route::post('/send-comment', [ProductController::class, 'send_comment']);
 Route::post('/recall-comment', [ProductController::class, 'recall_comment']);
 
 //Danh sách yêu thích
-Route::post('/favorites-list', 'App\Http\Controllers\FavoritesListController@favorites_list');
-Route::post('/add-favorites-list', 'App\Http\Controllers\FavoritesListController@add_favorites_list');
-Route::post('/delete-favorite', 'App\Http\Controllers\FavoritesListController@delete_favorite');
-Route::post('/deleteAll-favorites', 'App\Http\Controllers\FavoritesListController@deleteAll_favorites');
+Route::post('/favorites-list', [FavoritesListController::class, 'favorites_list']);
+Route::post('/add-favorites-list', [FavoritesListController::class, 'add_favorites_list']);
+Route::post('/delete-favorite', [FavoritesListController::class, 'delete_favorite']);
+Route::post('/check-favorite', [FavoritesListController::class, 'checkFavorite'])->name('checkFavorite');
+
 
 //bài viết footer
-Route::get('/quy-dinh-chung/{post_id}', 'App\Http\Controllers\PostController@quy_dinh_chung');
+Route::get('/quy-dinh-chung/{post_id}', [PostController::class, 'quy_dinh_chung']);
 
 //cart -  giỏ hàng
 Route::post('/save-cart', [CartController::class, 'save_cart']);
@@ -288,7 +291,6 @@ Route::post('/update-info-customer/{customer_id}', [CustomerController::class, '
 Route::get('/history-order', [OrderController::class, 'history_order']);
 Route::get('/view-history-order/{order_code}', [OrderController::class, 'view_history_order']);
 Route::post('/huy-don-hang', [OrderController::class, 'huy_don_hang']);
-
 
 
 //Print_order - in đơn hàng

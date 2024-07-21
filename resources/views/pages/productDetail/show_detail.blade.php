@@ -12,7 +12,7 @@
         </nav>
         {{-- Chi tiết sản phẩm --}}
         <div class="product-details row">
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="view-product text-center">
                     <ul id="imageGallery">
                         <li data-thumb="{{ URL::to('uploads/product/' . $value->product_image) }}"
@@ -30,38 +30,60 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-lg-5 col-md-6 col-sm-12">
                 <div class="product-information">
                     <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                    <h5 class="name">{{ $value->product_name }}
+                    <span class="name">{{ $value->product_name }}
                         <span class="logo">KN-MILK uy tín và chất lượng
-                            @if (Session::get('customer_id'))
-                                @if ($favorite)
-                                    <i class="fa-solid fa-heart favorite-red"></i>
-                                @else
-                                    <button class="button_favorite add_favorite" data-id="{{ $value->product_id }}"
-                                        data-customer_id="{{ Session::get('customer_id') }}"><span class="favorite-text"><i
-                                                class="fa-solid fa-heart-circle-plus icon-favo"></i>Yêu
-                                            thích</span></button>
-                                @endif
-                            @endif
                         </span>
-                    </h5>
-                    <p>Mã sản phẩm: <span class="text-detail text-warning-emphasis">#{{ $value->product_code }}</span></p>
-
-                    @if ($value->product_condition == '0' || $value->product_quantity <= '0')
-                        <p>Tình trạng: <span class="text-detail">Hết hàng</span></p>
-                    @else
-                        <p>Tình trạng: <span class="text-detail text-success">Còn hàng</span></p>
-                    @endif
-
-                    <p>Danh mục sản phẩm: <span class="text-detail">{{ $value->category->category_name }}</span></p>
-                    <p>Thương hiệu: <span class="text-detail">{{ $value->brand->brand_name }}</span></p>
+                        <input class="favorite-product" type="hidden" data-product_id="{{ $value->product_id }}"
+                            data-customer_id="{{ Session::get('customer_id') }}">
+                        <div id="show_favorite">
+                            {{-- Hiển thị trạng thái sản phẩm yêu thích --}}
+                        </div>
+                    </span>
+                    <div class="row row-information">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <span class="title">Mã SP:</span>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                            <span class="code">#{{ $value->product_code }}</span>
+                        </div>
+                    </div>
+                    <div class="row row-information">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <span class="title">Tình trạng:</span>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                            @if ($value->product_condition == '0' || $value->product_quantity <= '0')
+                                <span class="status-sold-out">Hết hàng</span>
+                            @else
+                                <span class="status-stocking"><i class="fa-solid fa-circle"></i>Còn hàng</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row row-information">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <span class="title">Danh mục:</span>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                            <span class="text">{{ $value->category->category_name }}</span>
+                        </div>
+                    </div>
+                    <div class="row row-information">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <span class="title">Thương hiệu:</span>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                            <span class="text">{{ $value->brand->brand_name }}</span>
+                        </div>
+                    </div>
                     @if ($value->promotional_price > 0)
                         <div class="price-info">
                             <h3 class="price">{{ number_format($value->promotional_price, 0, ',', '.') }}đ
                             </h3>
-                            <h3 class="price-small">{{ number_format($value->product_price, 0, ',', '.') }}đ
+                            <h3 class="price-small text-dark-emphasis">
+                                {{ number_format($value->product_price, 0, ',', '.') }}đ
                             </h3>
                         </div>
                     @else
@@ -71,7 +93,6 @@
                     @endif
                     <div class="text-sold">Đã bán
                         {{ number_format($value->product_sold) }}</div>
-
                     @if ($value->product_condition == '0' || $value->product_quantity <= '0')
                         <img class="img-condition" src="{{ URL::to('frontend/images/product-details/sold_out.png') }}"
                             alt="">
@@ -88,7 +109,6 @@
                                 value="{{ $value->product_image }}">
                             <input type="hidden" class="cart_product_quantity_{{ $value->product_id }}"
                                 value="{{ $value->product_quantity }}">
-
                             @if ($value->promotional_price > 0)
                                 <input type="hidden" class="cart_product_price_{{ $value->product_id }}"
                                     value="{{ $value->promotional_price }}">
@@ -96,7 +116,6 @@
                                 <input type="hidden" class="cart_product_price_{{ $value->product_id }}"
                                     value="{{ $value->product_price }}">
                             @endif
-
                             <input type="hidden" class="cart_category_product_{{ $value->product_id }}"
                                 value="{{ $value->category->category_name }}">
                             <input type="hidden" class="cart_brand_product_{{ $value->product_id }}"
@@ -106,7 +125,6 @@
                                 <input type="number" class="cart_product_qty_{{ $value->product_id }}" value="1"
                                     min="1" onkeypress="validateInput(event)" oninput="validateInput(event)"
                                     onchange="validateInput(event)">
-
                                 <button type="button" class="add-to-cart buy-now" name="add-to-cart"
                                     data-id="{{ $value->product_id }}">
                                     Đặt hàng ngay <i class="fa-solid fa-cart-plus"></i>
@@ -117,7 +135,7 @@
                 </div>
             </div>
             {{-- Trung bình đánh giá sao sản phẩm --}}
-            <div class="col-md-3">
+            <div class="col-lg-3 col-md-12 col-sm-12">
                 <div class="rating-summary">
                     <div class="average-rating">
                         <div class="average-value">
@@ -134,27 +152,29 @@
                             </span>
                         </div>
                     </div>
-                    <div class="stars">
-                        @foreach ($starPercentages as $star => $percentage)
-                            <div class="star">
-                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar" style="width: {{ $percentage }}%"></div>
+                    <div class="starts-container">
+                        <div class="stars">
+                            @foreach ($starPercentages as $star => $percentage)
+                                <div class="star">
+                                    <div class="progress-bar" role="progressbar" aria-label="Basic example"
+                                        aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar" style="width: {{ $percentage }}%"></div>
+                                    </div>
+                                    <span class="count" id="{{ $star }}-star-count">
+                                        @if (floor($percentage) == $percentage)
+                                            {{ $percentage }}%
+                                        @else
+                                            {{ number_format($percentage, 1) }}%
+                                        @endif
+                                    </span>
+                                    <span>
+                                        @for ($i = 1; $i <= $star; $i++)
+                                            ★
+                                        @endfor
+                                    </span>
                                 </div>
-                                <span class="count" id="{{ $star }}-star-count">
-                                    @if (floor($percentage) == $percentage)
-                                        {{ $percentage }}%
-                                    @else
-                                        {{ number_format($percentage, 1) }}%
-                                    @endif
-                                </span>
-                                <span>
-                                    @for ($i = 1; $i <= $star; $i++)
-                                        ★
-                                    @endfor
-                                </span>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
@@ -340,31 +360,63 @@
             </div>
             {{-- Sản phẩm khuyến mãi --}}
             <div class="col-lg-2 col-md-3 col-sm-2">
-                <div class="position-sticky top-0">
+                <div class="position-sticky top-0 promotional-product">
                     @foreach ($promotional_product as $key => $product)
-                        <div class="productinfo product-content-right">
-                            <a class="img-center">
-                                <img class="img-products"
-                                    src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
-                            </a>
-                            <a href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
-                                <p class="product-name-table underline">{{ $product->product_name }}</p>
-                            </a>
-                            <div class="price-product">
-                                <div class="price-info">
-                                    <div class="price-content1">
-                                        <span
-                                            class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
-                                        </span>
-                                        <span class="currency-unit">₫</span>
-                                    </div>
-                                    <div class="price-content2">
-                                        <span class="promotional-price">
-                                            {{ number_format($product->promotional_price, 0, ',', '.') }}
-                                        </span>
-                                        <span class="currency-unit">₫</span>
+                        <div class="col-lg-12 product-content">
+                            <div class="productinfo">
+                                <a class="img-center">
+                                    <img class="img-products"
+                                        src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
+                                </a>
+                                <a href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
+                                    <p class="product-name-table underline">{{ $product->product_name }}</p>
+                                </a>
+                                <div class="price-product">
+                                    <div class="price-info">
+                                        <div class="price-content1">
+                                            <span
+                                                class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
+                                            </span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
+                                        <div class="price-content2">
+                                            <span class="promotional-price">
+                                                {{ number_format($product->promotional_price, 0, ',', '.') }}
+                                            </span>
+                                            <span class="currency-unit">₫</span>
+                                        </div>
                                     </div>
                                 </div>
+                                <form>
+                                    @csrf
+                                    <input type="hidden" class="cart_product_id_{{ $product->product_id }}"
+                                        value="{{ $product->product_id }}">
+                                    <input type="hidden" class="cart_product_name_{{ $product->product_id }}"
+                                        value="{{ $product->product_name }}">
+                                    <input type="hidden" class="cart_product_image_{{ $product->product_id }}"
+                                        value="{{ $product->product_image }}">
+                                    <input type="hidden" class="cart_product_quantity_{{ $product->product_id }}"
+                                        value="{{ $product->product_quantity }}">
+                                    @if ($product->promotional_price > 0)
+                                        <input type="hidden" class="cart_product_price_{{ $product->product_id }}"
+                                            value="{{ $product->promotional_price }}">
+                                    @else
+                                        <input type="hidden" class="cart_product_price_{{ $product->product_id }}"
+                                            value="{{ $product->product_price }}">
+                                    @endif
+                                    <input type="hidden" class="cart_category_product_{{ $product->product_id }}"
+                                        value="{{ $product->category->category_name }}">
+                                    <input type="hidden" class="cart_brand_product_{{ $product->product_id }}"
+                                        value="{{ $product->brand->brand_name }}">
+                                    <input type="hidden" class="cart_product_qty_{{ $product->product_id }}"
+                                        value="1">
+
+                                    <div class="order-button">
+                                        <a class="add-to-cart" data-id="{{ $product->product_id }}"><i
+                                                class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                                        </a>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     @endforeach
@@ -414,6 +466,36 @@
                                     </div>
                                 @endif
                             </div>
+                            <form>
+                                @csrf
+                                <input type="hidden" class="cart_product_id_{{ $relate->product_id }}"
+                                    value="{{ $relate->product_id }}">
+                                <input type="hidden" class="cart_product_name_{{ $relate->product_id }}"
+                                    value="{{ $relate->product_name }}">
+                                <input type="hidden" class="cart_product_image_{{ $relate->product_id }}"
+                                    value="{{ $relate->product_image }}">
+                                <input type="hidden" class="cart_product_quantity_{{ $relate->product_id }}"
+                                    value="{{ $relate->product_quantity }}">
+                                @if ($relate->promotional_price > 0)
+                                    <input type="hidden" class="cart_product_price_{{ $relate->product_id }}"
+                                        value="{{ $relate->promotional_price }}">
+                                @else
+                                    <input type="hidden" class="cart_product_price_{{ $relate->product_id }}"
+                                        value="{{ $relate->product_price }}">
+                                @endif
+                                <input type="hidden" class="cart_category_product_{{ $relate->product_id }}"
+                                    value="{{ $relate->category_name }}">
+                                <input type="hidden" class="cart_brand_product_{{ $relate->product_id }}"
+                                    value="{{ $relate->brand_name }}">
+                                <input type="hidden" class="cart_product_qty_{{ $relate->product_id }}"
+                                    value="1">
+
+                                <div class="order-button">
+                                    <a class="add-to-cart" data-id="{{ $relate->product_id }}"><i
+                                            class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                                    </a>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 @endforeach

@@ -49,6 +49,35 @@
                                     </div>
                                 @endif
                             </div>
+                            <form>
+                                @csrf
+                                <input type="hidden" class="cart_product_id_{{ $value->product_id }}"
+                                    value="{{ $value->product_id }}">
+                                <input type="hidden" class="cart_product_name_{{ $value->product_id }}"
+                                    value="{{ $value->product_name }}">
+                                <input type="hidden" class="cart_product_image_{{ $value->product_id }}"
+                                    value="{{ $value->product_image }}">
+                                <input type="hidden" class="cart_product_quantity_{{ $value->product_id }}"
+                                    value="{{ $value->product_quantity }}">
+                                @if ($value->promotional_price > 0)
+                                    <input type="hidden" class="cart_product_price_{{ $value->product_id }}"
+                                        value="{{ $value->promotional_price }}">
+                                @else
+                                    <input type="hidden" class="cart_product_price_{{ $value->product_id }}"
+                                        value="{{ $value->product_price }}">
+                                @endif
+                                <input type="hidden" class="cart_category_product_{{ $value->product_id }}"
+                                    value="{{ $value->category->category_name }}">
+                                <input type="hidden" class="cart_brand_product_{{ $value->product_id }}"
+                                    value="{{ $value->brand->brand_name }}">
+                                <input type="hidden" class="cart_product_qty_{{ $value->product_id }}" value="1">
+
+                                <div class="order-button">
+                                    <a class="add-to-cart" data-id="{{ $value->product_id }}"><i
+                                            class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                                    </a>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 @endforeach

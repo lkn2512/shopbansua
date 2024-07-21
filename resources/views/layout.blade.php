@@ -230,27 +230,50 @@
     <!-- Danh sách yêu thích-->
     <script>
         $(document).ready(function() {
-            $('.add_favorite').click(function() {
-                var product_id = $(this).data('id');
-                var customer_id = $(this).data('customer_id');
+            function checkFavoriteStatus() {
+                var productId = $('.favorite-product').data('product_id');
+                var customerId = $('.favorite-product').data('customer_id');
                 var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: '{{ route('checkFavorite') }}',
+                    type: 'POST',
+                    data: {
+                        product_id: productId,
+                        customer_id: customerId,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('#show_favorite').html(data);
+                    },
+                    error: function(xhr) {
+                        console.log('Có lỗi xảy ra: ', xhr.responseText);
+                    }
+                });
+            }
+            checkFavoriteStatus();
+
+            $(document).on('click', '.add_favorite', function() {
+                var productId = $('.favorite-product').data('product_id');
+                var customerId = $('.favorite-product').data('customer_id');
+                var _token = $('input[name="_token"]').val();
+
                 $.ajax({
                     url: "{{ url('/add-favorites-list') }}",
-                    method: 'POST',
+                    type: 'POST',
                     data: {
-                        product_id: product_id,
-                        customer_id: customer_id,
+                        product_id: productId,
+                        customer_id: customerId,
                         _token: _token
                     },
                     success: function(response) {
-                        alert(response.message);
+                        checkFavoriteStatus();
                     },
                     error: function(xhr) {
-                        var errorMessage = xhr.responseJSON.error;
-                        alert(errorMessage);
+                        console.log('Có lỗi xảy ra: ', xhr.responseText);
                     }
                 });
-            })
+            });
             $(document).on('click', '.unFavorite', function() {
                 var favorite_id = $(this).data('id');
                 var _token = $('input[name="_token"]').val();
@@ -263,34 +286,15 @@
                     },
                     success: function(data) {
                         if (data.success) {
-                            $(this).closest('.col-md-3').remove();
+                            $(this).closest('.col-lg-3').remove();
+                            checkFavoriteStatus();
                         } else {
-                            alert('Xoá sản phẩm khỏi danh sách yêu thích thất bại.');
+                            alert('Xoá thất bại.');
                         }
                     }.bind(this)
                 });
             })
-            $(document).on('click', '.deleteAll-favorites', function() {
-                var customer_id = $(this).data('customer_id');
-                if (confirm("Bạn có chắc là muốn xoá tất cả?")) {
-                    var _token = $('input[name="_token"]').val();
-                    $.ajax({
-                        url: "{{ url('/deleteAll-favorites') }}",
-                        method: 'POST',
-                        data: {
-                            customer_id: customer_id,
-                            _token: _token
-                        },
-                        success: function(data) {
-                            if (data.success) {
-                                $('#favorite_body').empty();
-                            } else {
-                                alert('Xoá tất cả sản phẩm khỏi danh sách yêu thích thất bại.');
-                            }
-                        }
-                    });
-                }
-            })
+
             $('.show-favorites').click(function() {
                 var favorite_customer_id = $('.favorite_customer_id').val();
                 var _token = $('input[name="_token"]').val();
