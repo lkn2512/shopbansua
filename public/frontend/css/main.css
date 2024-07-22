@@ -6603,7 +6603,48 @@ svg {
   color: rgba(0, 0, 0, 0.4);
 }
 
+.carousel.slide {
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 5px;
+}
 
+.carousel-item a img {
+  object-fit: cover;
+  height: 350px;
+  border-radius: 5px;
+}
+
+.carousel-caption {
+  background: linear-gradient(to right, rgba(16, 54, 103, 0) 0%, rgba(16, 54, 103, 0.6) 50%, rgba(16, 54, 103, 0) 100%);
+  padding: 15px;
+  color: white;
+  text-align: center;
+}
+
+.carousel-caption h5 {
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  text-transform: capitalize;
+}
+
+.carousel-control-prev .carousel-control-prev-icon {
+  position: absolute;
+  left: 0px;
+}
+
+.carousel-control-next .carousel-control-next-icon {
+  position: absolute;
+  right: 0px;
+}
+
+.carousel.slide:hover .carousel-control-next-icon,
+.carousel.slide:hover .carousel-control-prev-icon {
+  padding: 30px 0px;
+  border: 1px solid #103667;
+  border-radius: 10%;
+  margin: 20px;
+  background-color: #103667;
+}
 
 .modal-content {
   border-radius: 0px !important

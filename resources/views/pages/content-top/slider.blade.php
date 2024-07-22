@@ -54,7 +54,7 @@
             });
         </script> --}}
 
-        <div class="col-lg-9 col-md-8 col-sm-6">
+        <div class="col-lg-12 col-md-12 col-sm-12">
             <div id="carouselExampleCaptions" class="carousel slide">
                 <div class="carousel-indicators">
                     @php
@@ -77,24 +77,18 @@
                             $slide++;
                         @endphp
                         <div class="carousel-item {{ $slide == 1 ? 'active' : '' }}">
-                            <a href="{{ URL::to('chi-tiet-san-pham/' . $value2->product_id) }}" title="Xem chi tiết">
-                                <img src="{{ asset('uploads/slider/' . $value2->slider_image) }}" class="d-block w-100"
-                                    style="object-fit: cover; height: 350px; " alt="{{ $value2->slider_name }}">
-                            </a>
-                            <style>
-                                .carousel-caption {
-                                    background: linear-gradient(to right, rgba(16, 54, 103, 0) 0%, rgba(16, 54, 103, 0.6) 50%, rgba(16, 54, 103, 0) 100%);
-                                    padding: 15px;
-                                    color: white;
-                                    text-align: center;
-                                }
-
-                                .carousel-caption h5 {
-                                    font-weight: 500;
-                                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-                                    text-transform: capitalize;
-                                }
-                            </style>
+                            @if ($value2->product_id)
+                                <a href="{{ URL::to('chi-tiet-san-pham/' . $value2->product_id) }}"
+                                    title="Xem chi tiết">
+                                    <img src="{{ asset('uploads/slider/' . $value2->slider_image) }}"
+                                        class="d-block w-100" alt="{{ $value2->slider_name }}">
+                                </a>
+                            @else
+                                <a>
+                                    <img src="{{ asset('uploads/slider/' . $value2->slider_image) }}"
+                                        class="d-block w-100" alt="{{ $value2->slider_name }}">
+                                </a>
+                            @endif
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>{{ $value2->slider_name }}</h5>
                                 {{-- <p>Some representative placeholder content for the first slide.</p> --}}
@@ -112,20 +106,6 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="row">
-                <div class="col-lg-12">
-                    @foreach ($contact_footer as $cont)
-                        <div style="max-width: 100%;">
-                            {!! $cont->info_fanpage !!}</div>
-                    @endforeach
-                </div>
-                <div class="col-lg-12" style="padding-top: 30px">
-                    <img src="{{ asset('frontend/images/home/ut.jpg') }}"
-                        style="height: 189px;max-width: 307px; object-fit: cover">
-                </div>
             </div>
         </div>
     </div>
