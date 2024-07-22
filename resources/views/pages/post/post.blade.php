@@ -4,7 +4,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-items"><a href="{{ URL::to('/') }}">Trang chủ</a></li>
             <li class="breadcrumb-items"><a
-                    href="{{ URL::to('/danh-muc-bai-viet/' . $cate_post_id) }}">{{ $cate_post_name }}</a>
+                    href="{{ URL::to('danh-muc-bai-viet/' . $cate_post_id) }}">{{ $cate_post_name }}</a>
             </li>
             @foreach ($post as $key => $postss)
                 <li class="breadcrumb-items active" aria-current="page">{{ $postss->post_title }}</li>
@@ -19,12 +19,12 @@
             @endforeach
         </div>
         <div class="col-md-3">
-            <div class="post-right">
+            <div class="post-right position-sticky top-0">
                 <h2>TIN TỨC LIÊN QUAN</h2>
                 @foreach ($related_post as $key => $re_po)
                     <div class="row post-info mb-2">
                         <img class="img" src="{{ URL::to('/uploads/post/' . $re_po->post_image) }}" alt="" />
-                        <a href="{{ URL::to('/bai-viet/' . $re_po->post_id) }}">
+                        <a href="{{ URL::to('bai-viet/' . $re_po->post_id) }}">
                             <h3 class="title">{{ $re_po->post_title }}</h3>
                         </a>
                     </div>

@@ -136,7 +136,7 @@
                             </ul>
                         </li>
                         <li class="submenu">
-                            <a href="javascript:;">Bài viết</a>
+                            <a href="javascript:;">Blog</a>
                             <ul class="sub-ul">
                                 @foreach ($category_post_frontend as $key => $blog)
                                     <li class="sub-li">
@@ -149,6 +149,15 @@
                         </li>
                         <li class="scroll-to-section "><a class="{{ Request::is('lien-he') ? 'active' : '' }}"
                                 href="{{ URL::to('/lien-he') }}">Liên hệ với chúng tôi</a>
+                        </li>
+                        <li class="scroll-to-section "><a class="{{ Request::is('tuyen-dung') ? 'active' : '' }}"
+                                href="{{ URL::to('/tuyen-dung') }}">Tuyển dụng</a>
+                        </li>
+                        <li class="scroll-to-section "><a class="{{ Request::is('nha-cung-cap') ? 'active' : '' }}"
+                                href="{{ URL::to('/nha-cung-cap') }}">Nhà cung cấp</a>
+                        </li>
+                        <li class="scroll-to-section "><a class="{{ Request::is('Mua-si') ? 'active' : '' }}"
+                                href="{{ URL::to('/Mua-si') }}">Mua sỉ</a>
                         </li>
                     </ul>
                 </nav>
