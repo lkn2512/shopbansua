@@ -18,10 +18,10 @@ class FavoritesListController extends Controller
             $output .= '<i class="fa-solid fa-heart favorite-red"></i>';
         } else {
             $output .= '
-        <button class="button_favorite add_favorite" data-id="' . $product_id . '"
-        data-customer_id="' . $customer_id . '"><span class="favorite-text"><i
-                class="fa-solid fa-heart-circle-plus icon-favo"></i>Yêu thích</span>
-        </button>';
+            <button class="button_favorite add_favorite" data-id="' . $product_id . '"
+            data-customer_id="' . $customer_id . '"><span class="favorite-text"><i
+                    class="fa-solid fa-heart-circle-plus icon-favo"></i>Yêu thích</span>
+            </button>';
         }
 
         echo $output;

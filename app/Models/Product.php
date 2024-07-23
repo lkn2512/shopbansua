@@ -13,6 +13,11 @@ class Product extends Model
     protected $primaryKey = 'product_id';
     protected $table = 'tbl_product';
 
+    public function gallery()
+    {
+        return $this->hasMany(Gallery::class, 'product_id');
+    }
+
     public function comment()
     {
         return $this->hasMany(Comment::class);

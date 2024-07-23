@@ -368,7 +368,7 @@
                                     <img class="img-products"
                                         src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
                                 </a>
-                                <a href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
+                                <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
                                     <p class="product-name-table underline">{{ $product->product_name }}</p>
                                 </a>
                                 <div class="price-product">

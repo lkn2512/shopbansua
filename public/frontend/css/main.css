@@ -86,7 +86,6 @@ a#scrollUp i {
   background-color: white;
   left: 0px;
   right: 0px;
-  z-index: 100;
   -webkit-transition: all .5s ease 0s;
   -moz-transition: all .5s ease 0s;
   -o-transition: all .5s ease 0s;
@@ -2567,6 +2566,16 @@ h2.title:before {
   display: block;
 }
 
+.product-information .name a {
+  color: #103667;
+  font-size: 28px;
+  font-weight: 400;
+  text-transform: capitalize;
+  line-height: 1.4;
+  word-wrap: break-word;
+  display: block;
+}
+
 .product-information .name .logo {
   display: block;
   padding-top: 10px;
@@ -2678,45 +2687,50 @@ h2.title:before {
 
 .button_favorite {
   position: absolute;
-  top: 75px;
+  top: 90px;
   right: 10px;
-  border: 1px solid #184785;
-  background: #184785;
   float: right;
   border-radius: 5px;
-  padding: 3px 8px;
+  border: none;
+  background: none;
 }
 
 .button_favorite:hover {
-  border: 1px solid #184785;
   background: none;
+}
+
+.button_favorite .favorite-text {
+  font-size: 16px;
+  background: none;
+  color: #103667;
+}
+
+.button_favorite .favorite-text:hover {
+  font-weight: 500;
+}
+
+.button_favorite .favorite-text .icon-favo {
+  padding-right: 5px;
+}
+
+.favorite-default {
+  position: absolute;
+  top: 90px;
+  right: 10px;
+  font-size: 20px;
+  margin-top: 15px;
 }
 
 .favorite-red {
   position: absolute;
-  top: 75px;
+  top: 90px;
   right: 10px;
   color: red;
   font-size: 20px;
   margin-top: 15px;
 }
 
-.button_favorite .favorite-text {
-  font-size: 15px;
-  background: none;
-  display: flex;
-  color: white;
-}
 
-.button_favorite .favorite-text:hover {
-  background: none;
-  color: #184785;
-}
-
-
-.button_favorite .favorite-text .icon-favo {
-  padding-right: 5px;
-}
 
 
 .product-information .quantity {

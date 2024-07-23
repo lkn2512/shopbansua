@@ -2,7 +2,6 @@
 @section('content')
     @include('pages.content-top.slider')
 
-    {{-- danh mục sản phẩm --}}
     <h2 class="title-product text-center mb-3">DANH MỤC SẢN PHẨM</h2>
     <div class="tr-job-posted section-padding">
         <div class="job-tab">
@@ -24,9 +23,7 @@
             </div>
         </div>
     </div>
-    {{-- danh mục sản phẩm --}}
 
-    {{-- sản phẩm mới nhất --}}
     <h2 class="title-product">Sản phẩm mới nhất</h2>
     <div class="row product-row-container">
         @foreach ($all_product_new as $key => $new)
@@ -92,9 +89,7 @@
             <a href="{{ url('/all-products-new') }}">Xem tất cả</a>
         </div>
     </div>
-    {{-- sản phẩm mới nhất --}}
 
-    {{-- Sản phẩm bán chạy được nhiều người tin dùng --}}
     <h2 class="title-product">Sản phẩm bán chạy được nhiều người tin dùng</h2>
     <div class="row product-row-container">
         @foreach ($selling_product as $key => $sell)
@@ -168,7 +163,6 @@
             <a href="{{ url('/all-product-selling') }}">Xem tất cả</a>
         </div>
     </div>
-    {{-- Sản phẩm bán chạy được nhiều người tin dùng --}}
 
     {{-- sự kiện sản phẩm --}}
     @php
@@ -265,7 +259,6 @@
     @endforeach
     {{-- sự kiện sản phẩm --}}
 
-    {{-- Sản phẩm nổi bật --}}
     <h2 class="title-product">Sản phẩm nổi bật</h2>
     <div class="row product-row-container">
         @foreach ($featuredProducts as $key => $avgRat)
@@ -339,9 +332,178 @@
             <a href="{{ url('/san-pham-noi-bat') }}">Xem tất cả</a>
         </div>
     </div>
-    {{-- Sản phẩm nổi bật --}}
 
-    {{-- được quan tâm nhiều --}}
+    <h2 class="title-product">Sản phẩm bán chạy nhất!</h2>
+    <div class="product-details row mb-5">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="view-product text-center">
+                <ul id="imageGallery">
+                    <li data-thumb="{{ URL::to('uploads/product/' . $best_selling->product_image) }}"
+                        data-src="{{ URL::to('uploads/product/' . $best_selling->product_image) }}">
+                        <img class="img-ligtSlider"
+                            src="{{ URL::to('uploads/product/' . $best_selling->product_image) }}" alt="" />
+                    </li>
+                    @foreach ($galleries as $key => $gal)
+                        <li data-thumb="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}"
+                            data-src="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}">
+                            <img class="img-ligtSlider" src="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}"
+                                alt="" />
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">
+            <div class="product-information">
+                <img src="images/product-details/new.jpg" class="newarrival" alt="" />
+                <span class="name">
+                    <a
+                        href="{{ URL::to('chi-tiet-san-pham/' . $best_selling->product_id) }}">{{ $best_selling->product_name }}</a>
+                    <span class="logo">KN-MILK uy tín và chất lượng
+                    </span>
+                    <input class="favorite-product" type="hidden" data-product_id="{{ $best_selling->product_id }}"
+                        data-customer_id="{{ Session::get('customer_id') }}">
+                    <div id="show_favorite">
+                        {{-- Hiển thị trạng thái sản phẩm yêu thích --}}
+                    </div>
+                </span>
+                <div class="row row-information">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="title">Mã SP:</span>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span class="code">#{{ $best_selling->product_code }}</span>
+                    </div>
+                </div>
+                <div class="row row-information">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="title">Tình trạng:</span>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        @if ($best_selling->product_condition == '0' || $best_selling->product_quantity <= '0')
+                            <span class="status-sold-out">Hết hàng</span>
+                        @else
+                            <span class="status-stocking"><i class="fa-solid fa-circle"></i>Còn hàng</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="row row-information">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="title">Danh mục:</span>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span class="text">{{ $best_selling->category->category_name }}</span>
+                    </div>
+                </div>
+                <div class="row row-information">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="title">Thương hiệu:</span>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span class="text">{{ $best_selling->brand->brand_name }}</span>
+                    </div>
+                </div>
+                @if ($best_selling->promotional_price > 0)
+                    <div class="price-info">
+                        <h3 class="price">{{ number_format($best_selling->promotional_price, 0, ',', '.') }}đ
+                        </h3>
+                        <h3 class="price-small text-dark-emphasis">
+                            {{ number_format($best_selling->product_price, 0, ',', '.') }}đ
+                        </h3>
+                    </div>
+                @else
+                    <h3 class="price">{{ number_format($best_selling->product_price, 0, ',', '.') }}đ
+                        <span class="đ"></span>
+                    </h3>
+                @endif
+                <div class="text-sold">Đã bán
+                    {{ number_format($best_selling->product_sold) }}</div>
+                @if ($best_selling->product_condition == '0' || $best_selling->product_quantity <= '0')
+                    <img class="img-condition" src="{{ URL::to('frontend/images/product-details/sold_out.png') }}"
+                        alt="">
+                    <p class="soldout-note"><i class="fa-solid fa-circle-info"></i> Sản phẩm này đã bán hết, vui lòng
+                        quay lại sau.</p>
+                @else
+                    <form>
+                        @csrf
+                        <input type="hidden" class="cart_product_id_{{ $best_selling->product_id }}"
+                            value="{{ $best_selling->product_id }}">
+                        <input type="hidden" class="cart_product_name_{{ $best_selling->product_id }}"
+                            value="{{ $best_selling->product_name }}">
+                        <input type="hidden" class="cart_product_image_{{ $best_selling->product_id }}"
+                            value="{{ $best_selling->product_image }}">
+                        <input type="hidden" class="cart_product_quantity_{{ $best_selling->product_id }}"
+                            value="{{ $best_selling->product_quantity }}">
+                        @if ($value->promotional_price > 0)
+                            <input type="hidden" class="cart_product_price_{{ $best_selling->product_id }}"
+                                value="{{ $best_selling->promotional_price }}">
+                        @else
+                            <input type="hidden" class="cart_product_price_{{ $best_selling->product_id }}"
+                                value="{{ $best_selling->product_price }}">
+                        @endif
+                        <input type="hidden" class="cart_category_product_{{ $best_selling->product_id }}"
+                            value="{{ $best_selling->category->category_name }}">
+                        <input type="hidden" class="cart_brand_product_{{ $best_selling->product_id }}"
+                            value="{{ $best_selling->brand->brand_name }}">
+                        <div class="quantity">
+                            <b class="title-qty">Số lượng:</b>
+                            <input type="number" class="cart_product_qty_{{ $best_selling->product_id }}"
+                                value="1" min="1" onkeypress="validateInput(event)"
+                                oninput="validateInput(event)" onchange="validateInput(event)">
+                            <button type="button" class="add-to-cart buy-now" name="add-to-cart"
+                                data-id="{{ $best_selling->product_id }}">
+                                Đặt hàng ngay <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </form>
+                @endif
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="rating-summary">
+                <div class="average-rating">
+                    <div class="average-value">
+                        <span class="rating-number">{{ number_format($averageRating, 1) }}</span>
+                        <span class="title">Đánh giá trung bình</span><br>
+                        <span class="stars">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $averageRating)
+                                    ★
+                                @else
+                                    ☆
+                                @endif
+                            @endfor
+                        </span>
+                    </div>
+                </div>
+                <div class="starts-container">
+                    <div class="stars">
+                        @foreach ($starPercentages as $star => $percentage)
+                            <div class="star">
+                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
+                                    aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" style="width: {{ $percentage }}%"></div>
+                                </div>
+                                <span class="count" id="{{ $star }}-star-count">
+                                    @if (floor($percentage) == $percentage)
+                                        {{ $percentage }}%
+                                    @else
+                                        {{ number_format($percentage, 1) }}%
+                                    @endif
+                                </span>
+                                <span>
+                                    @for ($i = 1; $i <= $star; $i++)
+                                        ★
+                                    @endfor
+                                </span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <h2 class="title-product">Được quan tâm nhiều nhất</h2>
     <div class="row product-row-container">
         @foreach ($view_product as $key => $view)
@@ -415,7 +577,6 @@
             <a href="{{ url('/duoc-quan-tam-nhieu') }}">Xem tất cả</a>
         </div>
     </div>
-    {{-- được quan tâm nhiều --}}
 
     <div class="aboutAs">
         <div class="about-shop">
@@ -442,6 +603,25 @@
                         <p> Chúng tôi cung cấp cho bạn nhiều loại sữa khác nhau, đa dạng, đủ thể loại cho bạn lựa chọn
                         </p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal thông báo đăng nhập trước khi thêm yêu thích -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label class="modal-title" id="loginModalLabel">Thông báo</label>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span class="text">Bạn cần đăng nhập để thêm sản phẩm vào danh sách yêu thích.</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancle" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn-submit" id="confirmLogin">Đăng nhập</button>
                 </div>
             </div>
         </div>

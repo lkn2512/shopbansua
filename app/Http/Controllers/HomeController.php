@@ -22,7 +22,33 @@ class HomeController extends Controller
         $brand = DB::table('tbl_brand')->where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
         $all_product_new = Product::where('product_status', '1')->where('product_condition', '1')->orderBy('product_id', 'desc')->limit(12)->get();
         $slider = Slider::orderby('slider_id', 'desc')->where('slider_status', '1')->get();
-        $selling_product = Product::where('product_status', '1')->where('product_condition', '1')->where('product_sold', '>', 0)->orderBy('product_sold', 'desc')->limit(12)->get();
+
+        // $selling_product = Product::where('product_status', '1')->where('product_condition', '1')->where('product_sold', '>', 0)->orderBy('product_sold', 'desc')->limit(12)->get();
+
+        $best_selling = Product::with('gallery')->where('product_status', '1')->where('product_condition', '1')->where('product_sold', '>', 0)->orderBy('product_sold', 'desc')->first();
+        if ($best_selling) {
+            // Lấy tất cả các gallery của sản phẩm đó
+            $galleries = $best_selling->gallery;
+            $averageRating = $best_selling->averageRating();
+
+            $totalRatings = $best_selling->ratings()->count();
+            $starPercentages = [];
+            for ($star = 5; $star >= 1; $star--) {
+                $count = $best_selling->ratings()->where('rating', $star)->count();
+                $starPercentages[$star] = $totalRatings > 0 ? ($count / $totalRatings) * 100 : 0;
+            }
+        } else {
+            $galleries = collect(); // Trả về một collection rỗng nếu không có sản phẩm bán chạy
+        }
+
+        $selling_product = Product::where('product_status', '1')
+            ->where('product_condition', '1')
+            ->where('product_sold', '>', 0)
+            ->where('product_id', '!=', $best_selling->product_id) // Loại trừ sản phẩm bán chạy nhất
+            ->orderBy('product_sold', 'desc')
+            ->limit(12)
+            ->get();
+
         $promotional_product = Product::where('product_status', '1')->where('promotional_price', '>', '0')->orderBy('product_id', 'desc')->limit(12)->get();
         $contact = Information::first();
         $customer_id = Session::get('customer_id');
@@ -43,7 +69,7 @@ class HomeController extends Controller
         //sản phẩm nối bật dựa trên đánh giá sao
         $featuredProducts = Product::with('ratings')->withAvg('ratings', 'rating')->orderByDesc('ratings_avg_rating')->take(12)->get();
 
-        return view('pages.home')->with(compact('category', 'brand', 'all_product_new', 'slider', 'selling_product', 'contact', 'customer', 'promotional_product', 'holidayEvent', 'productsByEvent', 'view_product', 'featuredProducts'));
+        return view('pages.home')->with(compact('category', 'brand', 'all_product_new', 'slider', 'selling_product', 'best_selling', 'galleries', 'averageRating', 'starPercentages', 'contact', 'customer', 'promotional_product', 'holidayEvent', 'productsByEvent', 'view_product', 'featuredProducts'));
     }
     public function all_products_new()
     {
