@@ -225,14 +225,11 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <select class="form-control select2" name="product_cate">
-                                                @foreach ($cate_product as $key => $cate)
-                                                    @if ($cate->category_id == $pro->category_id)
-                                                        <option value="{{ $cate->category_id }}" selected>
-                                                            {{ $cate->category_name }}</option>
-                                                    @else
-                                                        <option value="{{ $cate->category_id }}">
-                                                            {{ $cate->category_name }}</option>
-                                                    @endif
+                                                @foreach ($cate_product as $cate)
+                                                    <option value="{{ $cate->category_id }}"
+                                                        {{ $cate->category_id == $pro->category_id ? 'selected' : '' }}>
+                                                        {{ $cate->category_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -246,14 +243,31 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <select class="form-control select2" name="product_brand">
-                                                @foreach ($brand_product as $key => $brand)
-                                                    @if ($brand->brand_id == $pro->brand_id)
-                                                        <option value="{{ $brand->brand_id }}" selected>
-                                                            {{ $brand->brand_name }}</option>
-                                                    @else
-                                                        <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}
-                                                        </option>
-                                                    @endif
+                                                @foreach ($brand_product as $brand)
+                                                    <option value="{{ $brand->brand_id }}"
+                                                        {{ $brand->brand_id == $pro->brand_id ? 'selected' : '' }}>
+                                                        {{ $brand->brand_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="label-container">
+                                            <label>Chuyên mục</label>
+                                            <span class="add-new">
+                                                <a href="{{ URL::to('Admin/all-section-product/create-section') }}">Thêm
+                                                    mới</a>
+                                            </span>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <select class="form-control select2" name="section_id">
+                                                <option value={{ null }}>Không có</option>
+                                                @foreach ($section_product as $sec)
+                                                    <option value="{{ $sec->section_id }}"
+                                                        {{ $pro->section_id == $sec->section_id ? 'selected' : '' }}>
+                                                        {{ $sec->section_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>

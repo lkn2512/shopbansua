@@ -62,6 +62,13 @@
                             <p>Thương hiệu</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ URL::to('Admin/all-section-product') }}"
+                            class="nav-link {{ Request::is('Admin/all-section-product/*') || Request::is('Admin/all-section-product') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-cubes"></i>
+                            <p>Chuyên mục</p>
+                        </a>
+                    </li>
                     <li class="nav-header">Quảng bá</li>
                     <li class="nav-item">
                         <a href="{{ URL::to('Admin/show-video') }}"
@@ -177,7 +184,7 @@
                             class="nav-link {{ Request::is('Admin/manage-order') || Request::is('Admin/view-order/*') || Request::is('Admin/search-order*')
                                 ? 'active'
                                 : '' }}">
-                            <i class="nav-icon fa-solid fa-cart-flatbed"></i>
+                            <i class="nav-icon fa fa-boxes"></i>
                             <p>Đơn đặt hàng</p>
                             @if ($notifications_order_count > 0)
                                 <span class="badge badge-info right">{{ $notifications_order_count }}</span>

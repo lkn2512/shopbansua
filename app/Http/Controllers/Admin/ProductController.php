@@ -10,6 +10,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Models\Gallery;
+use App\Models\Section;
 use App\Models\Slider;
 use App\Models\Video;
 use Brian2694\Toastr\Facades\Toastr;
@@ -99,7 +100,7 @@ class ProductController extends Controller
                 }
             }
             Product::insert($data);
-            Toastr::success('Thêm sản phẩm thành công!', 'Thành công');
+            Toastr::success('Thêm sản phẩm thành công!', '');
             return Redirect::to('Admin/add-product');
         } catch (\Throwable $th) {
             return Redirect::to('Admin/add-product')->with('error_alert', 'Lỗi bất định, vui lòng tải lại trang.');
@@ -124,6 +125,7 @@ class ProductController extends Controller
         $this->AuthLogin();
         $cate_product = CategoryProduct::orderBy('category_name', 'asc')->get();
         $brand_product = Brand::orderBy('brand_name', 'asc')->get();
+        $section_product = Section::orderBy('section_name', 'asc')->get();
 
         $edit_product = Product::where('product_id', $product_id)->get();
 
@@ -145,9 +147,7 @@ class ProductController extends Controller
         } else {
             $videoTitle = 'Chưa có video';
         }
-
-
-        return view('admin.product.edit_product', compact('edit_product', 'cate_product', 'brand_product', 'videos', 'videoTitle'));
+        return view('admin.product.edit_product', compact('edit_product', 'cate_product', 'brand_product', 'section_product', 'videos', 'videoTitle'));
     }
     public function update_product(Request $request, $product_id)
     {
@@ -177,6 +177,7 @@ class ProductController extends Controller
             $data['product_content'] = $request->product_content;
             $data['category_id'] = $request->product_cate;
             $data['brand_id'] = $request->product_brand;
+            $data['section_id'] = $request->section_id;
             $data['product_status'] = $request->product_status;
             $data['product_condition'] = $request->product_condition;
 
@@ -199,7 +200,7 @@ class ProductController extends Controller
                 }
             }
             Product::where('product_id', $product_id)->update($data);
-            Toastr::success('Đã cập nhật các thay đổi!', 'Thành công');
+            Toastr::success('Đã cập nhật các thay đổi!', '');
             return redirect()->back();
         } catch (\Throwable $th) {
             return redirect()->back()->with('error_alert', 'Lỗi bất định, vui lòng tải lại trang.');

@@ -9,9 +9,14 @@ class Product extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['product_code', 'product_name', 'product_slug', 'product_cost', 'product_quantity', 'category_id', 'brand_id',  'product_content', 'product_price', 'promotional_price', 'product_image', 'product_condition', 'product_status', 'product_sold', 'product_view', 'video_id'];
+    protected $fillable = ['product_code', 'product_name', 'product_slug', 'product_cost', 'product_quantity', 'category_id', 'brand_id',  'product_content', 'product_price', 'promotional_price', 'product_image', 'product_condition', 'product_status', 'product_sold', 'product_view', 'video_id', 'section_id'];
     protected $primaryKey = 'product_id';
     protected $table = 'tbl_product';
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class, 'section_id');
+    }
 
     public function gallery()
     {

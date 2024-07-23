@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\CustomerController as Admin_CustomerController;
 use App\Http\Controllers\Admin\ProfileAdminController as Admin_ProfileAdminController;
 use App\Http\Controllers\Admin\VideoController as Admin_VideoController;
 use App\Http\Controllers\Admin\HolidayEventController as Admin_HolidayEventController;
+use App\Http\Controllers\Admin\SectionController as Admin_SectionController;
+
 use App\Http\Controllers\BrandProduct;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryProductController;
@@ -68,6 +70,16 @@ Route::prefix('Admin')->group(function () {
     Route::get('/active-category-product/{category_id}', [Admin_CategoryProductController::class, 'active_category_product']);
     Route::post('/save-category-product', [Admin_CategoryProductController::class, 'save_category_product']);
     Route::post('/update-category-product/{category_id}', [Admin_CategoryProductController::class, 'update_category_product']);
+
+    //section Product - chuyên mục sản phẩm
+    Route::get('/all-section-product', [Admin_SectionController::class, 'all_section_product']);
+    Route::get('/all-section-product/create-section', [Admin_SectionController::class, 'add_section_product']);
+    Route::get('/all-section-product/edit-section/{section_id}', [Admin_SectionController::class, 'edit_section_product']);
+    Route::get('/delete-section-product/{section_id}', [Admin_SectionController::class, 'delete_section_product']);
+    Route::get('/unactive-section-product/{section_id}', [Admin_SectionController::class, 'unactive_section_product']);
+    Route::get('/active-section-product/{section_id}', [Admin_SectionController::class, 'active_section_product']);
+    Route::post('/save-section-product', [Admin_SectionController::class, 'save_section_product']);
+    Route::post('/update-section-product/{section_id}', [Admin_SectionController::class, 'update_section_product']);
 
     //Category Post - danh mục(loại bài viết - tin tức)
     Route::get('/add-category-post', [Admin_CategoryPostController::class, 'add_category_post']);
