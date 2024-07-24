@@ -19,7 +19,7 @@
                 </ol>
             </div>
             <div class="btn-header">
-                <a href="{{ URL::to('Admin/add-product') }}">
+                <a href="{{ URL::to('Admin/add-product-page') }}">
                     <button type="button" class="btn-ref refesh-page" data-mdb-ripple-init><i
                             class="fa-solid fa-arrows-rotate"></i> Tải lại trang
                     </button>

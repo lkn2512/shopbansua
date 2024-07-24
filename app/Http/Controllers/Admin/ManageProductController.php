@@ -104,9 +104,9 @@ class ManageProductController extends Controller
             }
             Product::insert($data);
             Toastr::success('Thêm sản phẩm thành công!', '');
-            return Redirect::to('Admin/add-product');
+            return Redirect::to('Admin/add-product-page');
         } catch (\Throwable $th) {
-            return Redirect::to('Admin/add-product')->with('error_alert', 'Lỗi bất định, vui lòng tải lại trang.');
+            return Redirect::to('Admin/add-product-page')->with('error_alert', 'Lỗi bất định, vui lòng tải lại trang.');
         }
     }
     public function unactive_product($product_id)

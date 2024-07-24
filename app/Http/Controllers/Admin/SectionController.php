@@ -73,7 +73,7 @@ class SectionController extends Controller
         $this->AuthLogin();
         $section_product = Section::orderBy('Section_name', 'asc')->get();
         $edit_section_product = Section::where('section_id', $section_id)->get();
-        return view('admin.Section.edit-section')->with(compact('edit_section_product', 'section_product'));
+        return view('admin.section.edit-section')->with(compact('edit_section_product', 'section_product'));
     }
     public function update_section_product(Request $request, $section_id)
     {
