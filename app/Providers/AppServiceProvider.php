@@ -13,6 +13,7 @@ use App\Models\Post;
 use App\Models\Product;
 use App\Models\Section;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -58,7 +59,9 @@ class AppServiceProvider extends ServiceProvider
             if ($viewName !== 'pages.category.show_category' && $viewName !== 'pages.product-all.all_product_new' &&  $viewName !== 'pages.product-all.all-product-selling' && $viewName !== 'pages.product-all.all-product-featured' && $viewName !== 'pages.product-all.all-product-view' && $viewName !== 'pages.section.show-section') {
                 $min_price = '';
                 $max_price = '';
-                $view->with(compact('min_price', 'max_price'));
+                $category = DB::table('tbl_category_product')->where('category_status', '1')->orderBy('category_name', 'asc')->get();
+                $brand = DB::table('tbl_brand')->where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
+                $view->with(compact('min_price', 'max_price', 'category', 'brand'));
             }
             $contact_footer = Information::get();
 

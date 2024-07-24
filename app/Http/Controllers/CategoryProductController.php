@@ -11,25 +11,38 @@ class CategoryProductController extends Controller
 {
     public function show_category_home(Request $request, $category_id)
     {
+        // Bắt đầu query để lấy sản phẩm
+        $query = Product::where('category_id', $category_id)->where('product_status', '1')->where('product_condition', '1');
+
         // Lấy danh mục và các thương hiệu có sản phẩm trong danh mục đó
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_name', 'asc')->get();
+        $category_filter = CategoryProduct::where('category_id', $category_id)->where('category_status', '1')->orderBy('category_name', 'asc')->get();
 
         // Lấy danh sách thương hiệu có sản phẩm trong danh mục đã chọn
-        $brand = Brand::whereHas('product', function ($query) use ($category_id) {
+        $brands = Brand::whereHas('product', function ($query) use ($category_id) {
             $query->where('category_id', $category_id);
         })->where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
 
+        // Kiểm tra nếu danh sách thương hiệu không rỗng
+        if ($brands->isNotEmpty()) {
+            // Lấy mảng các brand_id từ danh sách thương hiệu
+            $brand_ids = $brands->pluck('brand_id')->toArray();
+
+            // Sử dụng mảng brand_id để lấy các thương hiệu lọc
+            $brand_filter = Brand::whereIn('brand_id', $brand_ids)
+                ->where('brand_status', '1')
+                ->orderBy('brand_name', 'asc')
+                ->get();
+        } else {
+            // Nếu không có thương hiệu nào, trả về mảng rỗng
+            $brand_filter = collect([]);
+        }
+
         // Lấy giá sản phẩm tối thiểu và tối đa
-        $min_price = Product::where('category_id', $category_id)->min('product_price');
-        $max_price = Product::where('category_id', $category_id)->max('product_price');
+        $min_price = $query->min('product_price');
+        $max_price = $query->max('product_price');
 
         // Lấy tên danh mục
         $category_name = CategoryProduct::where('category_id', $category_id)->limit(1)->get();
-
-        // Bắt đầu query để lấy sản phẩm
-        $query = Product::where('category_id', $category_id)
-            ->where('product_status', '1')
-            ->where('product_condition', '1');
 
         // Lọc theo thương hiệu nếu có
         if ($request->has('brand')) {
@@ -74,7 +87,7 @@ class CategoryProductController extends Controller
         $category_by_id = $query->paginate(20);
 
         return view('pages.category.show_category')
-            ->with(compact('category', 'brand', 'category_by_id', 'category_name', 'min_price', 'max_price'));
+            ->with(compact('category_filter', 'brand_filter', 'category_by_id', 'category_name', 'min_price', 'max_price'));
     }
 
     public function product_tabs(Request $request)

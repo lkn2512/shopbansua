@@ -341,8 +341,7 @@
         </div>
     </div>
 
-    <h2 class="title-product"><img src="{{ asset('frontend/images/home/view.png') }}" alt="icon"
-            class="icon-title">Được quan tâm nhiều nhất</h2>
+    <h2 class="title-product">Được quan tâm nhiều nhất</h2>
     <div class="row product-row-container">
         @foreach ($view_product as $key => $view)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">

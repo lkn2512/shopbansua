@@ -89,13 +89,20 @@ class HomeController extends Controller
     }
     public function all_products_new()
     {
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_name', 'asc')->get();
-        $brand = Brand::where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
+        $query = Product::where('product_status', '1')->where('product_condition', '1');
 
+        // Lấy danh sách danh mục có sản phẩm
+        $category_filter = CategoryProduct::whereHas('product', function ($query) {
+            $query;
+        })->where('category_status', '1')->orderBy('category_name', 'asc')->get();
+
+        // Lấy danh sách thương hiệu có sản phẩm
+        $brand_filter = Brand::whereHas('product', function ($query) {
+            $query;
+        })->where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
         $min_price = Product::min('product_price');
         $max_price = Product::max('product_price');
 
-        $query = Product::where('product_status', '1')->where('product_condition', '1');
 
         if (isset($_GET['category'])) {
             $category_ids = explode(',', $_GET['category']);
@@ -137,18 +144,25 @@ class HomeController extends Controller
         } else {
             $all_product_new = $query->orderBy('product_id', 'desc')->paginate(20);
         }
-        return view('pages.product-all.all_product_new')->with(compact('all_product_new', 'min_price', 'max_price', 'category', 'brand'));
+        return view('pages.product-all.all_product_new')->with(compact('all_product_new', 'min_price', 'max_price', 'category_filter', 'brand_filter'));
     }
 
     public function all_product_selling()
     {
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
+        $query = Product::where('product_status', '1')->where('product_condition', '1')->where('product_sold', '>', 0);
+
+        // Lấy danh sách danh mục có sản phẩm
+        $category_filter = CategoryProduct::whereHas('product', function ($query) {
+            $query->where('product_sold', '>', 0);
+        })->where('category_status', '1')->orderBy('category_name', 'asc')->get();
+
+        // Lấy danh sách thương hiệu có sản phẩm
+        $brand_filter = Brand::whereHas('product', function ($query) {
+            $query->where('product_sold', '>', 0);
+        })->where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
 
         $min_price = Product::where('product_sold', '>', 0)->min('product_price');
         $max_price = Product::where('product_sold', '>', 0)->max('product_price');
-
-        $query = Product::where('product_status', '1')->where('product_condition', '1')->where('product_sold', '>', 0);
 
         if (isset($_GET['category'])) {
             $category_ids = explode(',', $_GET['category']);
@@ -180,18 +194,25 @@ class HomeController extends Controller
         } else {
             $product_selling = $query->orderBy('product_sold', 'desc')->paginate(20);
         }
-        return view('pages.product-all.all-product-selling')->with(compact('product_selling', 'min_price', 'max_price', 'category', 'brand'));
+        return view('pages.product-all.all-product-selling')->with(compact('product_selling', 'min_price', 'max_price', 'category_filter', 'brand_filter'));
     }
 
     public function all_featuredProducts()
     {
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
+        $query = Product::with('ratings')->withAvg('ratings', 'rating')->where('product_status', '1')->where('product_condition', '1');
 
-        $min_price = Product::where('product_sold', '>', 0)->min('product_price');
-        $max_price = Product::where('product_sold', '>', 0)->max('product_price');
+        // Lấy danh sách danh mục có sản phẩm
+        $category_filter = CategoryProduct::whereHas('product', function ($query) {
+            $query;
+        })->where('category_status', '1')->orderBy('category_name', 'asc')->get();
 
-        $query = Product::with('ratings')->withAvg('ratings', 'rating');
+        // Lấy danh sách thương hiệu có sản phẩm
+        $brand_filter = Brand::whereHas('product', function ($query) {
+            $query;
+        })->where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
+
+        $min_price = $query->min('product_price');
+        $max_price = $query->max('product_price');
 
         if (isset($_GET['category'])) {
             $category_ids = explode(',', $_GET['category']);
@@ -223,17 +244,24 @@ class HomeController extends Controller
         } else {
             $featuredProducts = $query->orderByDesc('ratings_avg_rating')->paginate(20);
         }
-        return view('pages.product-all.all-product-featured')->with(compact('featuredProducts', 'min_price', 'max_price', 'category', 'brand'));
+        return view('pages.product-all.all-product-featured')->with(compact('featuredProducts', 'min_price', 'max_price', 'category_filter', 'brand_filter'));
     }
     public function all_product_view()
     {
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
-
-        $min_price = Product::where('product_sold', '>', 0)->min('product_price');
-        $max_price = Product::where('product_sold', '>', 0)->max('product_price');
-
         $query = Product::where('product_status', '1')->where('product_view', '>', '0');
+
+        // Lấy danh sách danh mục có sản phẩm
+        $category_filter = CategoryProduct::whereHas('product', function ($query) {
+            $query;
+        })->where('category_status', '1')->orderBy('category_name', 'asc')->get();
+
+        // Lấy danh sách thương hiệu có sản phẩm
+        $brand_filter = Brand::whereHas('product', function ($query) {
+            $query;
+        })->where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
+
+        $min_price = $query->min('product_price');
+        $max_price = $query->max('product_price');
 
         if (isset($_GET['category'])) {
             $category_ids = explode(',', $_GET['category']);
@@ -265,7 +293,7 @@ class HomeController extends Controller
         } else {
             $product_view = $query->orderBy('product_view', 'desc')->paginate(20);
         }
-        return view('pages.product-all.all-product-view')->with(compact('product_view', 'min_price', 'max_price', 'category', 'brand'));
+        return view('pages.product-all.all-product-view')->with(compact('product_view', 'min_price', 'max_price', 'category_filter', 'brand_filter'));
     }
 
 

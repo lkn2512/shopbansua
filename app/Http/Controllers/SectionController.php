@@ -12,25 +12,25 @@ class SectionController extends Controller
 {
     public function chuyen_muc_san_pham(Request $request, $section_slug)
     {
-        $section = Section::where('section_slug', $section_slug)->firstOrFail();
+        $category = CategoryProduct::where('category_status', '1')->orderBy('category_name', 'asc')->get();
 
+        $section = Section::where('section_slug', $section_slug)->firstOrFail();
         $categoryIds = Product::where('section_id', $section->section_id)
             ->where('product_status', '1')
             ->where('product_condition', '1')
             ->pluck('category_id')
             ->unique(); // Lấy ra các category_id duy nhất
-        $category = CategoryProduct::whereIn('category_id', $categoryIds)
+        $category_filter = CategoryProduct::whereIn('category_id', $categoryIds)
             ->where('category_status', '1')
             ->orderBy('category_name', 'asc')
             ->get();
 
         $brandIds = Product::where('section_id', $section->section_id)->where('product_status', '1')
             ->where('product_condition', '1')->pluck('brand_id')->unique(); // Lấy ra các brand_id duy nhất
-        $brand = Brand::whereIn('brand_id', $brandIds)->where('brand_status', 1)->orderBy('brand_name', 'asc')->get();
+        $brand_filter = Brand::whereIn('brand_id', $brandIds)->where('brand_status', 1)->orderBy('brand_name', 'asc')->get();
 
-
-        $min_price = Product::where('category_id')->min('product_price');
-        $max_price = Product::where('category_id')->max('product_price');
+        $min_price = Product::where('section_id', $section->section_id)->min('product_price');
+        $max_price = Product::where('section_id', $section->section_id)->max('product_price');
 
         // Bắt đầu query để lấy sản phẩm thuộc section_slug
         $query = Product::with('section')
@@ -81,6 +81,6 @@ class SectionController extends Controller
         // Lấy dữ liệu sản phẩm và phân trang
         $productSec = $query->paginate(20);
 
-        return view('pages.section.show-section')->with(compact('brand', 'category', 'min_price', 'max_price', 'section', 'productSec', 'category', 'brand'));
+        return view('pages.section.show-section')->with(compact('min_price', 'max_price', 'section', 'productSec', 'category_filter', 'brand_filter', 'category'));
     }
 }

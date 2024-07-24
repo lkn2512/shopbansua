@@ -1,6 +1,6 @@
 <div class="row filter-container">
     <label class="filer-title">Danh mục</label>
-    @foreach ($category as $key => $valueB)
+    @foreach ($category_filter as $key => $valueB)
         @php
             $category_id = [];
             if (isset($_GET['category'])) {

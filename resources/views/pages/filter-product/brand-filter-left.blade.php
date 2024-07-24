@@ -1,6 +1,6 @@
 <div class="row filter-container">
     <label class="filer-title">Thương hiệu</label>
-    @foreach ($brand as $key => $valueA)
+    @foreach ($brand_filter as $key => $valueA)
         @php
             $brand_id = [];
             if (isset($_GET['brand'])) {
