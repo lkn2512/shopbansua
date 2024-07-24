@@ -40,7 +40,15 @@
                                                 class="required">*</span></small></label>
                                     <input type="text" value="{{ $edit_value->section_name }}"
                                         name="section_product_name" required class="form-control"
-                                        placeholder="Nhập vào tên chuyên mục cho sản phẩm" maxlength="50">
+                                        placeholder="Nhập vào tên chuyên mục cho sản phẩm" maxlength="50"
+                                        data-slug-source="section_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Slug<small class="note"><span class="required">*</span><span> (tự
+                                                động)</span></small></label>
+                                    <input type="text" name="section_slug" class="form-control"
+                                        placeholder="Nhập vào slug" required data-slug-target="section_name"
+                                        value="{{ $edit_value->section_slug }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Mô tả<small class="note">(không bắt

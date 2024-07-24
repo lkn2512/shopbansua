@@ -3,19 +3,19 @@
     $shipping_id = Session::get('shipping_id');
 @endphp
 <div class="position-sticky top-0" style="z-index: 100">
-    <div class="header-top ">
-        <div class="container">
+    <div class="header-top">
+        <div class="container-xl">
             <div class="row header-container">
-                <div class="col-lg-2 col-md-3 col-sm-5">
+                <div class="col-lg-2 col-md-3 col-sm-5 col-xs-3">
                     @foreach ($contact_footer as $cont_header)
                         <a class="img-logo" href="{{ URL::to('/') }}">
                             <img src="{{ asset('/uploads/contact/' . $cont_header->info_image) }}" />
                         </a>
                     @endforeach
                 </div>
-                <div class="col-lg-8 col-md-5 col-sm-6 px-2">
-                    <div class="row">
-                        <div class="search_box col-lg-11 col-md-10 col-sm-10">
+                <div class="col-lg-8 col-md-5 col-sm-7 ">
+                    <div class="row d-flex justify-content-between align-items-center">
+                        <div class="search_box col-lg-11 col-md-9 col-sm-9 ">
                             <form action="{{ URL::to('/search-items') }}" autocomplete="off" method="POST">
                                 {{ csrf_field() }}
                                 <div class="input-group">
@@ -28,7 +28,7 @@
                                 <div id="search_ajax"></div>
                             </form>
                         </div>
-                        <div class="cart-header col-lg-1 col-md-1 col-sm-1">
+                        <div class="cart-header col-lg-1 col-md-3 col-sm-3 ">
                             <a href="{{ URL::to('/your-cart') }}">
                                 <span class="position-relative">
                                     <img src="{{ URL::to('/frontend/images/cart/cart.png') }}" class="cart-icon" />
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 p-0">
+                <div class="col-lg-2 col-md-4 col-sm-5  p-0">
                     <div class="user-customer">
                         @if ($customer_id)
                             <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
@@ -116,9 +116,9 @@
         </div>
     @endif
     <header class="header-area shadow-sm ">
-        <div class="container">
+        <div class="container-xl">
             <div class="row">
-                <div class="col-12">
+                <div class="col-lg-12">
                     <nav class="main-nav">
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="{{ URL::to('/') }}"
@@ -127,7 +127,7 @@
                             <li class="submenu">
                                 <a href="javascript:;">Danh mục</a>
                                 <ul class="sub-ul">
-                                    @foreach ($category as $key => $cate)
+                                    @foreach ($category as $cate)
                                         <li class="sub-li">
                                             <a class="{{ Request::is('danh-muc-san-pham/' . $cate->category_id) ? 'active' : '' }}"
                                                 href="{{ URL::to('danh-muc-san-pham/' . $cate->category_id) }}">{{ $cate->category_name }}
@@ -139,10 +139,22 @@
                             <li class="submenu">
                                 <a href="javascript:;">Blog</a>
                                 <ul class="sub-ul">
-                                    @foreach ($category_post_frontend as $key => $blog)
+                                    @foreach ($category_post_frontend as $blog)
                                         <li class="sub-li">
                                             <a class="{{ Request::is('danh-muc-bai-viet/' . $blog->cate_post_id) ? 'active' : '' }}"
                                                 href="{{ URL::to('danh-muc-bai-viet/' . $blog->cate_post_id) }}">{{ $blog->cate_post_name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a href="javascript:;">Chuyên mục sản phẩm</a>
+                                <ul class="sub-ul">
+                                    @foreach ($sections as $sec)
+                                        <li class="sub-li">
+                                            <a class="{{ Request::is('chuyen-muc-san-pham/' . $sec->section_slug) ? 'active' : '' }}"
+                                                href="{{ URL::to('chuyen-muc-san-pham/' . $sec->section_slug) }}">{{ $sec->section_name }}
                                             </a>
                                         </li>
                                     @endforeach

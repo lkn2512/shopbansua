@@ -63,6 +63,7 @@ class SectionController extends Controller
         $section->section_name = $data['section_name'];
         $section->section_description = $data['section_desc'];
         $section->section_status = $data['section_status'];
+        $section->section_slug = $data['section_slug'];
         $section->save();
         Toastr::success('Thêm chuyên mục sản phẩm thành công', '');
         return redirect()->back();
@@ -79,9 +80,10 @@ class SectionController extends Controller
         $this->AuthLogin();
         $data = $request->all();
         $section_product = Section::find($section_id);
-        $section_product->Section_name = $data['section_product_name'];
+        $section_product->section_name = $data['section_product_name'];
         $section_product->section_description = $data['section_product_desc'];
-        $section_product->Section_status = $data['section_product_status'];
+        $section_product->section_status = $data['section_product_status'];
+        $section_product->section_slug = $data['section_slug'];
         $section_product->save();
         Toastr::success('Đã cập nhật thay đổi!', '');
         return redirect()->back();

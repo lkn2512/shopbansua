@@ -9,6 +9,7 @@ body {
   font-family: 'Roboto', sans-serif !important;
   /* font-family: 'Poppins', sans-serif !important; */
   margin: 0 auto;
+  overflow-x: hidden;
 }
 
 
@@ -21,7 +22,7 @@ body {
 }
 
 .container-main {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 a:hover {
@@ -148,7 +149,6 @@ a#scrollUp i {
 
 .header-area .main-nav .nav li.submenu ul {
   position: absolute;
-  width: 200px;
   box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.1);
   top: 40px;
   opacity: 0;
@@ -157,7 +157,7 @@ a#scrollUp i {
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   border: 1px solid rgb(230, 230, 230);
   visibility: hidden;
-  width: 300px;
+  width: 50vh;
 }
 
 
@@ -170,7 +170,6 @@ a#scrollUp i {
 .header-area .main-nav .nav li.submenu ul li a {
   background: white;
   padding-left: 20px;
-  height: 40px;
   font-size: 16px;
   font-weight: 400;
 }
@@ -270,10 +269,16 @@ a#scrollUp i {
 
 
 .title-product {
-  margin-top: 10px;
+  margin-top: 20px;
   font-weight: 500;
   color: #103667;
   text-transform: uppercase;
+}
+
+.title-product .icon-title {
+  height: 25px;
+  width: auto;
+  margin-right: 5px;
 }
 
 .hr-title {
@@ -528,8 +533,8 @@ a#scrollUp i {
 
 .cart-icon {
   height: 40px;
-  width: 45px;
-  margin-top: 5px;
+  width: auto;
+  max-width: 45px;
 }
 
 .cart-view {

@@ -9,11 +9,11 @@ class Section extends Model
 {
     use HasFactory;
     public $timestamps = true;
-    protected $fillable = ['section_name', 'section_description', 'section_status'];
+    protected $fillable = ['section_name', 'section_slug', 'section_description', 'section_status'];
     protected $primaryKey = 'section_id';
     protected $table = 'tbl_section';
 
-    public function products()
+    public function product()
     {
         return $this->hasMany(Product::class, 'section_id');
     }

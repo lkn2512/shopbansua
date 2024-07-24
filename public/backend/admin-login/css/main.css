@@ -26,6 +26,10 @@ html {
     font-family: Montserrat-Regular, sans-serif
 }
 
+body {
+    overflow-x: hidden;
+}
+
 a {
     font-family: Montserrat-Regular;
     font-size: 14px;
@@ -180,8 +184,14 @@ iframe {
 
 .limiter {
     width: 100%;
+    height: 100vh;
+    /* Đảm bảo chiều cao của phần tử chiếm toàn bộ chiều cao của viewport */
     margin: 0 auto;
     user-select: none;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .container-login100 {

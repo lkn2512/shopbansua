@@ -33,6 +33,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PrintPDFController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SectionController;
 use UniSharp\LaravelFilemanager\Lfm;
 
 // Route::get('/', function () {
@@ -240,6 +241,9 @@ Route::get('/danh-muc-san-pham/{category_id}', [CategoryproductController::class
 Route::get('/thuong-hieu-san-pham/{brand_id}', [BrandProduct::class, 'show_brand_home']);
 Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
 
+Route::get('/chuyen-muc-san-pham/{section_slug}', [SectionController::class, 'chuyen_muc_san_pham']);
+
+//comment - bình luận
 Route::post('/load-comment', [ProductController::class, 'load_comment']);
 Route::post('/send-comment', [ProductController::class, 'send_comment']);
 Route::post('/recall-comment', [ProductController::class, 'recall_comment']);

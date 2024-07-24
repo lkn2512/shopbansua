@@ -12,6 +12,7 @@ use App\Models\HolidayEvent;
 use App\Models\Information;
 use App\Models\Product;
 use App\Models\Rating;
+use App\Models\Section;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -22,8 +23,6 @@ class HomeController extends Controller
         $brand = DB::table('tbl_brand')->where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
         $all_product_new = Product::where('product_status', '1')->where('product_condition', '1')->orderBy('product_id', 'desc')->limit(12)->get();
         $slider = Slider::orderby('slider_id', 'desc')->where('slider_status', '1')->get();
-
-        // $selling_product = Product::where('product_status', '1')->where('product_condition', '1')->where('product_sold', '>', 0)->orderBy('product_sold', 'desc')->limit(12)->get();
 
         $best_selling = Product::with('gallery')->where('product_status', '1')->where('product_condition', '1')->where('product_sold', '>', 0)->orderBy('product_sold', 'desc')->first();
         if ($best_selling) {
@@ -69,7 +68,24 @@ class HomeController extends Controller
         //sản phẩm nối bật dựa trên đánh giá sao
         $featuredProducts = Product::with('ratings')->withAvg('ratings', 'rating')->orderByDesc('ratings_avg_rating')->take(12)->get();
 
-        return view('pages.home')->with(compact('category', 'brand', 'all_product_new', 'slider', 'selling_product', 'best_selling', 'galleries', 'averageRating', 'starPercentages', 'contact', 'customer', 'promotional_product', 'holidayEvent', 'productsByEvent', 'view_product', 'featuredProducts'));
+        //Sản phẩm theo từng chuyên mục
+        $sections = Section::where('section_status', 1)->orderBy('section_name', 'asc')->get();
+        $sections_products = [];
+        foreach ($sections as $section) {
+            $section_id = $section->section_id;
+            $section_name = $section->section_name;
+            $section_slug = $section->section_slug;
+            $productSec = Product::with('section')->where('section_id', $section_id)->where('product_status', '1')->where('product_condition', '1')->limit(6)->get();
+            if ($productSec->count() > 0) {
+                $sections_products[$section_id] = [
+                    'products' => $productSec,
+                    'section_name' => $section_name,
+                    'section_slug' => $section_slug
+                ];
+            }
+        }
+
+        return view('pages.home')->with(compact('category', 'brand', 'all_product_new', 'slider', 'selling_product', 'best_selling', 'galleries', 'averageRating', 'starPercentages', 'contact', 'customer', 'promotional_product', 'holidayEvent', 'productsByEvent', 'view_product', 'featuredProducts', 'sections', 'sections_products'));
     }
     public function all_products_new()
     {

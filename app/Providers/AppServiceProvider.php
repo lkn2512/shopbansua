@@ -11,6 +11,7 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\Section;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
@@ -54,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('pages.*', function ($view) {
             $viewName = $view->getName();
 
-            if ($viewName !== 'pages.category.show_category' && $viewName !== 'pages.product-all.all_product_new' &&  $viewName !== 'pages.product-all.all-product-selling' && $viewName !== 'pages.product-all.all-product-featured' && $viewName !== 'pages.product-all.all-product-view') {
+            if ($viewName !== 'pages.category.show_category' && $viewName !== 'pages.product-all.all_product_new' &&  $viewName !== 'pages.product-all.all-product-selling' && $viewName !== 'pages.product-all.all-product-featured' && $viewName !== 'pages.product-all.all-product-view' && $viewName !== 'pages.section.show-section') {
                 $min_price = '';
                 $max_price = '';
                 $view->with(compact('min_price', 'max_price'));
@@ -68,10 +69,12 @@ class AppServiceProvider extends ServiceProvider
             if ($customer_id) {
                 $customer = Customer::where('customer_id', $customer_id)->get();
             } else {
-                $customer = 0;
+                $customer = '';
             }
 
-            $view->with(compact('contact_footer', 'post_footerService', 'post_footerPolicy', 'category_post_frontend', 'customer'));
+            $sections = Section::where('section_status', 1)->orderBy('section_name', 'asc')->get();
+
+            $view->with(compact('contact_footer', 'post_footerService', 'post_footerPolicy', 'category_post_frontend', 'customer', 'sections'));
         });
         // view()->composer('admin_layout', function ($view) {
         // });
