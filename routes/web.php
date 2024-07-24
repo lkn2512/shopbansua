@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\CategoryProductController as Admin_CategoryProduc
 use App\Http\Controllers\Admin\BrandController as Admin_BrandController;
 use App\Http\Controllers\Admin\PostController as Admin_PostController;
 use App\Http\Controllers\Admin\SliderController as Admin_SliderController;
-use App\Http\Controllers\Admin\ProductController as Admin_ProductController;
+use App\Http\Controllers\Admin\ManageProductController as Admin_ManageProductController;
 use App\Http\Controllers\Admin\ContactController as Admin_ContactController;
 use App\Http\Controllers\Admin\CouponController as Admin_CouponController;
 use App\Http\Controllers\Admin\OrderController as Admin_OrderController;
@@ -124,24 +124,24 @@ Route::prefix('Admin')->group(function () {
     Route::get('/active-post/{post_id}', [Admin_PostController::class, 'active_post']);
 
     //Product - sản phẩm
-    Route::get('/add-product', [Admin_ProductController::class, 'add_product']);
-    Route::get('/edit-product/{product_id}', [Admin_ProductController::class, 'edit_product']);
-    Route::get('/delete-product/{product_id}', [Admin_ProductController::class, 'delete_product']);
-    Route::get('/all-product', [Admin_ProductController::class, 'all_product']);
-    Route::get('/unactive-product/{product_id}', [Admin_ProductController::class, 'unactive_product']);
-    Route::get('/active-product/{product_id}', [Admin_ProductController::class, 'active_product']);
-    Route::post('/save-product', [Admin_ProductController::class, 'save_product']);
-    Route::post('/update-product/{product_id}', [Admin_ProductController::class, 'update_product']);
-    Route::get('add-gallery/{product_id}', [Admin_ProductController::class, 'add_gallery']);
-    Route::post('select-gallery', [Admin_ProductController::class, 'select_gallery']);
-    Route::post('insert-gallery/{pro_id}', [Admin_ProductController::class, 'insert_gallery']);
-    Route::post('update-gallery-name', [Admin_ProductController::class, 'update_gallery_name']);
-    Route::post('delete-gallery', [Admin_ProductController::class, 'delete_gallery']);
-    Route::post('update-gallery', [Admin_ProductController::class, 'update_gallery']);
-    Route::post('/update-img-product', [Admin_ProductController::class, 'update_img_product']);
+    Route::get('/add-product-page', [Admin_ManageProductController::class, 'add_product_page']);
+    Route::get('/edit-product/{product_id}', [Admin_ManageProductController::class, 'edit_product']);
+    Route::get('/delete-product/{product_id}', [Admin_ManageProductController::class, 'delete_product']);
+    Route::get('/all-product', [Admin_ManageProductController::class, 'all_product']);
+    Route::get('/unactive-product/{product_id}', [Admin_ManageProductController::class, 'unactive_product']);
+    Route::get('/active-product/{product_id}', [Admin_ManageProductController::class, 'active_product']);
+    Route::post('/save-product', [Admin_ManageProductController::class, 'save_product']);
+    Route::post('/update-product/{product_id}', [Admin_ManageProductController::class, 'update_product']);
+    Route::get('add-gallery/{product_id}', [Admin_ManageProductController::class, 'add_gallery']);
+    Route::post('select-gallery', [Admin_ManageProductController::class, 'select_gallery']);
+    Route::post('insert-gallery/{pro_id}', [Admin_ManageProductController::class, 'insert_gallery']);
+    Route::post('update-gallery-name', [Admin_ManageProductController::class, 'update_gallery_name']);
+    Route::post('delete-gallery', [Admin_ManageProductController::class, 'delete_gallery']);
+    Route::post('update-gallery', [Admin_ManageProductController::class, 'update_gallery']);
+    Route::post('/update-img-product', [Admin_ManageProductController::class, 'update_img_product']);
 
-    // Route::post('/uploads-ckeditor', [Admin_ProductController::class, 'ckeditor_image']);
-    // Route::get('/file-browser', [Admin_ProductController::class, 'file_browser']);
+    // Route::post('/uploads-ckeditor', [Admin_ManageProductController::class, 'ckeditor_image']);
+    // Route::get('/file-browser', [Admin_ManageProductController::class, 'file_browser']);
 
     //Thông tin - infomation
     Route::get('/information', [Admin_ContactController::class, 'information']);

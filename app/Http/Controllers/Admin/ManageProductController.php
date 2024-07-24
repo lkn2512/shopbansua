@@ -16,7 +16,7 @@ use App\Models\Video;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Log;
 
-class ProductController extends Controller
+class ManageProductController extends Controller
 {
     public function AuthLogin()
     {
@@ -27,11 +27,13 @@ class ProductController extends Controller
             return Redirect::to('Admin/admin-login')->send();
         }
     }
-    public function add_product()
+    public function add_product_page()
     {
         $this->AuthLogin();
         $cate_product = CategoryProduct::orderBy('category_name', 'asc')->get();
         $brand_product = Brand::orderBy('brand_name', 'asc')->get();
+
+        $section_product = Section::orderBy('section_name', 'asc')->get();
 
         $videos = Video::leftJoin('tbl_product', 'tbl_video.video_id', '=', 'tbl_product.video_id')
             ->whereNull('tbl_product.video_id')
@@ -39,7 +41,7 @@ class ProductController extends Controller
             ->select('tbl_video.*')
             ->get();
 
-        return view('admin.product.add_product')->with(compact('cate_product', 'brand_product', 'videos'));
+        return view('admin.product.add_product')->with(compact('cate_product', 'brand_product', 'videos', 'section_product'));
     }
 
     public function all_product()
@@ -76,6 +78,7 @@ class ProductController extends Controller
             $data['product_sold'] = 0;
             $data['category_id'] = $request->product_cate;
             $data['brand_id'] = $request->product_brand;
+            $data['section_id'] = $request->section_id;
             $data['product_condition'] = $request->product_condition;
             $data['product_status'] = $request->product_status;
 

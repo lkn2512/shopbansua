@@ -234,6 +234,25 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="label-container">
+                                <label>Chuyên mục</label>
+                                <span class="add-new">
+                                    <a href="{{ URL::to('Admin/all-section-product/create-section') }}">Thêm
+                                        mới</a>
+                                </span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select class="form-control select2" name="section_id">
+                                    <option value={{ null }}>Không có</option>
+                                    @foreach ($section_product as $sec)
+                                        <option value="{{ $sec->section_id }}">
+                                            {{ $sec->section_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card">

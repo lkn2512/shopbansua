@@ -12,7 +12,7 @@
                     Tải lại trang
                 </button>
             </a>
-            <a href="{{ URL::to('Admin/add-product') }}">
+            <a href="{{ URL::to('Admin/add-product-page') }}">
                 <button type="button" class="btn-add-page"><i class="fa-solid fa-plus"></i>Thêm sản
                     phẩm
                 </button>
