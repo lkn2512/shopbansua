@@ -24,8 +24,7 @@
         </div>
     </div>
 
-    <h2 class="title-product"><img src="{{ asset('frontend/images/home/new1.png') }}" alt="icon" class="icon-title">Sản
-        phẩm mới nhất</h2>
+    <h2 class="title-product">Sản phẩm mới nhất</h2>
     <div class="row product-row-container">
         @foreach ($all_product_new as $key => $new)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
@@ -96,8 +95,7 @@
         </div>
     </div>
 
-    <h2 class="title-product"><img src="{{ asset('frontend/images/home/selling.png') }}" alt="icon"
-            class="icon-title">Sản phẩm bán chạy được nhiều người tin dùng</h2>
+    <h2 class="title-product">Sản phẩm bán chạy được nhiều người tin dùng</h2>
     <div class="row product-row-container">
         @foreach ($selling_product as $key => $sell)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
@@ -178,96 +176,145 @@
     @endphp
     @foreach ($holidayEvent as $value)
         @if ($currentDate >= $value->event_date && $currentDate <= $value->event_end_date)
-            <div class="row holiday-carosel"
-                style="background-image: url('{{ asset('frontend/images/home/background-holiday.png') }}');">
-                <div class="col-lg-4 col-md-6 col-sm-12 carosel-left">
-                    <span class="holiday-name">{{ $value->event_name }}</span>
-                    <span class="holiday-end-date">Ngày kết thúc:
-                        {{ \Carbon\Carbon::parse($value->event_end_date)->format('d-m-Y') }}
-                    </span>
-                    <img src="{{ asset('/uploads/event/' . $value->event_image) }}" alt="">
-                </div>
-                <div class="col-lg-8 col-md-6 col-sm-12 carosel-right">
-                    <div class="featured-carousel owl-carousel">
-                        @foreach ($productsByEvent[$value->holiday_event_id] as $product)
-                            <div class="blog-entry col-lg-2 col-md-4 col-sm-6">
-                                <div class="productinfo">
-                                    <a class="img-center blog-20">
-                                        <img src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
-                                        @if ($product->promotional_price > 0)
-                                            <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
-                                        @endif
-                                    </a>
-                                    <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
-                                        <p class="product-name">{{ $product->product_name }}</p>
-                                    </a>
-                                    <div class="price-product">
-                                        @if ($product->promotional_price > 0)
-                                            <div class="price-info">
-                                                <div class="price-content1">
+            <section class="ftco-section-holiday">
+                <div class="row mt-4">
+                    <div class="col-lg-5 col-md-6 col-sm-6 holiday-left">
+                        <span class="holiday-name">{{ $value->event_name }}</span>
+                        <span class="holiday-end-date countdown-timer"
+                            data-end-date="{{ \Carbon\Carbon::parse($value->event_end_date)->format('Y-m-d H:i:s') }}"></span>
+                        <img src="{{ asset('/uploads/event/' . $value->event_image) }}" alt="">
+                    </div>
+                    <div class="col-lg-7 col-md-6 col-sm-6 holiday-right">
+                        <div class="featured-carousel owl-carousel">
+                            @foreach ($productsByEvent[$value->holiday_event_id] as $product)
+                                <div class="item">
+                                    <div class="blog-entry">
+                                        <a href="#" class="block-20 d-flex align-items-start"
+                                            style="background-image: url('{{ URL::to('/uploads/product/' . $product->product_image) }}');">
+                                            @if ($product->promotional_price > 0)
+                                                {{-- <span class="header-image-promotional">Khuyến mãi đặc biệt</span> --}}
+                                                <div class="meta-date text-center p-2">
+                                                    <span class="day">Giá</span>
+                                                    <span class="mos">ưu</span>
+                                                    <span class="yr">đãi!</span>
+                                                </div>
+                                            @endif
+                                        </a>
+                                        <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
+                                            <p class="heading-product-name">{{ $product->product_name }}</p>
+                                        </a>
+                                        <div class="price-product">
+                                            @if ($product->promotional_price > 0)
+                                                <div class="price-info">
+                                                    <div class="price-content1">
+                                                        <span
+                                                            class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
+                                                        </span>
+                                                        <span class="currency-unit">₫</span>
+                                                    </div>
+                                                    <div class="price-content2">
+                                                        <span class="promotional-price">
+                                                            {{ number_format($product->promotional_price, 0, ',', '.') }}
+                                                        </span>
+                                                        <span class="currency-unit">₫</span>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="price-content">
                                                     <span
-                                                        class="price-small">{{ number_format($product->product_price, 0, ',', '.') }}
+                                                        class="price">{{ number_format($product->product_price, 0, ',', '.') }}
                                                     </span>
                                                     <span class="currency-unit">₫</span>
                                                 </div>
-                                                <div class="price-content2">
-                                                    <span class="promotional-price">
-                                                        {{ number_format($product->promotional_price, 0, ',', '.') }}
-                                                    </span>
-                                                    <span class="currency-unit">₫</span>
-                                                </div>
-                                            </div>
-                                        @else
-                                            <div class="price-content">
-                                                <span
-                                                    class="price">{{ number_format($product->product_price, 0, ',', '.') }}
-                                                </span>
-                                                <span class="currency-unit">₫</span>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <form>
-                                        @csrf
-                                        <input type="hidden" class="cart_product_id_{{ $product->product_id }}"
-                                            value="{{ $product->product_id }}">
-                                        <input type="hidden" class="cart_product_name_{{ $product->product_id }}"
-                                            value="{{ $product->product_name }}">
-                                        <input type="hidden" class="cart_product_image_{{ $product->product_id }}"
-                                            value="{{ $product->product_image }}">
-                                        <input type="hidden" class="cart_product_quantity_{{ $product->product_id }}"
-                                            value="{{ $product->product_quantity }}">
-                                        @if ($product->promotional_price > 0)
-                                            <input type="hidden" class="cart_product_price_{{ $product->product_id }}"
-                                                value="{{ $product->promotional_price }}">
-                                        @else
-                                            <input type="hidden" class="cart_product_price_{{ $product->product_id }}"
-                                                value="{{ $product->product_price }}">
-                                        @endif
-                                        <input type="hidden" class="cart_category_product_{{ $product->product_id }}"
-                                            value="{{ $product->category->category_name }}">
-                                        <input type="hidden" class="cart_brand_product_{{ $product->product_id }}"
-                                            value="{{ $product->brand->brand_name }}">
-                                        <input type="hidden" class="cart_product_qty_{{ $product->product_id }}"
-                                            value="1">
-
-                                        <div class="order-button">
-                                            <a class="add-to-cart" data-id="{{ $product->product_id }}"><i
-                                                    class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
-                                            </a>
+                                            @endif
                                         </div>
-                                    </form>
+                                        <form>
+                                            @csrf
+                                            <input type="hidden" class="cart_product_id_{{ $product->product_id }}"
+                                                value="{{ $product->product_id }}">
+                                            <input type="hidden" class="cart_product_name_{{ $product->product_id }}"
+                                                value="{{ $product->product_name }}">
+                                            <input type="hidden" class="cart_product_image_{{ $product->product_id }}"
+                                                value="{{ $product->product_image }}">
+                                            <input type="hidden"
+                                                class="cart_product_quantity_{{ $product->product_id }}"
+                                                value="{{ $product->product_quantity }}">
+                                            @if ($product->promotional_price > 0)
+                                                <input type="hidden"
+                                                    class="cart_product_price_{{ $product->product_id }}"
+                                                    value="{{ $product->promotional_price }}">
+                                            @else
+                                                <input type="hidden"
+                                                    class="cart_product_price_{{ $product->product_id }}"
+                                                    value="{{ $product->product_price }}">
+                                            @endif
+                                            <input type="hidden"
+                                                class="cart_category_product_{{ $product->product_id }}"
+                                                value="{{ $product->category->category_name }}">
+                                            <input type="hidden" class="cart_brand_product_{{ $product->product_id }}"
+                                                value="{{ $product->brand->brand_name }}">
+                                            <input type="hidden" class="cart_product_qty_{{ $product->product_id }}"
+                                                value="1">
+
+                                            <div class="order-button">
+                                                <a class="add-to-cart" data-id="{{ $product->product_id }}"><i
+                                                        class="fa-solid fa-cart-arrow-down"></i>Đặt hàng
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
+                <script>
+                    // Hàm để thêm số 0 vào trước những số có một chữ số
+                    function formatNumber(number) {
+                        return number < 10 ? '0' + number : number;
+                    }
+
+                    // Hàm khởi tạo đếm ngược cho từng phần tử
+                    function initializeCountdown(element) {
+                        var endDate = new Date(element.getAttribute('data-end-date')).getTime();
+
+                        var countdownFunction = setInterval(function() {
+                            var now = new Date().getTime();
+                            var distance = endDate - now;
+
+                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                            // Định dạng các số để đảm bảo chúng có hai chữ số
+                            days = formatNumber(days);
+                            hours = formatNumber(hours);
+                            minutes = formatNumber(minutes);
+                            seconds = formatNumber(seconds);
+
+                            // Hiển thị kết quả trong phần tử
+                            element.innerHTML = "Còn " + days + " ngày, " + hours + ":" + minutes + ":" + seconds;
+
+                            // Nếu đếm ngược kết thúc, hiển thị thông báo
+                            if (distance < 0) {
+                                clearInterval(countdownFunction);
+                                element.innerHTML = "Sự kiện đã kết thúc";
+                            }
+                        }, 1000);
+                    }
+
+                    // Tìm tất cả các phần tử có class "countdown-timer" và khởi tạo đếm ngược
+                    document.querySelectorAll('.countdown-timer').forEach(function(element) {
+                        initializeCountdown(element);
+                    });
+                </script>
+            </section>
         @endif
     @endforeach
     {{-- sự kiện sản phẩm --}}
 
-    <h2 class="title-product"><img src="{{ asset('frontend/images/home/star.png') }}" alt="icon"
-            class="icon-title">Sản phẩm nổi bật</h2>
+    <h2 class="title-product">Sản phẩm nổi bật</h2>
     <div class="row product-row-container">
         @foreach ($featuredProducts as $key => $avgRat)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">

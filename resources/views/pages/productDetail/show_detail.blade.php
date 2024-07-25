@@ -288,7 +288,7 @@
         {{-- Sản phẩm cùng loại --}}
 
         <div class="row">
-            <div class="col-lg-10 col-md-9 col-sm-10 position-sticky top-0 pe-0">
+            <div class="col-lg-10 col-md-9 col-sm-9 position-sticky top-0 pe-0">
                 {{-- Mô tả sản phẩm --}}
                 <div class="product-details-desc">
                     <h5 class="titleDetails">Mô tả sản phẩm</h5>
@@ -359,7 +359,7 @@
                 {{-- Đánh giá sản phẩm --}}
             </div>
             {{-- Sản phẩm khuyến mãi --}}
-            <div class="col-lg-2 col-md-3 col-sm-2">
+            <div class="col-lg-2 col-md-3 col-sm-3">
                 <div class="position-sticky top-0 promotional-product">
                     @foreach ($promotional_product as $key => $product)
                         <div class="col-lg-12 product-content">
