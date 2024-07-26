@@ -96,8 +96,8 @@
                     @if ($value->product_condition == '0' || $value->product_quantity <= '0')
                         <img class="img-condition" src="{{ URL::to('frontend/images/product-details/sold_out.png') }}"
                             alt="">
-                        <p class="soldout-note"><i class="fa-solid fa-circle-info"></i> Sản phẩm này đã bán hết, vui lòng
-                            quay lại sau.</p>
+                        <p class="soldout-note mt-4"> Sản phẩm này đã bán hết, vui
+                            lòng quay lại sau.</p>
                     @else
                         <form>
                             @csrf

@@ -25,7 +25,7 @@
                     <div class="title-product mb-3">
                         <h2 class="text">Thông tin giao hàng</h2>
                     </div>
-                    <form id="checkout-form">
+                    <form id="checkout-form" data-parsley-validate>
                         @csrf
                         {{-- lấy mã giảm giá --}}
                         @if (Session::get('coupon'))
@@ -42,57 +42,55 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <input name="shipping_name" type="text" class="form-control shipping_name"
-                                    placeholder="Họ và tên" required oninput="validateForm()"
+                                    placeholder="Họ và tên" required
                                     value="{{ isset($shippingInfoLast) ? $shippingInfoLast->shipping_name : '' }}" />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <input name="shipping_phone" type="number" min="1"
                                     class="form-control shipping_phone" placeholder="Số điện thoại" required
-                                    oninput="validateForm()"
                                     value="{{ isset($shippingInfoLast) ? $shippingInfoLast->shipping_phone : '' }}" />
-                                <span id="phone-error" style="color: red; padding-top: 5px; font-size: 15px;"></span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <input name="shipping_email" type="email" class="form-control shipping_email"
-                                placeholder="you@example.com (nếu có)" oninput="validateForm()"
+                                placeholder="you@example.com (nếu có)"
                                 value="{{ isset($shippingInfoLast) ? $shippingInfoLast->shipping_email : '' }}">
                         </div>
                         <div class="mb-3 row">
                             <div class="col-md-4">
                                 <select name="shipping_address_city"
-                                    class="form-select form-select-lg p-3 shipping_address_province" required
-                                    oninput="validateForm()">
-                                    <option value="" {{ isset($shippingInfoLast->matp) ? 'selected' : '' }}>
+                                    class="form-select form-select-lg p-3 shipping_address_province" required>
+                                    <option value="{{ isset($shippingInfoLast->matp) ? $shippingInfoLast->matp : '' }}"
+                                        {{ isset($shippingInfoLast->matp) ? 'selected' : '' }}>
                                         @if ($shippingInfoLast)
                                             {{ $shippingInfoLast->province->name }}
                                         @else
-                                            Chọn Tỉnh (thành)
+                                            Chọn Tỉnh (Thành phố)
                                         @endif
                                     </option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <select name="shipping_address_district"
-                                    class="form-select form-select-lg p-3 shipping_address_district" required
-                                    oninput="validateForm()">
-                                    <option value="" {{ isset($shippingInfoLast->maqh) ? 'selected' : '' }}>
+                                    class="form-select form-select-lg p-3 shipping_address_district" required>
+                                    <option value="{{ isset($shippingInfoLast->maqh) ? $shippingInfoLast->maqh : '' }}"
+                                        {{ isset($shippingInfoLast->maqh) ? 'selected' : '' }}>
                                         @if ($shippingInfoLast)
                                             {{ $shippingInfoLast->district->name }}
                                         @else
-                                            Chọn Quận (huyện)
+                                            Chọn Quận (Huyện)
                                         @endif
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <select name="shipping_address_wards"
-                                    class="form-select form-select-lg p-3 shipping_address_wards" required
-                                    oninput="validateForm()">
-                                    <option value="" {{ isset($shippingInfoLast->xaid) ? 'selected' : '' }}>
+                                    class="form-select form-select-lg p-3 shipping_address_wards" required>
+                                    <option value="{{ isset($shippingInfoLast->xaid) ? $shippingInfoLast->xaid : '' }}"
+                                        {{ isset($shippingInfoLast->xaid) ? 'selected' : '' }}>
                                         @if ($shippingInfoLast)
                                             {{ $shippingInfoLast->wards->name }}
                                         @else
-                                            Chọn Xã (phường)
+                                            Chọn Xã (Phường)
                                         @endif
                                     </option>
                                 </select>
@@ -100,24 +98,23 @@
                         </div>
                         <div class="mb-3">
                             <input name="shipping_address" type="text" class="form-control shipping_address"
-                                placeholder="Tên đường, số nhà,..." required oninput="validateForm()"
+                                placeholder="Tên đường, số nhà,..." required
                                 value="{{ isset($shippingInfoLast) ? $shippingInfoLast->shipping_address : '' }}" />
                         </div>
                         <div class="mb-3">
                             <textarea style="resize:none; height: 100px;" type="text" name="shipping_notes" class="form-control shipping_notes"
-                                id="exampleInputPassword1" placeholder="Ghi chú (nếu có)" oninput="validateForm()">{{ isset($shippingInfoLast) ? $shippingInfoLast->shipping_notes : '' }}</textarea>
+                                id="exampleInputPassword1" placeholder="Ghi chú (nếu có)">{{ isset($shippingInfoLast) ? $shippingInfoLast->shipping_notes : '' }}</textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Hình thức thanh toán</label>
-                            <select class="form-select payment_select" name="payment_select" required
-                                oninput="validateForm()">
+                            <select class="form-select payment_select" name="payment_select" required>
                                 @if ($shippingInfoLast)
                                     @if ($shippingInfoLast->shipping_method == 1)
                                         <option value="1" selected>Thanh toán khi nhận hàng</option>
                                         <option value="2">Thanh toán & nhận tại cửa hàng</option>
                                     @else
                                         <option value="1">Thanh toán khi nhận hàng</option>
-                                        <option value="2"selected>Thanh toán & nhận tại cửa hàng</option>
+                                        <option value="2" selected>Thanh toán & nhận tại cửa hàng</option>
                                     @endif
                                 @else
                                     <option value="1" selected>Thanh toán khi nhận hàng</option>
@@ -129,10 +126,11 @@
                             <i class="fa-regular fa-bookmark"></i> Thông tin này của bạn sẽ tự động lưu lại cho lần thanh
                             toán sau
                         </div>
-                        <button type="button" class="send_order mb-2" name="send_order" disabled>Hoàn tất đặt hàng</button>
+                        <button type="button" class="send_order mb-2" name="send_order">Hoàn tất đặt hàng</button>
                     </form>
                 </div>
             </div>
+
             {{-- Chi tiết hoá đơn --}}
             <div class="col-md-4">
                 <div class="invoice-details">
@@ -165,11 +163,6 @@
                                     0đ
                                 @endif
                             </span>
-                            @if (Session::get('coupon'))
-                                <a href="{{ url('/remove-coupon') }}" class="delete-coupon" title="Xoá mã giảm giá"><i
-                                        class="fa-regular fa-circle-xmark"></i>
-                                </a>
-                            @endif
                         </div>
                         <div class="d-flex justify-content-between mb-1">
                             <span>Vận chuyển</span>

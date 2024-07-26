@@ -6,7 +6,7 @@
             <li class="breadcrumb-items active" aria-current="page">Giỏ hàng của bạn</li>
         </ol>
     </nav>
-    <div class="shopping-cart-content">
+    <div class="shopping-cart-content row">
         <div class="title-product">
             <h2 class="text mb-3">Giỏ hàng của bạn</h2>
         </div>
@@ -21,17 +21,20 @@
                                 <th class="text-center">Số lượng</th>
                                 <th class="text-center">Giá bán</th>
                                 <th class="text-center">Tổng tiền</th>
-                                <th class="text-center"><a class="btn btn-sm btn-outline-danger"
-                                        href="{{ url('/delete-all-product-cart') }}"
+                                <th class="text-center">
+                                    <a class="btn btn-sm btn-outline-danger" href="{{ url('/delete-all-product-cart') }}"
                                         onclick="return confirm('Bạn có chắc là muốn xoá tất cả sản phẩm ra khỏi giỏ hàng?')">Xoá
-                                        tất cả</a>
+                                        tất cả
+                                    </a>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $total = 0;
+                            @endphp
                             @foreach (Session::get('cart') as $key => $cart)
                                 @php
-                                    $total = 0;
                                     $subtotal = $cart['product_price'] * $cart['product_qty'];
                                     $total += $subtotal;
                                 @endphp
@@ -90,9 +93,9 @@
                                 </th>
                                 <th class="text-center">
                                     @if (Session::get('coupon'))
-                                        <a href="{{ url('/remove-coupon') }}" class="delete-coupon-text"
-                                            title="Xoá mã giảm giá">Xoá mã giảm giá
-                                        </a>
+                                        <a href="{{ url('/remove-coupon') }}"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xoá mã giảm giá này không?');"
+                                            class="delete-coupon-text" title="Xoá mã giảm giá">Xoá mã giảm giá</a>
                                     @endif
                                 </th>
                                 <th class="text-center"><span class="total">Thành Tiền:</span>
@@ -123,24 +126,28 @@
                     </table>
                 </div>
             </form>
-            <div class="shopping-cart-footer">
-                <div class="column">
+            <div class="shopping-cart-footer row">
+                <div class="col-lg-8 col-md-6 col-sm-12 coupon-container">
+                    @if (Session::get('customer_id'))
+                        <form action="{{ url('/check-coupon') }}" method="post">
+                            @csrf
+                            <input type="text" class="coupon-input" name="coupon"
+                                placeholder="Điền mã giảm giá của bạn ở đây (Nhấn Enter để áp dụng)" />
+                            <button type="submit" class="check_coupon" name="check_coupon">Áp dụng</button>
+                        </form>
+                    @else
+                        <input type="text" disabled class="coupon-input" name="coupon"
+                            placeholder="Vui lòng đăng nhập để sử dụng mã giảm giá!" />
+                    @endif
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-12">
                     <a class="continue-shopping" href="{{ url('/') }}">
                         <span class="continue-shopping-content">
                             <i class="fa-solid fa-arrow-left arrow-icon"></i>&nbsp;Tiếp tục mua sắm
                         </span>
                     </a>
                 </div>
-                <div class="column">
-                    <form action="{{ url('/check-coupon') }}" method="post">
-                        @csrf
-                        <div class="coupon-container">
-                            <input type="text" class="coupon-input" name="coupon" placeholder="Mã giảm giá" />
-                            <button type="submit" class="check_coupon" name="check_coupon">Áp dụng</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="column">
+                <div class="col-lg-2 col-md-3 col-sm-12 checkout">
                     <a class="checkout-btn-cart"
                         href="{{ Session::get('customer_id') ? url('/checkout') : url('/login') }}">Thanh toán</a>
                 </div>

@@ -1374,35 +1374,6 @@ h2.title:before {
   height: 100%;
 }
 
-.coupon-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.coupon-input {
-  flex: 1 1 70%;
-  min-width: 200px;
-  padding: 8px;
-  border: 1px solid rgb(200, 200, 200);
-}
-
-.check_coupon {
-  flex: 1 1 20%;
-  padding: 8px 0px;
-  background-color: #006241;
-  border: 1px solid #006241;
-  color: white;
-  border: none;
-}
-
-.coupon-used {
-  color: #006241;
-  font-weight: 400;
-}
-
 
 .save-info-checkout {
   padding-bottom: 20px;
@@ -2826,10 +2797,10 @@ h2.title:before {
 
 
 .img-condition {
-  margin-top: -80px;
+  position: absolute;
+  top: 30%;
   width: 50%;
-  margin-left: 150px;
-  margin-bottom: 15px;
+  left: 50%;
 }
 
 .desc-product p {
@@ -5576,63 +5547,47 @@ select.form-controls {
   }
 }
 
-.shopping-cart-footer {
-  display: table;
-  width: 100%;
-  padding: 10px 0;
-}
-
-.shopping-cart-footer>.column {
-  display: table-cell;
-  padding: 5px 0;
-  vertical-align: middle
-}
-
-
-.shopping-cart-footer>.column:last-child {
-  text-align: right
-}
-
-.shopping-cart-footer .column .continue-shopping {
+.shopping-cart-footer .continue-shopping {
   margin-right: 0;
   color: black;
   position: relative;
   border: 1px solid gray;
   padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.shopping-cart-footer .column .continue-shopping .arrow-icon {
+.shopping-cart-footer {
+  padding: 0px;
+}
+
+.shopping-cart-footer .continue-shopping .arrow-icon {
   position: absolute;
   left: -10px;
   opacity: 0;
-  top: 11px;
+  top: 13px;
   transition: left 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-.shopping-cart-footer .column .continue-shopping:hover .arrow-icon {
+.shopping-cart-footer .continue-shopping:hover .arrow-icon {
   left: 0;
   opacity: 1;
-  padding-left: 5px;
+  padding-left: 10px;
 }
 
-.shopping-cart-footer .column .continue-shopping:hover {
+.shopping-cart-footer .continue-shopping:hover {
+  padding-left: 10px;
+}
+
+.shopping-cart-footer .col-lg-2 {
+  padding-right: 0px;
   padding-left: 20px;
-}
-
-@media (max-width: 768px) {
-  .shopping-cart-footer>.column {
-    display: block;
-    width: 100%
-  }
-
-  .shopping-cart-footer>.column:last-child {
-    text-align: center
-  }
-
-  .shopping-cart-footer>.column .btn {
-    width: 100%;
-    margin: 12px 0 !important
-  }
 }
 
 .coupon-form .form-controls {
@@ -5647,12 +5602,16 @@ select.form-controls {
 }
 
 .checkout-btn-cart {
-  padding: 10px 50px;
+  padding: 10px;
   font-size: 16px;
   background-color: #103667;
   border: 1px solid #103667;
   color: white;
   text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkout-btn-cart:hover {
@@ -5661,12 +5620,29 @@ select.form-controls {
   color: #103667;
 }
 
-
 #updateCartSubmit {
   display: none;
 }
 
+.shopping-cart-footer .coupon-container {
+  padding-left: 22px;
+  padding-right: 0px;
+}
 
+.coupon-container .coupon-input {
+  border: 1px solid rgb(200, 200, 200);
+  padding: 10px;
+  width: 100%;
+}
+
+.coupon-container .check_coupon {
+  visibility: hidden;
+}
+
+.coupon-used {
+  color: #006241;
+  font-weight: 400;
+}
 
 /*************************
 *******post CSS******
@@ -6728,4 +6704,44 @@ svg {
 
 .modal-footer .btn-submit:hover {
   background: #0c284d;
+}
+
+
+
+input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+  color: #468847;
+  background: none;
+  border: 1px solid green;
+  color: black;
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+  color: #B94A48;
+  background: none;
+  border: 1px solid red;
+  color: black;
+}
+
+.parsley-errors-list {
+  margin: 2px 0 3px;
+  padding: 0;
+  list-style-type: none;
+  font-size: 0.9em;
+  line-height: 0.9em;
+  opacity: 0;
+  color: red;
+  margin-top: 5px;
+
+  transition: all .3s ease-in;
+  -o-transition: all .3s ease-in;
+  -moz-transition: all .3s ease-in;
+  -webkit-transition: all .3s ease-in;
+}
+
+.parsley-errors-list.filled {
+  opacity: 1;
 }

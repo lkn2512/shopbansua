@@ -84,7 +84,6 @@ class CheckoutController extends Controller
                         Session::put('coupon', $cou);
                     }
                     Session::save();
-                    Toastr::success('Đã áp dụng mã giảm giá', '', ['positionClass' => 'toast-bottom-right']);
                     return Redirect()->back();
                 }
             } else {
@@ -98,7 +97,6 @@ class CheckoutController extends Controller
         $coupon = Session::get('coupon');
         if ($coupon == true) {
             Session::forget('coupon');
-            Toastr::success('Đã xoá mã giảm giá', '', ['positionClass' => 'toast-bottom-right']);
             return Redirect()->back();
         } else {
             return Redirect()->back();
