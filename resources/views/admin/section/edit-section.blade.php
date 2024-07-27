@@ -2,7 +2,7 @@
 @section('admin_content')
     @foreach ($edit_section_product as $key => $edit_value)
         <form role="form" action="{{ URL::to('Admin/update-section-product/' . $edit_value->section_id) }}" method="post"
-            id="saveForm">
+            id="editForm">
             @csrf
             <div class="header-title">
                 <div class="">
@@ -29,7 +29,6 @@
                             data-mdb-ripple-init><i class="fa-solid fa-arrow-left"></i> Trở về</button></a>
                 </div>
             </div>
-            <hr class="titl-hr">
             <div class="panel panel-default">
                 <div class="row">
                     <div class="col-md-5 offset-md-2">
@@ -41,7 +40,8 @@
                                     <input type="text" value="{{ $edit_value->section_name }}"
                                         name="section_product_name" required class="form-control"
                                         placeholder="Nhập vào tên chuyên mục cho sản phẩm" maxlength="50"
-                                        data-slug-source="section_name">
+                                        data-slug-source="section_name" id="check_name">
+                                    <span id="error-message" class="error-message"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Slug<small class="note"><span class="required">*</span><span> (tự

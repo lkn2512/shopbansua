@@ -19,20 +19,17 @@
             </div>
             <div class="btn-header">
                 <a href="{{ URL::to('Admin/add-category-product') }}">
-                    <button type="button" class="btn-ref refesh-page" data-mdb-ripple-init><i
-                            class="fa-solid fa-arrows-rotate"></i> Tải lại trang
+                    <button type="button" class="btn-ref refesh-page"><i class="fa-solid fa-arrows-rotate"></i> Tải lại
+                        trang
                     </button>
                 </a>
                 <a href="">
-                    <button type="submit" class="btn-add" data-mdb-ripple-init>
+                    <button type="submit" class="btn-add" id="submitBtn">
                         <span class="button-text"><i class="fa-solid fa-plus"></i> Thêm</span>
-                        <span id="spinner" class="spinner">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
                     </button>
                 </a>
                 <a href="{{ URL::to('Admin/all-category-product') }}">
-                    <button type="button" class="btn-back" data-mdb-ripple-init><i class="fa-solid fa-arrow-left"></i> Trở
+                    <button type="button" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Trở
                         về
                     </button>
                 </a>
@@ -42,12 +39,12 @@
         <div class="row">
             <div class="col-md-5 offset-md-2">
                 <div class="card ">
-
                     <div class="card-body">
                         <div class="form-group">
                             <label>Tên danh mục<small class="note"><span class="required">*</span></small></label>
-                            <input type="text" name="category_product_name" required class="form-control"
-                                id="name_category" placeholder="Nhập vào tên danh mục cho sản phẩm" maxlength="50">
+                            <input type="text" name="category_product_name" required class="form-control" id="check_name"
+                                placeholder="Nhập vào tên danh mục cho sản phẩm" maxlength="50">
+                            <span id="error-message" class="error-message"></span>
                         </div>
                         <div class="form-group">
                             <label>Mô tả<small class="note">(không bắt buộc)</small></label>

@@ -41,17 +41,22 @@ class BrandController extends Controller
 
         return view('admin.brand.all_brand_product')->with(compact('all_brand_product', 'count_brand', 'product_counts'));
     }
+
     public function save_brand_product(Request $request)
     {
         $this->AuthLogin();
         $data = $request->all();
-        $brand = new Brand();
-        $brand->brand_name = $data['brand_product_name'];
-        $brand->brand_desc = $data['brand_product_desc'];
-        $brand->brand_status = $data['brand_product_status'];
-        $brand->save();
-        Toastr::success('Thêm thương hiệu thành công!');
-        return Redirect::to('Admin/add-brand-product');
+        $existingBrand = Brand::where('brand_name', $data['brand_product_name'])->first();
+        if ($existingBrand) {
+            return response()->json(['error' => 'Thương hiệu đã tồn tại.']);
+        } else {
+            $brand = new Brand();
+            $brand->brand_name = $data['brand_product_name'];
+            $brand->brand_desc = $data['brand_product_desc'];
+            $brand->brand_status = $data['brand_product_status'];
+            $brand->save();
+            return response()->json(['success' => 'Thêm thương hiệu thành công!']);
+        }
     }
 
     public function unactive_brand_product($brand_product_id)
@@ -80,14 +85,17 @@ class BrandController extends Controller
     {
         $this->AuthLogin();
         $data = $request->all();
-
-        $brand = Brand::find($brand_id);
-        $brand->brand_name = $data['brand_product_name'];
-        $brand->brand_desc = $data['brand_product_desc'];
-        $brand->brand_status = $data['brand_product_status'];
-        $brand->save();
-        Toastr::success('Đã cập nhật các thay đổi!');
-        return redirect()->back();
+        $existingBrand = Brand::where('brand_name', $data['brand_product_name'])->where('brand_id', '!=', $brand_id)->first();
+        if ($existingBrand) {
+            return response()->json(['error' => 'Thương hiệu đã tồn tại.']);
+        } else {
+            $brand = Brand::find($brand_id);
+            $brand->brand_name = $data['brand_product_name'];
+            $brand->brand_desc = $data['brand_product_desc'];
+            $brand->brand_status = $data['brand_product_status'];
+            $brand->save();
+            return response()->json(['success' => 'Đã cập nhật thay đổi.']);
+        }
     }
 
     public function delete_brand($brand_id)

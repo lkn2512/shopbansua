@@ -140,9 +140,6 @@ Route::prefix('Admin')->group(function () {
     Route::post('update-gallery', [Admin_ManageProductController::class, 'update_gallery']);
     Route::post('/update-img-product', [Admin_ManageProductController::class, 'update_img_product']);
 
-    // Route::post('/uploads-ckeditor', [Admin_ManageProductController::class, 'ckeditor_image']);
-    // Route::get('/file-browser', [Admin_ManageProductController::class, 'file_browser']);
-
     //Thông tin - infomation
     Route::get('/information', [Admin_ContactController::class, 'information']);
     Route::post('/save-info', [Admin_ContactController::class, 'save_info']);
@@ -178,10 +175,9 @@ Route::prefix('Admin')->group(function () {
 
     //Order - Đơn đặt hàng của khách hàng
     Route::get('/manage-order', [Admin_OrderController::class, 'manage_order']);
-    Route::get('/view-order/{order_code}', [Admin_OrderController::class, 'view_order']);
+    Route::get('/manage-order/view-order/{order_code}', [Admin_OrderController::class, 'view_order']);
     Route::post('/update-order-quantity', [Admin_OrderController::class, 'update_order_quantity']);
-    Route::post('/update-qty', [Admin_OrderController::class, 'update_qty']);
-
+    Route::post('/delete-order', [Admin_OrderController::class, 'delete_order'])->name('delete.order');
 
     //Comment - bình luận sản phẩm
     Route::get('/list-comment', [Admin_CommentController::class, 'list_comment']);

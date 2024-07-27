@@ -38,16 +38,16 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thay đổi tên</h1>
+                        <h5 class="modal-title" id="exampleModalLabel">Thay đổi tên</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body mt-1">
                         <div class="mb-3">
                             <label class="col-form-label">Nhập vào tên mới:</label>
                             <input type="text" class="form-control" name="name" required>
                         </div>
                     </div>
-                    <div class="modelFooter">
+                    <div class="modal-footer">
                         <button type="button" class="btn-cancle" data-bs-dismiss="modal">Huỷ bỏ</button>
                         <button type="submit" class="btn-submit">Xác nhận</button>
                     </div>

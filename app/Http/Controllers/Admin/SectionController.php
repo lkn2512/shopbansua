@@ -54,19 +54,22 @@ class SectionController extends Controller
         $section_product = Section::orderBy('section_name', 'asc')->get();
         return view('admin.section.add-section')->with(compact('section_product'));
     }
-
     public function save_section_product(Request $request)
     {
         $this->AuthLogin();
         $data = $request->all();
-        $section = new Section();
-        $section->section_name = $data['section_name'];
-        $section->section_description = $data['section_desc'];
-        $section->section_status = $data['section_status'];
-        $section->section_slug = $data['section_slug'];
-        $section->save();
-        Toastr::success('Thêm chuyên mục sản phẩm thành công', '');
-        return redirect()->back();
+        $existing = Section::where('section_name', $data['section_name'])->first();
+        if ($existing) {
+            return response()->json(['error' => 'Chuyên mục sản phẩm đã tồn tại.']);
+        } else {
+            $section = new Section();
+            $section->section_name = $data['section_name'];
+            $section->section_description = $data['section_desc'];
+            $section->section_status = $data['section_status'];
+            $section->section_slug = $data['section_slug'];
+            $section->save();
+            return response()->json(['success' => 'Thêm chuyên mục sản phẩm thành công.']);
+        }
     }
     public function edit_section_product($section_id)
     {
@@ -79,14 +82,18 @@ class SectionController extends Controller
     {
         $this->AuthLogin();
         $data = $request->all();
-        $section_product = Section::find($section_id);
-        $section_product->section_name = $data['section_product_name'];
-        $section_product->section_description = $data['section_product_desc'];
-        $section_product->section_status = $data['section_product_status'];
-        $section_product->section_slug = $data['section_slug'];
-        $section_product->save();
-        Toastr::success('Đã cập nhật thay đổi!', '');
-        return redirect()->back();
+        $existing = Section::where('section_name', $data['section_product_name'])->where('section_id', '!=', $section_id)->exists();;
+        if ($existing) {
+            return response()->json(['error' => 'Chuyên mục sản phẩm đã tồn tại.']);
+        } else {
+            $section_product = Section::find($section_id);
+            $section_product->section_name = $data['section_product_name'];
+            $section_product->section_description = $data['section_product_desc'];
+            $section_product->section_status = $data['section_product_status'];
+            $section_product->section_slug = $data['section_slug'];
+            $section_product->save();
+            return response()->json(['success' => 'Đã cập nhật thay đổi.']);
+        }
     }
     public function delete_section_product($section_id)
     {

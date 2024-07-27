@@ -2,7 +2,7 @@
 @section('admin_content')
     @foreach ($edit_category_product as $key => $edit_value)
         <form role="form" action="{{ URL::to('Admin/update-category-product/' . $edit_value->category_id) }}" method="post"
-            id="saveForm">
+            id="editForm">
             @csrf
             <div class="header-title">
                 <div class="">
@@ -42,7 +42,8 @@
                                     <label>Tên danh mục<small class="note"><span class="required">*</span></small></label>
                                     <input type="text" value="{{ $edit_value->category_name }}"
                                         name="category_product_name" required class="form-control"
-                                        placeholder="Nhập vào tên danh mục cho sản phẩm" maxlength="50">
+                                        placeholder="Nhập vào tên danh mục cho sản phẩm" maxlength="50" id="check_name">
+                                    <span id="error-message" class="error-message"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Mô tả<small class="note">(không bắt

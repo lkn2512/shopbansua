@@ -19,20 +19,17 @@
             </div>
             <div class="btn-header">
                 <a href=""onclick="window.location.reload(); return false;">
-                    <button type="button" class="btn-ref refesh-page" data-mdb-ripple-init><i
-                            class="fa-solid fa-arrows-rotate"></i> Tải lại trang
+                    <button type="button" class="btn-ref refesh-page"><i class="fa-solid fa-arrows-rotate"></i> Tải lại
+                        trang
                     </button>
                 </a>
                 <a href="">
-                    <button type="submit" class="btn-add" data-mdb-ripple-init>
+                    <button type="submit" class="btn-add" id="submitBtn">
                         <span class="button-text"><i class="fa-solid fa-plus"></i> Thêm</span>
-                        <span id="spinner" class="spinner">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
                     </button>
                 </a>
                 <a href="{{ URL::to('Admin/all-section-product') }}">
-                    <button type="button" class="btn-back" data-mdb-ripple-init><i class="fa-solid fa-arrow-left"></i> Trở
+                    <button type="button" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Trở
                         về
                     </button>
                 </a>
@@ -47,7 +44,8 @@
                             <label>Tên chuyên mục<small class="note"><span class="required">*</span></small></label>
                             <input type="text" name="section_name" required class="form-control"
                                 placeholder="Nhập vào tên chuyên mục cho sản phẩm" maxlength="50"
-                                data-slug-source="section_name">
+                                data-slug-source="section_name" id="check_name">
+                            <span id="error-message" class="error-message"></span>
                         </div>
                         <div class="form-group">
                             <label>Slug<small class="note"><span class="required">*</span><span> (tự

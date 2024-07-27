@@ -15,7 +15,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use PhpParser\Node\Stmt\TryCatch;
 
 class OrderController extends Controller
 {
@@ -177,5 +176,21 @@ class OrderController extends Controller
             $statistic_update->total_order = $statistic_update->total_order - $total_order;
             $statistic_update->save();
         }
+    }
+    public function delete_order(Request $request)
+    {
+        $orderIds = json_decode($request->input('order_ids'), true);
+        if (!empty($orderIds)) {
+            $orders = Order::whereIn('order_id', $orderIds)->get();
+            foreach ($orders as $order) {
+                Notification::where('order_code', $order->order_code)->delete();
+                OrderDetails::where('order_code', $order->order_code)->delete();
+                $order->delete();
+            }
+            $shippingIds = $orders->pluck('shipping_id')->unique();
+            Shipping::whereIn('shipping_id', $shippingIds)->delete();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Không có đơn hàng nào được chọn.']);
     }
 }

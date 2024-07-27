@@ -47,27 +47,31 @@ class CategoryProductController extends Controller
     {
         $this->AuthLogin();
         $data = $request->all();
-        $category_product = new CategoryProduct();
-        $category_product->category_name = $data['category_product_name'];
-        $category_product->category_desc = $data['category_product_desc'];
-        $category_product->category_status = $data['category_product_status'];
-        $category_product->save();
-        Toastr::success('Thêm danh mục sản phẩm thành công', 'Thành công');
-        return Redirect::to('Admin/add-category-product');
+        $existing = CategoryProduct::where('category_name', $data['category_product_name'])->first();
+        if ($existing) {
+            return response()->json(['error' => 'Danh mục sản phẩm đã tồn tại.']);
+        } else {
+            $category_product = new CategoryProduct();
+            $category_product->category_name = $data['category_product_name'];
+            $category_product->category_desc = $data['category_product_desc'];
+            $category_product->category_status = $data['category_product_status'];
+            $category_product->save();
+            return response()->json(['success' => 'Thêm danh mục sản phẩm thành công!']);
+        }
     }
 
     public function unactive_category_product($category_id)
     {
         $this->AuthLogin();
         CategoryProduct::where('category_id', $category_id)->update(['category_status' => 0]);
-        return response()->json(['status' => 'success', 'message' => 'Danh mục sản phẩm đã được ẩn.']);
+        return response()->json(['status' => 'success', 'message' => 'Ẩn']);
     }
 
     public function active_category_product($category_id)
     {
         $this->AuthLogin();
         CategoryProduct::where('category_id', $category_id)->update(['category_status' => 1]);
-        return response()->json(['status' => 'success', 'message' => 'Danh mục sản phẩm đã được hiển thị.']);
+        return response()->json(['status' => 'success', 'message' => 'Hiển thị.']);
     }
 
     public function edit_category_product($category_id)
@@ -81,13 +85,17 @@ class CategoryProductController extends Controller
     {
         $this->AuthLogin();
         $data = $request->all();
-        $category_product = CategoryProduct::find($category_id);
-        $category_product->category_name = $data['category_product_name'];
-        $category_product->category_desc = $data['category_product_desc'];
-        $category_product->category_status = $data['category_product_status'];
-        $category_product->save();
-        Toastr::success('Đã cập nhật thay đổi!', 'Thành công');
-        return redirect()->back();
+        $existing = CategoryProduct::where('category_name', $data['category_product_name'])->where('category_id', '!=', $category_id)->exists();
+        if ($existing) {
+            return response()->json(['error' => 'Danh mục sản phẩm đã tồn tại.']);
+        } else {
+            $category_product = CategoryProduct::find($category_id);
+            $category_product->category_name = $data['category_product_name'];
+            $category_product->category_desc = $data['category_product_desc'];
+            $category_product->category_status = $data['category_product_status'];
+            $category_product->save();
+            return response()->json(['success' => 'Đã cập nhật thay đổi.']);
+        }
     }
     public function delete_category_product($category_id)
     {

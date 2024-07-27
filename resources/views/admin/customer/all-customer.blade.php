@@ -8,12 +8,12 @@
         </div>
         <div class="btn-header">
             <a href="{{ URL::to('Admin/all-customer') }}">
-                <button type="button" class="btn-refesh refesh-page"><i class="fa-solid fa-arrows-rotate"></i> Tải
+                <button class="btn-refesh refesh-page"><i class="fa-solid fa-arrows-rotate"></i> Tải
                     lại trang
                 </button>
             </a>
             <a href="{{ URL::to('Admin/add-customer') }}">
-                <button type="button" class="btn-add-page add-products"><i class="fa-solid fa-plus"></i> Thêm khách hàng
+                <button class="btn-add-page add-products"><i class="fa-solid fa-plus"></i> Thêm khách hàng
                 </button>
             </a>
         </div>
@@ -76,18 +76,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title warning-title"><i class="fa-solid fa-triangle-exclamation"></i> Cảnh báo!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" style="text-transform: uppercase">Thông báo xác nhận xoá</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <span class="warning-text">Sau khi xoá, những gì liên quan tới khách hàng này cũng sẽ bị xoá, bao gồm:
-                        <b>đơn hàng, danh sách yêu thích</b>,...<br>
+                        <b>đơn hàng, bình luận, đánh giá, tin nhắn liên hệ</b>,...<br>
                         <span>Bạn có chắc là muốn xoá?</span>
                     </span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn-cancle" data-bs-dismiss="modal">Huỷ bỏ</button>
-                    <button type="button" id="deleteButton" class="btn btn-danger">Xoá</button>
+                    <button class="btn-cancle" data-bs-dismiss="modal">Huỷ bỏ</button>
+                    <button id="deleteButton" class="btn-submit">Xác nhận</button>
                 </div>
             </div>
         </div>

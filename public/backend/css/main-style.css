@@ -1,3 +1,8 @@
+.bg-dnb {
+    background: #1e293b
+}
+
+
 .preloader {
     position: fixed;
     top: 0;
@@ -469,15 +474,52 @@
     margin-top: -20px;
 }
 
-.modelFooter {
-    margin-left: 65%;
-    margin-top: -10px;
-    margin-bottom: 20px;
+.modal-content {
+    border-radius: 0px !important
 }
 
-.modelFooter button {
-    margin-right: 8px;
+.modal-header {
+    border-bottom: none;
+}
 
+.modal-header label {
+    font-size: 18px;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-body {
+    padding: 0px 15px
+}
+
+.modal-body .text {
+    margin: 0px
+}
+
+.modal-footer .btn-cancle {
+    background: none;
+    border: 1px solid #375172;
+    color: #103667;
+    padding: 5px 10px;
+    border-radius: 0px;
+}
+
+.modal-footer .btn-cancle:hover {
+    background: whitesmoke;
+}
+
+.modal-footer .btn-submit {
+    background: #103667;
+    border: 1px solid #103667;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 0px;
+}
+
+.modal-footer .btn-submit:hover {
+    background: #0c284d;
 }
 
 .btn-submit {
@@ -590,6 +632,27 @@
 .order-processing {
     margin-top: 20px;
 }
+
+.btn-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    color: #1e293b;
+    border: 1px solid gray;
+    font-size: 18px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+
+.btn-icon:hover {
+    color: #1e293b !important;
+}
+
 
 .btn-detail-view {
     position: relative;
@@ -1012,8 +1075,8 @@
 .info-product .img-product {
     height: 75px;
     width: auto;
-    z-index: 1;
     max-width: 80px;
+    object-fit: cover;
 }
 
 .info-product .image-library {

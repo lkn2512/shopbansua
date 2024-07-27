@@ -1,7 +1,7 @@
 @extends('admin_layout')
 @section('admin_content')
     <form role="form" action="{{ URL::to('Admin/update-category-post/' . $category_post->cate_post_id) }}" method="post"
-        id="saveForm">
+        id="editForm">
         {{ csrf_field() }}
         <div class="header-title">
             <div class="">
@@ -40,6 +40,7 @@
                             <input type="text" name="cate_post_name" required class="form-control"
                                 value="{{ $category_post->cate_post_name }}" placeholder="Nhập tên danh mục tin tức"
                                 maxlength="100">
+                            <span id="error-message" class="error-message"></span>
                         </div>
                         <div class="form-group">
                             <label>Mô tả<small class="note">(không bắt buộc)</small></label>

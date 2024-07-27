@@ -42,32 +42,36 @@ class CategoryPostController extends Controller
         }
         return view('admin.category_post.list_category_post')->with(compact('category_post', 'countCatePost', 'post_counts'));
     }
+
     public function save_category_post(Request $request)
     {
         $this->AuthLogin();
         $data = $request->all();
-        $category_post = new CategoryPost();
-        $category_post->cate_post_name = $data['cate_post_name'];
-        $category_post->cate_post_desc = $data['cate_post_desc'];
-        $category_post->cate_post_status = $data['cate_post_status'];
-        $category_post->save();
-
-        Toastr::success('Thêm danh mục tin tức thành công!');
-        return redirect()->back();
+        $existing = CategoryPost::where('cate_post_name', $data['cate_post_name'])->first();
+        if ($existing) {
+            return response()->json(['error' => 'Danh mục bài viết đã tồn tại.']);
+        } else {
+            $category_post = new CategoryPost();
+            $category_post->cate_post_name = $data['cate_post_name'];
+            $category_post->cate_post_desc = $data['cate_post_desc'];
+            $category_post->cate_post_status = $data['cate_post_status'];
+            $category_post->save();
+            return response()->json(['success' => 'Thêm danh mục tin tức thành công!']);
+        }
     }
 
     public function unactive_category_post($cate_post_id)
     {
         $this->AuthLogin();
         CategoryPost::where('cate_post_id', $cate_post_id)->update(['cate_post_status' => 0]);
-        return response()->json(['status' => 'success', 'message' => 'Danh mục sản phẩm đã được ẩn.']);
+        return response()->json(['status' => 'success', 'message' => 'Danh mục tin tức đã được ẩn.']);
     }
 
     public function active_category_post($cate_post_id)
     {
         $this->AuthLogin();
         CategoryPost::where('cate_post_id', $cate_post_id)->update(['cate_post_status' => 1]);
-        return response()->json(['status' => 'success', 'message' => 'Danh mục sản phẩm đã được hiển thị.']);
+        return response()->json(['status' => 'success', 'message' => 'Danh mục tin tức đã được hiển thị.']);
     }
     public function edit_category_post($cate_post_id)
     {
@@ -80,13 +84,17 @@ class CategoryPostController extends Controller
     {
         $this->AuthLogin();
         $data = $request->all();
-        $category_post = CategoryPost::find($cate_post_id);
-        $category_post->cate_post_name = $data['cate_post_name'];
-        $category_post->cate_post_desc = $data['cate_post_desc'];
-        $category_post->cate_post_status = $data['cate_post_status'];
-        $category_post->save();
-        Toastr::success('Đã cập nhật các thay đổi!');
-        return redirect()->back();
+        $existing = CategoryPost::where('cate_post_name', $data['cate_post_name'])->where('cate_post_id', '!=', $cate_post_id)->exists();
+        if ($existing) {
+            return response()->json(['error' => 'Danh mục tin tức đã tồn tại.']);
+        } else {
+            $category_post = CategoryPost::find($cate_post_id);
+            $category_post->cate_post_name = $data['cate_post_name'];
+            $category_post->cate_post_desc = $data['cate_post_desc'];
+            $category_post->cate_post_status = $data['cate_post_status'];
+            $category_post->save();
+            return response()->json(['success' => 'Đã cập nhật thay đổi.']);
+        }
     }
     public function delete_category_post($cate_post_id)
     {

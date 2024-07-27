@@ -888,6 +888,49 @@
         });
     </script>
     {{-- lọc sản phẩm tham gia sự kiện --}}
+
+    {{-- Kiểm tra tên danh mục tồn tại --}}
+    <script>
+        $(document).ready(function() {
+            var formUrl = $('#saveForm').attr('action');
+            var formEditUrl = $('#editForm').attr('action');
+            $('#saveForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: formUrl,
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.error) {
+                            $('#error-message').text(response.error);
+                        } else {
+                            $('#saveForm')[0].reset();
+                            $('#error-message').text('');
+                            toastr.success(response.success, '');
+                        }
+                    }
+                });
+            });
+            $('#editForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: formEditUrl,
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.error) {
+                            $('#error-message').text(response.error);
+                        } else {
+                            $('#error-message').text('');
+                            toastr.success(response.success, '');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    {{-- Kiểm tra tên danh mục tồn tại --}}
+
 </body>
 
 </html>

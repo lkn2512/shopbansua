@@ -1,4 +1,4 @@
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4 bg-dnb ">
         <a class="brand-link">
             <img src="{{ asset('backend/images/AdminLTELogo.png') }}" class="brand-image img-circle elevation-3">
             <span class="brand-text font-weight-light"> Quản Trị Viên</span>
@@ -181,9 +181,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ URL::to('Admin/manage-order') }}"
-                            class="nav-link {{ Request::is('Admin/manage-order') || Request::is('Admin/view-order/*') || Request::is('Admin/search-order*')
-                                ? 'active'
-                                : '' }}">
+                            class="nav-link {{ Request::is('Admin/manage-order/*') || Request::is('Admin/manage-order') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-boxes"></i>
                             <p>Đơn đặt hàng</p>
                             @if ($notifications_order_count > 0)

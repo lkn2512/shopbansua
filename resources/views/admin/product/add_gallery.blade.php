@@ -43,8 +43,8 @@
     <div class="row">
         <div class="col-md-3">
             <div class="card">
-                <div class="card-header bg-body-secondary">
-                    <h4 class="card-title ">Ảnh đại diện sản phẩm <span>(#{{ $code_product }})</span>
+                <div class="card-header bg-dnb text-white">
+                    <h4 class="card-title ">Ảnh đại diện sản phẩm
                     </h4>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -66,13 +66,13 @@
                             <i class="fa-solid fa-image icon-gallery " id="file-icon"></i>
                         </a>
                     </div>
-                    <div class="p-3">{{ $product_name }}</div>
+                    <div class="p-3">{{ $product_name }} <span>({{ $code_product }})</span></div>
                 </div>
             </div>
         </div>
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header bg-body-secondary">
+                <div class="card-header bg-dnb text-white">
                     <h4 class="card-title">Thư viện ảnh liên quan</h4>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="maximize">
