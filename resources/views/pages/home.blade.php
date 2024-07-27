@@ -484,10 +484,8 @@
         </div>
         <div class="col-lg-5 col-md-6 col-sm-12">
             <div class="product-information">
-                <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                 <span class="name">
-                    <a
-                        href="{{ URL::to('chi-tiet-san-pham/' . $best_selling->product_id) }}">{{ $best_selling->product_name }}</a>
+                    {{ $best_selling->product_name }}
                     <span class="logo">KN-MILK uy tín và chất lượng
                     </span>
                     <input class="favorite-product" type="hidden" data-product_id="{{ $best_selling->product_id }}"
@@ -575,10 +573,12 @@
                         <input type="hidden" class="cart_brand_product_{{ $best_selling->product_id }}"
                             value="{{ $best_selling->brand->brand_name }}">
                         <div class="quantity">
-                            <b class="title-qty">Số lượng:</b>
-                            <input type="number" class="cart_product_qty_{{ $best_selling->product_id }}"
-                                value="1" min="1" onkeypress="validateInput(event)"
-                                oninput="validateInput(event)" onchange="validateInput(event)">
+                            <input type="hidden" class="cart_product_qty_{{ $best_selling->product_id }}"
+                                value="1">
+                            <a class="view-detail"
+                                href="{{ URL::to('chi-tiet-san-pham/' . $best_selling->product_id) }}" type="button">
+                                Xem chi tiết
+                            </a>
                             <button type="button" class="add-to-cart buy-now" name="add-to-cart"
                                 data-id="{{ $best_selling->product_id }}">
                                 Đặt hàng ngay <i class="fa-solid fa-cart-plus"></i>

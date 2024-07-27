@@ -2783,6 +2783,15 @@ h2.title:before {
   margin-right: 10px;
 }
 
+.view-detail {
+  border: 1px solid #103667;
+  color: #103667;
+  font-size: 18px;
+  background: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+}
+
 .product-information .quantity .add-to-cart {
   border: 1px solid #103667;
   color: white;

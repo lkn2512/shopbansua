@@ -32,7 +32,6 @@
             </div>
             <div class="col-lg-5 col-md-6 col-sm-12">
                 <div class="product-information">
-                    <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                     <span class="name">{{ $value->product_name }}
                         <span class="logo">KN-MILK uy tín và chất lượng
                         </span>
