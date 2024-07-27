@@ -2221,16 +2221,28 @@ h2.title:before {
   display: none;
 }
 
-.comment-show {
+.comment-container {
+  margin-bottom: -40px;
+}
+
+.comment-container hr {
+  opacity: 0.15 !important;
+}
+
+.comment-container .comment-show {
   display: flex;
   flex-wrap: wrap;
   border-radius: 5px;
   margin-top: 25px;
-  background-color: #f9f9f9;
+  margin-bottom: 0px;
+}
+
+.comment-container .comment-show .col-lg-1 {
+  padding: 0px;
 }
 
 .comment-image {
-  padding-top: 1px;
+  padding: 0px;
 }
 
 .comment-image img {
@@ -2293,11 +2305,12 @@ h2.title:before {
   margin-left: 60px;
 }
 
-.comment-reply-admin .col-md-1 .image-comment img {
+.comment-reply-admin .col-lg-1 .image-comment img {
   border-radius: 50%;
   max-width: 50px;
   height: auto;
   border: 1px solid gray;
+  padding: 0px;
 }
 
 .comment-reply-admin .comment-content-reply {

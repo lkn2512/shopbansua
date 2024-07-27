@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
+use App\Models\ContactCustomer;
 use App\Models\Customer;
 use App\Models\FavoritesList;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Rating;
 use App\Models\Shipping;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -95,6 +98,8 @@ class CustomerController extends Controller
         $this->AuthLogin();
         try {
             $customer = Customer::findOrFail($customer_id);
+
+            // Xoá các đơn hàng và các thông tin liên quan
             $orders = Order::where('customer_id', $customer->customer_id)->get();
             foreach ($orders as $order) {
                 Notification::where('order_code', $order->order_code)->delete();
@@ -103,8 +108,26 @@ class CustomerController extends Controller
             }
             $shippingIds = $orders->pluck('shipping_id')->unique();
             Shipping::whereIn('shipping_id', $shippingIds)->delete();
+
+            // Xoá danh sách yêu thích
             FavoritesList::where('customer_id', $customer->customer_id)->delete();
+
+            // Xoá bình luận và phản hồi bình luận liên quan
+            $comments = Comment::where('customer_id', $customer_id)->get();
+            foreach ($comments as $comment) {
+                Comment::where('comment_parent_comment', $comment->comment_id)->delete();
+                $comment->delete();
+            }
+
+            //xoá đánh giá sao
+            Rating::where('customer_id', $customer_id)->delete();
+
+            //xoá liên hệ
+            ContactCustomer::where('customer_id', $customer_id)->delete();
+
+            //Xoá khách hàng
             $customer->delete();
+
             return response()->json(['status' => 'success', 'message' => 'Đã xoá một tài khoản khách hàng!']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'error', 'message' => 'Lỗi bất định!']);

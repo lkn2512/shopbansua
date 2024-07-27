@@ -11,7 +11,6 @@ use App\Models\Customer;
 use App\Models\HolidayEvent;
 use App\Models\Information;
 use App\Models\Product;
-use App\Models\Rating;
 use App\Models\Section;
 use Illuminate\Support\Facades\Session;
 

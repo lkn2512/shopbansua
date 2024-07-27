@@ -94,8 +94,7 @@ class ProductController extends Controller
             ->orderBy('comment_id', 'asc')
             ->get();
 
-        $output = '';
-
+        $output = '<div class="comment-container">';
         foreach ($comments as $comm) {
             // Kiểm tra xem khách hàng có tồn tại không và lấy image
             $customer = $comm->customer;
@@ -104,49 +103,58 @@ class ProductController extends Controller
             $rating = $customer ? $customer->ratings->where('product_id', $product_id)->first() : null;
             // Đặt xếp hạng nếu nó tồn tại
             $comm->rating = $rating ? $rating->rating : null;
-
-            $output .= '<div class="row comment-show d-flex">';
-            $output .= '<div class="col-lg-1"><div class="comment-image">';
+            $output .= '    <div class="row comment-show">';
+            $output .= '        <div class="col-lg-1 col-md-1 col-sm-2">';
+            $output .= '            <div class="comment-image text-center">';
             if ($getImage) {
-                $output .= '<img src="' . asset('uploads/customer/' . $getImage) . '">';
+                $output .= '            <img src="' . asset('uploads/customer/' . $getImage) . '">';
             } else {
-                $output .= '<img src="' . asset('frontend/images/home/avatar-default.jpg') . '">';
+                $output .= '            <img src="' . asset('frontend/images/home/avatar-default.jpg') . '">';
             }
-            $output .= '</div></div>';
-            $output .= '<div class="col-lg-11 comment-customer">';
-            $output .= '<div class="comment-content">';
-            $output .= '<span class="name">' . htmlspecialchars($comm->comment_name) . '</span>';
-            $output .= '<span class="date"><i class="fa-regular fa-clock"></i> ' . date('H:i, d-m-Y', strtotime($comm->comment_date)) . '</span>';
+            $output .= '            </div>';
+            $output .= '        </div>';
+            $output .= '        <div class="col-lg-11 col-md-11 col-sm-10 comment-customer p-0">';
+            $output .= '            <div class="comment-content">';
+            $output .= '                <span class="name">' . htmlspecialchars($comm->comment_name) . '</span>';
+            $output .= '                <span class="date"><i class="fa-regular fa-clock"></i> ' . date('H:i, d-m-Y', strtotime($comm->comment_date)) . '</span>';
 
             // Hiển thị số sao đã đánh giá
             if ($comm->rating !== null) {
-                $output .= '<div class="rating-stars">';
+                $output .= '                <div class="rating-stars">';
                 for ($i = 1; $i <= 5; $i++) {
-                    $output .= '<span class="star' . ($i <= $comm->rating ? ' filled' : '') . '">&#9733;</span>';
+                    $output .= '                <span class="star' . ($i <= $comm->rating ? ' filled' : '') . '">&#9733;</span>';
                 }
-                $output .= '</div>';
+                $output .= '                </div>';
             }
-
-            $output .= '<p class="text">' . htmlspecialchars($comm->comment) . '</p>';
+            $output .= '                <p class="text">' . htmlspecialchars($comm->comment) . '</p>';
             if ($comm->customer_id == Session::get('customer_id')) {
-                $output .= '<input class="comment-id" type="hidden" value="' . htmlspecialchars($comm->comment_id) . '">';
-                $output .= '<a type="button" class="recall-comment" data-comment_id="' . htmlspecialchars($comm->comment_id) . '">Xoá bình luận</a>';
+                $output .= '                <input class="comment-id" type="hidden" value="' . htmlspecialchars($comm->comment_id) . '">';
+                $output .= '                <a type="button" class="recall-comment" data-comment_id="' . htmlspecialchars($comm->comment_id) . '">Xoá bình luận</a>';
             }
-            $output .= '</div></div></div>';
-
+            $output .= '            </div>';
+            $output .= '        </div>';
+            $output .= '    </div>';
             foreach ($comment_reply as $comm_rep) {
                 if ($comm_rep->comment_parent_comment == $comm->comment_id) {
-                    $output .= '<div class="row comment-reply-admin">';
-                    $output .= '<div class="col-md-1"><div class="image-comment"><img src="' . url('/uploads/user/162367734844593.jpg') . '"></div></div>';
-                    $output .= '<div class="col-md-11"><div class="comment-content-reply">';
-                    $output .= '<span class="name">' . htmlspecialchars($comm_rep->comment_name) . '</span>';
-                    $output .= '<span class="date"><i class="fa-regular fa-clock"></i> ' . date('H:i, d/m/Y', strtotime($comm_rep->comment_date)) . '</span>';
-                    $output .= '<p class="text">' . htmlspecialchars($comm_rep->comment) . '</p>';
-                    $output .= '</div></div></div>';
+                    $output .= '    <div class="row comment-reply-admin">';
+                    $output .= '        <div class="col-lg-1 col-md-2 col-sm-2">';
+                    $output .= '            <div class="image-comment text-center">';
+                    $output .= '                <img src="' . url('/uploads/user/162367734844593.jpg') . '">';
+                    $output .= '            </div>';
+                    $output .= '        </div>';
+                    $output .= '        <div class="col-lg-11 col-md-10 col-sm-10">';
+                    $output .= '            <div class="comment-content-reply">';
+                    $output .= '                <span class="name">' . htmlspecialchars($comm_rep->comment_name) . '</span>';
+                    $output .= '                <span class="date"><i class="fa-regular fa-clock"></i> ' . date('H:i, d/m/Y', strtotime($comm_rep->comment_date)) . '</span>';
+                    $output .= '                <p class="text">' . htmlspecialchars($comm_rep->comment) . '</p>';
+                    $output .= '            </div>';
+                    $output .= '        </div>';
+                    $output .= '    </div>';
                 }
             }
+            $output .= '<hr>';
         }
-
+        $output .= '</div>';
         $pagination = $comments->links('pagination::bootstrap-4');
         $output .= '<footer class="panel-footer">' . $pagination . '</footer>';
 
