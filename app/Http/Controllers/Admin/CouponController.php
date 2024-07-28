@@ -64,10 +64,9 @@ class CouponController extends Controller
             $coupon->coupon_date_start = $data['coupon_date_start'];
             $coupon->coupon_date_end = $data['coupon_date_end'];
             $coupon->save();
-            Toastr::success('Thêm mã giảm giá thành công!', 'Thành công');
-            return Redirect::to('Admin/insert-coupon');
+            return response()->json(['success' => 'Thêm mã giảm giá thành công.']);
         } catch (\Throwable $th) {
-            return Redirect::to('Admin/insert-coupon')->with('error_alert', 'Lỗi bất định!');
+            return response()->json(['error' => 'Lỗi bất định, vui lòng tải lại trang']);
         }
     }
     public function edit_coupon($coupon_id)
@@ -97,10 +96,9 @@ class CouponController extends Controller
             $coupon->coupon_date_start = $data['coupon_date_start'];
             $coupon->coupon_date_end = $data['coupon_date_end'];
             $coupon->save();
-            Toastr::success('Đã cập nhật các thay đổi!', 'Thành công');
-            return redirect()->back();
+            return response()->json(['success' => 'Đã cập nhật thay đổi']);
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error_alert', 'Lỗi bất định!');
+            return response()->json(['error' => 'Lỗi bất định, vui lòng tải lại trang']);
         }
     }
     public function delete_coupon($coupon_id)

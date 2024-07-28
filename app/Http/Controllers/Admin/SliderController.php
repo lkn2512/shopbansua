@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Slider;
-use Brian2694\Toastr\Facades\Toastr;
 
 class SliderController extends Controller
 {
@@ -54,11 +53,10 @@ class SliderController extends Controller
             $slider->slider_desc = $data['slider_desc'];
             $slider->product_id = $data['product_id'];
             $slider->save();
-            Toastr::success('Thêm một banner thành công!', 'Thành công');
+            return response()->json(['success' => 'Thêm một banner thành công!']);
         } else {
-            return redirect()->back()->with('error_alert', 'Hình ảnh là bắt buộc!');
+            return response()->json(['error' => 'Hình ảnh là bắt buộc!'], 422);
         }
-        return Redirect::to('Admin/add-slider');
     }
 
     public function unactive_slide($slider_id)
@@ -93,6 +91,7 @@ class SliderController extends Controller
         $slider->slider_desc = $data['slider_desc'];
         $slider->product_id = $data['product_id'];
         $get_image = $request->file('slider_image');
+        $new_image_path = null;
         if ($get_image) {
             if ($slider->slider_image && file_exists(public_path('uploads/slider/' . $slider->slider_image))) {
                 unlink(public_path('uploads/slider/' . $slider->slider_image));
@@ -103,10 +102,14 @@ class SliderController extends Controller
             $get_image->move(public_path('/uploads/slider'), $new_image);
 
             $slider->slider_image = $new_image;
+            $new_image_path = asset('uploads/slider/' . $new_image);
         }
         $slider->save();
-        Toastr::success('Đã cập nhật các thay đổi!', 'Thành công');
-        return redirect()->back();
+        return response()->json([
+            'success' => 'Đã cập nhật các thay đổi!',
+            'id' => $slider_id,
+            'new_image_path' => $new_image_path
+        ]);
     }
 
     public function delete_slider($slider_id)

@@ -1,6 +1,6 @@
 @extends('admin_layout')
 @section('admin_content')
-    <form role="form" action="{{ URL::to('Admin/save-category-post') }}" method="post" id="saveForm">
+    <form role="form" action="{{ URL::to('Admin/save-category-post') }}" method="post" id="addForm">
         {{ csrf_field() }}
         <div class="header-title">
             <div class="">

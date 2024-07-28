@@ -1,6 +1,6 @@
 @extends('admin_layout')
 @section('admin_content')
-    <form role="form" action="{{ URL::to('Admin/insert-coupon-code') }}" method="post" id="saveForm">
+    <form role="form" action="{{ URL::to('Admin/insert-coupon-code') }}" method="post" id="addForm">
         @csrf
         <div class="header-title">
             <div class="">

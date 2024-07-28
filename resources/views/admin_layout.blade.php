@@ -32,9 +32,12 @@
     <link href="{{ asset('/backend/css/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/backend/css/style-responsive.css') }}" rel="stylesheet" />
     <link href="{{ asset('/backend/css/ionicons.min.css') }}" rel="stylesheet" />
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <!-- summernote -->
+    <link href="{{ asset('/backend/plugins/summernote/summernote-bs4.min.css') }}" rel="stylesheet">
+
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -60,7 +63,6 @@
     <script src="{{ asset('/backend/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-    <script src="{{ asset('/backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/sweetalert2/sweetalert2.js') }}"></script>
     <!-- DataTables  & Plugins -->
@@ -77,7 +79,8 @@
     <script src="{{ asset('/backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('/backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-
+    <!-- Summernote -->
+    <script src=" {{ asset('/backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- ChartJS -->
     <script src="{{ asset('/backend/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Select2 -->
@@ -92,17 +95,13 @@
     <script src="{{ asset('/backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('/backend/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('/backend/js/toastr.min.js') }}"></script>
-    <script src="{{ asset('/backend/ckeditor/ckeditor.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
-
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
 
-    {{-- 
-    <script src="{{ asset('/backend/js/jquery-3.6.0.min.js') }}"></script> (đụng độ js) --}}
+    {{-- <script src="{{ asset('/backend/js/jquery-3.6.0.min.js') }}"></script> (đụng độ js) --}}
     {!! Toastr::message() !!}
 
     @if (session('error_alert'))
@@ -122,6 +121,56 @@
     </script>
     {{-- Select 2 --}}
 
+    {{-- Summernote --}}
+    <script>
+        $(document).ready(function() {
+            var summernoteConfig = {
+                height: 300,
+                placeholder: 'Nhập nội dung sản phẩm...',
+                tabsize: 2,
+                toolbar: [
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['ul', 'ol']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ],
+                callbacks: {
+                    onImageUpload: function(files) {
+                        sendFile(files[0], this);
+                    }
+                }
+            };
+
+            function sendFile(file, editor) {
+                var data = new FormData();
+                data.append("file", file);
+                $.ajax({
+                    url: "{{ route('upload_image') }}",
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.url) {
+                            $(editor).summernote('insertImage', response.url);
+                        }
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+            // Khởi tạo Summernote cho tất cả các phần tử có ID bắt đầu bằng 'summernote'
+            $('[id^="summernote"]').each(function() {
+                $(this).summernote(summernoteConfig);
+            });
+        });
+    </script>
+
+    {{-- Summernote --}}
 
     {{-- Xoá dữ liệu trong table --}}
     <script>
@@ -628,30 +677,6 @@
     </script>
     <!-- Bình luận -->
 
-    <!-- ckeditor -->
-    <script>
-        function initializeCKEditor(textareaId) {
-            CKEDITOR.replace(textareaId, {
-                filebrowserImageBrowseUrl: '{{ url('Admin/laravel-filemanager?type=Images') }}',
-                filebrowserImageUploadUrl: '{{ url('Admin/laravel-filemanager/upload?type=Images&_token=' . csrf_token()) }}',
-                filebrowserBrowseUrl: '{{ url('Admin/laravel-filemanager?type=Files') }}',
-                filebrowserUploadUrl: '{{ url('Admin/laravel-filemanager/upload?type=Files&_token=' . csrf_token()) }}',
-                filebrowserUploadMethod: 'form',
-                removeButtons: 'Save,ImageButton,Iframe',
-                removePlugins: 'forms,about,language'
-            });
-        }
-
-        var textareaIds = ['ckeditor_add_product', 'ckeditor_edit_product', 'ckeditor_add_post_content',
-            'ckeditor_add_post_desc', 'ckeditor_info_contact'
-        ];
-
-        textareaIds.forEach(function(id) {
-            initializeCKEditor(id);
-        });
-    </script>
-    <!-- ckeditor -->
-
     <!-- Kiểm tra số lượng và thay đổi trạng thái đơn hàng-->
     <script>
         $('.order_details').change(function() {
@@ -889,43 +914,81 @@
     </script>
     {{-- lọc sản phẩm tham gia sự kiện --}}
 
-    {{-- Kiểm tra tên danh mục tồn tại --}}
+    {{-- form thêm và form chỉnh sửa --}}
     <script>
         $(document).ready(function() {
-            var formUrl = $('#saveForm').attr('action');
-            var formEditUrl = $('#editForm').attr('action');
-            $('#saveForm').on('submit', function(e) {
+            $('#addForm').on('submit', function(e) {
                 e.preventDefault();
+                var formData = new FormData(this);
                 $.ajax({
-                    url: formUrl,
+                    url: $(this).attr('action'),
                     type: 'POST',
-                    data: $(this).serialize(),
+                    data: formData,
+                    contentType: false,
+                    processData: false,
                     success: function(response) {
                         if (response.error) {
                             $('#error-message').text(response.error);
                         } else {
-                            $('#saveForm')[0].reset();
+                            $('#addForm')[0].reset();
                             $('#error-message').text('');
                             toastr.success(response.success, '');
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.responseJSON.info) {
+                            $.each(xhr.responseJSON.info, function(key, value) {
+                                toastr.info(value, '');
+                            });
+                        }
+                        if (xhr.responseJSON.errors) {
+                            var errors = xhr.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                toastr.error(value, 'Error');
+                            });
                         }
                     }
                 });
             });
-            $('#editForm').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: formEditUrl,
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        if (response.error) {
-                            $('#error-message').text(response.error);
-                        } else {
-                            $('#error-message').text('');
-                            toastr.success(response.success, '');
+        });
+        $('#editForm').on('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.error) {
+                        $('#error-message').text(response.error);
+                    } else {
+                        var ids = response.id;
+                        $('#error-message').text('');
+                        if (response.new_image_path) {
+                            //xử lý cập nhật hình ảnh
+                            $('#img-edit-' + ids).attr('src', response.new_image_path);
+                        } else if (response.newIframeVideo) {
+                            //xử lý cập nhật video
+                            $('#video-edit-' + ids).html(response.newIframeVideo);
                         }
+                        toastr.success(response.success, '');
                     }
-                });
+                },
+                error: function(xhr) {
+                    if (xhr.responseJSON.info) {
+                        $.each(xhr.responseJSON.info, function(key, value) {
+                            toastr.info(value, '');
+                        });
+                    }
+                    if (xhr.responseJSON.errors) {
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            toastr.error(value, 'Error');
+                        });
+                    }
+                }
             });
         });
     </script>

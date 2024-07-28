@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\HolidayEvent;
 use App\Models\Product;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class HolidayEventController extends Controller
 {
@@ -47,14 +47,28 @@ class HolidayEventController extends Controller
     {
         $this->AuthLogin();
         $data = $request->all();
-
+        $validator = Validator::make($data, [
+            'event_name' => 'required|max:255',
+            'event_date' => 'required|date',
+            'event_end_date' => 'required|date|after_or_equal:event_date',
+            'products' => 'required|array|min:3',
+            'event_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ], [
+            'event_end_date.after_or_equal' => 'Ngày kết thúc phải lớn hơn hoặc bằng ngày diễn ra.',
+            'event_image.max' => 'Hình ảnh sự kiện không được vượt quá 2MB.',
+            'products.required' => 'Vui lòng chọn ít nhất 3 sản phẩm.',
+            'products.min' => 'Vui lòng chọn ít nhất 3 sản phẩm.',
+        ]);
+        if ($validator->fails()) {
+            $customMessages = $validator->messages()->toArray();
+            return response()->json(['info' => $customMessages], 422);
+        }
         // Save event information to database
         $holidayEvent = new HolidayEvent();
         $holidayEvent->event_name = $data['event_name'];
         $holidayEvent->event_date = $data['event_date'];
         $holidayEvent->event_end_date = $data['event_end_date'];
         $holidayEvent->event_status = $data['event_status'];
-
         if ($request->hasFile('event_image')) {
             $image = $request->file('event_image');
             $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
@@ -62,22 +76,19 @@ class HolidayEventController extends Controller
             $holidayEvent->event_image = $imageName;
         }
         $holidayEvent->save();
-
         // Save participating products to pivot table event_product
         $holidayEvent->products()->attach($data['products']);
 
-        Toastr::success('Thêm sự kiện thành công');
-        return redirect()->back();
+        return response()->json(['success' => 'Sự kiện đã được khởi tạo']);
     }
+
     public function edit_holiday_event_page(Request $request, $holiday_event_id)
     {
         $this->AuthLogin();
         // Lấy thông tin sự kiện dựa trên holiday_event_id
         $holidayEvent = HolidayEvent::findOrFail($holiday_event_id);
-
         // Lấy danh sách tất cả sản phẩm, sắp xếp theo tên
         $products = Product::orderBy('product_name', 'asc')->get();
-
         // Lấy danh sách các sản phẩm đã được chọn (thuộc sự kiện hiện tại)
         $selectedProducts = $holidayEvent->products()->pluck('tbl_product.product_id')->toArray();
 
@@ -88,6 +99,22 @@ class HolidayEventController extends Controller
         $this->AuthLogin();
         $data = $request->all();
 
+        // Validate dữ liệu
+        $validator = Validator::make($data, [
+            'event_name' => 'required|max:255',
+            'event_date' => 'required|date',
+            'event_end_date' => 'required|date|after_or_equal:event_date',
+            'products' => 'required|array|min:3',
+            'event_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ], [
+            'products.min' => 'Vui lòng chọn ít nhất 3 sản phẩm.',
+            'event_end_date.after_or_equal' => 'Ngày kết thúc phải lớn hơn hoặc bằng ngày diễn ra.'
+        ]);
+
+        if ($validator->fails()) {
+            $customMessages = $validator->messages()->toArray();
+            return response()->json(['info' => $customMessages], 422);
+        }
         // Lấy thông tin sự kiện cần cập nhật từ cơ sở dữ liệu
         $holidayEvent = HolidayEvent::findOrFail($holiday_event_id);
 
@@ -112,15 +139,15 @@ class HolidayEventController extends Controller
             $image->move(public_path('uploads/event/'), $image_name);
             $holidayEvent->event_image = $image_name;
         }
-
         // Lưu sự kiện và các sản phẩm tham gia
         $holidayEvent->save();
         $holidayEvent->products()->sync($data['products']);
-
-        Toastr::success('Cập nhật sự kiện thành công');
-        return redirect()->back();
+        return response()->json([
+            'success' => 'Cập nhật sự kiện thành công',
+            'id' => $holiday_event_id,
+            'new_image_path' => isset($image_name) ? asset('uploads/event/' . $image_name) : null
+        ]);
     }
-
 
     public function delete_holiday_event($holiday_event_id)
     {
@@ -130,9 +157,7 @@ class HolidayEventController extends Controller
         if ($img && file_exists(public_path('uploads/event/' . $img))) {
             unlink(public_path('uploads/event/' . $img));
         }
-        // Xoá các liên kết của sự kiện trong bảng trung gian event_product
         $event->delete();
-
         // Sử dụng detach để xoá các bản ghi liên quan đến sự kiện này
         $event->products()->detach();
 

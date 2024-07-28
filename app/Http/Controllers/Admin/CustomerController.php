@@ -16,6 +16,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -54,7 +55,10 @@ class CustomerController extends Controller
     public function save_customer(Request $request)
     {
         $this->AuthLogin();
-        $data = $request->validate(
+        $data = $request->all();
+
+        $validator = Validator::make(
+            $data,
             [
                 'customer_name' => 'required|max:100',
                 'customer_email' => 'required|unique:tbl_customers|max:255',
@@ -69,6 +73,10 @@ class CustomerController extends Controller
                 'customer_phone.max' => 'Số điện thoại không được vượt quá :max số'
             ]
         );
+        if ($validator->fails()) {
+            $customMessages = $validator->messages()->toArray();
+            return response()->json(['info' => $customMessages], 422);
+        }
 
         $customer = new Customer();
         $customer->customer_name = $data['customer_name'];
@@ -89,8 +97,7 @@ class CustomerController extends Controller
         $customer->customer_email = $data['customer_email'];
         $customer->customer_password =  bcrypt($data['customer_password']);
         $customer->save();
-        Toastr::success('Thêm khách hàng thành công!', 'Thành công');
-        return Redirect::to('Admin/add-customer');
+        return response()->json(['success' => 'Thêm khách hàng thành công.']);
     }
 
     public function delete_customer($customer_id)

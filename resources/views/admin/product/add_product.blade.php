@@ -1,7 +1,7 @@
 @extends('admin_layout')
 @section('admin_content')
     <form role="form" action="{{ URL::to('Admin/save-product') }}" method="post" enctype="multipart/form-data"
-        autocomplete="off" id="saveForm">
+        autocomplete="off" id="addForm">
         @csrf
         <div class="header-title">
             <div class="title-left">
@@ -20,20 +20,17 @@
             </div>
             <div class="btn-header">
                 <a href="{{ URL::to('Admin/add-product-page') }}">
-                    <button type="button" class="btn-ref refesh-page" data-mdb-ripple-init><i
-                            class="fa-solid fa-arrows-rotate"></i> Tải lại trang
+                    <button type="button" class="btn-ref refesh-page"><i class="fa-solid fa-arrows-rotate"></i> Tải lại
+                        trang
                     </button>
                 </a>
                 <a href="">
-                    <button type="submit" class="btn-add" data-mdb-ripple-init>
+                    <button type="submit" class="btn-add">
                         <span class="button-text"><i class="fa-solid fa-plus"></i> Thêm</span>
-                        <span id="spinner" class="spinner">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
                     </button>
                 </a>
                 <a href="{{ URL::to('Admin/all-product') }}">
-                    <button type="button" class="btn-back" data-mdb-ripple-init><i class="fa-solid fa-arrow-left"></i>
+                    <button type="button" class="btn-back"><i class="fa-solid fa-arrow-left"></i>
                         Trở về</button>
                 </a>
             </div>
@@ -44,7 +41,6 @@
                     <div class="card-header">
                         <h3 class="card-title text-info-emphasis">Sản phẩm</h3>
                         <div class="card-tools">
-
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -76,8 +72,8 @@
                             <span class="error-message"></span>
                         </div>
                         <div class="form-group">
-                            <label>Nội dung<small class="note">(không bắt buộc)</small></label>
-                            <textarea style="resize:none" name="product_content" class="form-control" id="ckeditor_add_product"></textarea>
+                            <label for="summernote">Nội dung<small class="note">(không bắt buộc)</small></label>
+                            <textarea id="summernote" name="product_content"> </textarea>
                         </div>
                         <div class="form-group select-button-groupt">
                             <button type="button" class="btn-video" data-bs-toggle="modal" data-bs-target="#videoModal">

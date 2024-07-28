@@ -85,7 +85,7 @@
                     <li class="nav-item">
                         <a href="{{ URL::to('Admin/all-product') }}"
                             class="nav-link {{ Request::is('Admin/all-product') ||
-                            Request::is('Admin/add-product') ||
+                            Request::is('Admin/add-product-page') ||
                             Request::is('Admin/edit-product/*') ||
                             Request::is('Admin/add-gallery/*') ||
                             Request::is('Admin/search-product*')

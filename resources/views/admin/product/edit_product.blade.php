@@ -2,7 +2,7 @@
 @section('admin_content')
     @foreach ($edit_product as $key => $pro)
         <form role="form" action="{{ URL::to('Admin/update-product/' . $pro->product_id) }}" method="post"
-            enctype="multipart/form-data" id="saveForm">
+            enctype="multipart/form-data" id="editForm">
             {{ csrf_field() }}
             <div class="header-title">
                 <div class="">
@@ -26,9 +26,6 @@
                     <a href="">
                         <button type="submit" class="btn-add" data-mdb-ripple-init>
                             <span class="button-text"><i class="fa-solid fa-check"></i> Lưu</span>
-                            <span id="spinner" class="spinner">
-                                <i class="fa fa-spinner fa-spin"></i>
-                            </span>
                         </button>
                     </a>
                     <a href="{{ URL::to('Admin/all-product') }}"><button type="button" class="btn-back"
@@ -71,12 +68,12 @@
                                     <input type="file" name="product_image" class="form-control file-Image-input"
                                         accept="image/*">
                                     <span class="error-message"></span>
-                                    <img
-                                        class="img-edit-product"src="{{ URL::to('/uploads/product/' . $pro->product_image) }}">
+                                    <img class="img-edit-product" id="img-edit-{{ $pro->product_id }}"
+                                        src="{{ URL::to('/uploads/product/' . $pro->product_image) }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Nội dung<small class="note">(không bắt buộc)</small></label>
-                                    <textarea style="resize:none" name="product_content" class="form-control" id="ckeditor_edit_product">{{ $pro->product_content }}</textarea>
+                                    <textarea id="summernote_edit_product" name="product_content">{{ $pro->product_content }}</textarea>
                                 </div><br>
                                 <div class="form-group select-button-groupt">
                                     <button class="btn-video" type="button" data-bs-toggle="modal"
@@ -180,7 +177,6 @@
                                             });
                                         });
                                     </script>
-
                                     {{-- Xử lý chọn video --}}
                                     <span id="selected_video_title"> {{ $videoTitle }}</span>
                                     <input type="hidden" name="selected_video_id" id="selected_video_id">

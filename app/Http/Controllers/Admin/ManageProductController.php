@@ -103,10 +103,13 @@ class ManageProductController extends Controller
                 }
             }
             Product::insert($data);
-            Toastr::success('Thêm sản phẩm thành công!', '');
-            return Redirect::to('Admin/add-product-page');
+            return response()->json([
+                'success' => 'Thêm sản phẩm thành công.'
+            ]);
         } catch (\Throwable $th) {
-            return Redirect::to('Admin/add-product-page')->with('error_alert', 'Lỗi bất định, vui lòng tải lại trang.');
+            return response()->json([
+                'error' => 'Error'
+            ]);
         }
     }
     public function unactive_product($product_id)
@@ -184,6 +187,7 @@ class ManageProductController extends Controller
             $data['product_status'] = $request->product_status;
             $data['product_condition'] = $request->product_condition;
 
+            $new_image_path = null;
             $get_image = $request->file('product_image');
             if ($get_image) {
                 $mime_type = $get_image->getClientMimeType();
@@ -198,13 +202,19 @@ class ManageProductController extends Controller
                     $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
                     $get_image->move(public_path('uploads/product/'), $new_image);
                     $data['product_image']  = $new_image;
+
+                    $new_image_path = asset('uploads/product/' . $new_image);
                 } else {
-                    return Redirect()->back()->with('error_alert', 'Lỗi định dạng file!');
+                    // return Redirect()->back()->with('error_alert', 'Lỗi định dạng file!');
                 }
             }
             Product::where('product_id', $product_id)->update($data);
-            Toastr::success('Đã cập nhật các thay đổi!', '');
-            return redirect()->back();
+            // Toastr::success('Đã cập nhật các thay đổi!', '');
+            return response()->json([
+                'success' => 'Đã cập nhật các thay đổi.',
+                'id' => $product_id,
+                'new_image_path' => $new_image_path
+            ]);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error_alert', 'Lỗi bất định, vui lòng tải lại trang.');
         }

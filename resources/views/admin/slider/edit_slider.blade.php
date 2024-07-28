@@ -1,8 +1,8 @@
 @extends('admin_layout')
 @section('admin_content')
     @foreach ($edit_slider as $key => $sli)
-        <form role="form" action="{{ URL::to('Admin/update-slider/' . $sli->slider_id) }}" method="post"
-            enctype="multipart/form-data" id="saveForm">
+        <form role="form" id="editForm" action="{{ URL::to('Admin/update-slider/' . $sli->slider_id) }}" method="post"
+            enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="header-title">
                 <div class="">
@@ -20,22 +20,19 @@
                     </ol>
                 </div>
                 <div class="btn-header">
-                    <a href="javascript:location.reload(true)"> <button type="button" class="btn-ref refesh-page"
-                            data-mdb-ripple-init><i class="fa-solid fa-arrows-rotate"></i> Tải lại trang</button></a>
+                    <a href="javascript:location.reload(true)"> <button type="button" class="btn-ref refesh-page"><i
+                                class="fa-solid fa-arrows-rotate"></i> Tải lại trang</button></a>
                     <a href="">
-                        <button type="submit" class="btn-add" data-mdb-ripple-init>
+                        <button type="submit" class="btn-add">
                             <span class="button-text"><i class="fa-solid fa-check"></i> Lưu</span>
-                            <span id="spinner" class="spinner">
-                                <i class="fa fa-spinner fa-spin"></i>
-                            </span>
                         </button>
                     </a>
-                    <a href="{{ URL::to('Admin/manage-slider') }}"><button type="button" class="btn-back"
-                            data-mdb-ripple-init><i class="fa-solid fa-arrow-left"></i> Trở về</button></a>
+                    <a href="{{ URL::to('Admin/manage-slider') }}"><button type="button" class="btn-back"><i
+                                class="fa-solid fa-arrow-left"></i> Trở về</button></a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-5 offset-md-1">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
@@ -49,29 +46,13 @@
                                 <input type="file" name="slider_image" accept="image/*"
                                     class="form-control file-Image-input">
                                 <div class="error-message"></div>
-                                <img id="img-edit-slider" class="img-edit-slider"
+                                <img id="img-edit-{{ $sli->slider_id }}" class="img-edit-slider"
                                     src="{{ URL::to('/uploads/slider/' . $sli->slider_image) }}" alt="">
-
-                                <script>
-                                    var img = document.getElementById('img-edit-slider');
-                                    var originalWidth, originalHeight;
-                                    var isFullscreen = false;
-                                    img.addEventListener('click', function() {
-                                        if (!isFullscreen) {
-                                            originalWidth = this.offsetWidth;
-                                            originalHeight = this.offsetHeight;
-                                            this.classList.add('fullscreen-img');
-                                        } else {
-                                            this.classList.remove('fullscreen-img');
-                                        }
-                                        isFullscreen = !isFullscreen;
-                                    });
-                                </script>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
@@ -119,37 +100,6 @@
                                         <option value="1">Hiển thị</option>
                                     @endif
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <h3 class="card-title">Banner hiện hành</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
-                                    <i class="fas fa-expand"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="list-review">
-                                <?php
-                                    $i = 0;
-                                    foreach ($slider as $key => $slide) {
-                                        $i++;
-                                    ?>
-                                <img src="/uploads/slider/{{ $slide->slider_image }}" class="banner-img">
-                                <?php
-                                    }
-                                ?>
                             </div>
                         </div>
                     </div>

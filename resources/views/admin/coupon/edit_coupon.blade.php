@@ -2,7 +2,7 @@
 @section('admin_content')
     @foreach ($edit_coupon_code as $key => $cou_val)
         <form role="form" action="{{ URL::to('Admin/update-coupon/' . $cou_val->coupon_id) }}" method="post"
-            enctype="multipart/form-data" id="saveForm">
+            enctype="multipart/form-data" id="editForm">
             @csrf
             <div class="header-title">
                 <div class="">

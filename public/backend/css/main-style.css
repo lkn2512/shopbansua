@@ -2,6 +2,15 @@
     background: #1e293b
 }
 
+.product-image-preview {
+    margin-top: 10px;
+}
+
+.product-image-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    display: none;
+}
 
 .preloader {
     position: fixed;
@@ -736,14 +745,6 @@
     font-weight: 600;
 }
 
-.img-review {
-    display: block;
-    /* border-radius: 10px; */
-    margin-top: 10px;
-    width: 30%;
-    height: auto;
-}
-
 .required {
     color: red;
 }
@@ -805,14 +806,16 @@
     padding: 20px 0px;
 }
 
+.img-review,
+.img-edit-product,
 .img-edit-slider {
-    height: 200px;
+    max-height: 200px;
     width: auto;
+    max-width: 100%;
     padding-top: 5px;
-    cursor: zoom-in;
 }
 
-.fullscreen-img {
+/* .fullscreen-img {
     position: fixed;
     top: 0;
     left: 0;
@@ -822,13 +825,8 @@
     z-index: 9999;
     cursor: zoom-out;
     transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
-}
+} */
 
-.img-edit-product {
-    height: 200px;
-    width: auto;
-    padding-top: 0px;
-}
 
 .select-button-groupt {
     display: flex;
@@ -1053,23 +1051,40 @@
 
 
 .btn-edit {
-    color: green;
-    font-size: 20px;
+    color: #1e293b;
+    font-size: 18px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
 }
 
 .btn-remove {
     color: red;
-    font-size: 25px;
-    position: relative;
-    top: 3px;
+    font-size: 18px;
+    border: 1px solid gray;
+    padding: 4px;
+    border-radius: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
 }
 
 .btn-edit:hover {
-    color: rgb(2, 59, 2);
+    border: 1px solid green;
+    color: green;
 }
 
 .btn-remove:hover {
-    color: rgb(197, 2, 2);
+    border: 1px solid red;
+    color: red;
 }
 
 .info-product .img-product {

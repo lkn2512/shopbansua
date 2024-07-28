@@ -1,7 +1,7 @@
 @extends('admin_layout')
 @section('admin_content')
     <form role="form" action="{{ URL::to('Admin/save-video') }}" method="post" enctype="multipart/form-data"
-        autocomplete="off" id="saveForm">
+        autocomplete="off" id="addForm">
         @csrf
         <div class="header-title">
             <div class="title-left">

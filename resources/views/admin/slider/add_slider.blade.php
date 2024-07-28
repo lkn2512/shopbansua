@@ -1,18 +1,7 @@
 @extends('admin_layout')
 @section('admin_content')
-    <style>
-        .product-image-preview {
-            margin-top: 10px;
-        }
-
-        .product-image-preview img {
-            max-width: 200px;
-            max-height: 200px;
-            display: none;
-        }
-    </style>
-    <form role="form" action="{{ URL::to('Admin/insert-slider') }}" method="post" enctype="multipart/form-data"
-        id="saveForm">
+    <form role="form" id="addForm" action="{{ URL::to('Admin/insert-slider') }}" method="post"
+        enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="header-title">
             <div class="">
@@ -35,16 +24,12 @@
                 <a href="">
                     <button type="submit" class="btn-add">
                         <span class="button-text"> <i class="fa-solid fa-plus"></i> Thêm</span>
-                        <span id="spinner" class="spinner">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </span>
                     </button>
                 </a>
                 <a href="{{ URL::to('Admin/manage-slider') }}"><button type="button" class="btn-back"
                         data-mdb-ripple-init><i class="fa-solid fa-arrow-left"></i> Trở về</button></a>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-5 offset-md-2">
                 <div class="card">
@@ -58,7 +43,6 @@
                                     class="note">(Kích thước ảnh nên là 540 x 1000px - cao x rộng)</small></label>
                             <input type="file" name="slider_image" accept="image/*" required
                                 class="form-control file-Image-input">
-
                             <div class="error-message"></div>
                         </div>
                         <div class="form-group">
@@ -75,7 +59,7 @@
                                 </span>
                             </div>
                             <select class="form-select select2" name="product_id" required>
-                                <option value="">Chọn sản phẩm</option>
+                                <option value="" selected>Chọn sản phẩm</option>
                                 @foreach ($products as $product)
                                     <option value="{{ $product->product_id }}">
                                         {{ $product->product_name }} ( {{ $product->product_code }})

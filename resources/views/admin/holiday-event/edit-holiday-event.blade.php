@@ -1,7 +1,7 @@
 @extends('admin_layout')
 @section('admin_content')
     <form action="{{ URL::to('Admin/update-holiday-event/' . $holidayEvent->holiday_event_id) }}" method="POST"
-        onsubmit="return validateFormCheck()" enctype="multipart/form-data" autocomplete="off">
+        enctype="multipart/form-data" autocomplete="off" id="editForm">
         @csrf
         <div class="header-title">
             <div class="">
@@ -63,7 +63,8 @@
                             </label>
                             <input type="file" name="event_image" class="form-control file-Image-input" accept="image/*">
                             <span class="error-message"></span>
-                            <img class="img-review" src="{{ asset('uploads/event/' . $holidayEvent->event_image) }}">
+                            <img class="img-review" id="img-edit-{{ $holidayEvent->holiday_event_id }}"
+                                src="{{ asset('uploads/event/' . $holidayEvent->event_image) }}">
                         </div>
                         <div class="form-group">
                             <label>Trạng thái</label>
@@ -137,36 +138,4 @@
             </div>
         </div>
     </form>
-    <script>
-        function validateFormCheck() {
-            var checkboxes = document.querySelectorAll('input[name="products[]"]');
-            var productIds = [];
-
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    productIds.push(checkbox.value);
-                }
-            });
-            // Kiểm tra xem có ít nhất 4 sản phẩm đã được chọn chưa
-            if (productIds.length < 4) {
-                alert('Vui lòng chọn ít nhất 4 sản phẩm.');
-                return false;
-            }
-            // Kiểm tra ngày kết thúc phải lớn hơn ngày diễn ra
-            var eventStartDate = document.getElementById('event_date').value;
-            var eventEndDate = document.getElementById('event_end_date').value;
-
-            if (eventEndDate < eventStartDate) {
-                var errorMessage = document.querySelector('.error-message');
-                errorMessage.textContent = 'Ngày kết thúc phải lớn hơn hoặc bằng ngày diễn ra.';
-                errorMessage.style.display = 'block';
-                return false;
-            } else {
-                var errorMessage = document.querySelector('.error-message');
-                errorMessage.textContent = '';
-                errorMessage.style.display = 'none';
-            }
-            return true; // Nếu các điều kiện đều hợp lệ, cho phép submit form
-        }
-    </script>
 @endsection

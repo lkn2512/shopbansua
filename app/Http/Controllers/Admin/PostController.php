@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
@@ -43,19 +42,14 @@ class PostController extends Controller
         $get_image = $request->file('post_image');
 
         if ($get_image) {
-            // Lấy tên gốc của hình ảnh
             $get_name_image = $get_image->getClientOriginalName();
-            // Lấy tên file không bao gồm phần mở rộng
             $name_image = pathinfo($get_name_image, PATHINFO_FILENAME);
-            // Tạo tên mới cho file hình ảnh
             $new_image = $name_image . '_' . time() . '.' . $get_image->getClientOriginalExtension();
-            // Di chuyển file hình ảnh vào thư mục public/uploads/post
             $get_image->move(public_path('uploads/post'), $new_image);
             $post->post_image = $new_image;
         }
         $post->save();
-        Toastr::success('Thêm tin tức thành công!', 'Thành công');
-        return redirect()->back();
+        return response()->json(['success' => 'Thêm tin tức thành công']);
     }
     public function list_post()
     {
@@ -100,7 +94,7 @@ class PostController extends Controller
         $post->post_content = $data['post_content'];
         $post->post_status = $data['post_status'];
         $post->cate_post_id = $data['cate_post_id'];
-
+        $new_image_path = null;
         $get_image = $request->file('post_image');
         if ($get_image) {
             if ($post->post_image && file_exists(public_path('uploads/post/' . $post->post_image))) {
@@ -111,10 +105,16 @@ class PostController extends Controller
             $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
             $get_image->move(public_path('/uploads/post'), $new_image);
             $post->post_image = $new_image;
+
+            $new_image_path = asset('uploads/post/' . $new_image);
         }
         $post->save();
-        Toastr::success('Đã cập nhật các thay đổi!', 'Thành công');
-        return redirect()->back();
+
+        return response()->json([
+            'success' => 'Đã cập nhật thay đổi.',
+            'id' => $post_id,
+            'new_image_path' => $new_image_path
+        ]);
     }
     public function delete_post($post_id)
     {

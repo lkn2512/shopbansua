@@ -2,7 +2,7 @@
 @section('admin_content')
     @foreach ($edit_post as $key => $edit_p)
         <form role="form" action="{{ URL::to('Admin/update-post/' . $edit_p->post_id) }}" method="post"
-            enctype="multipart/form-data" id="saveForm">
+            enctype="multipart/form-data" id="editForm">
             {{ csrf_field() }}
             <div class="header-title">
                 <div class="">
@@ -52,7 +52,8 @@
                                 <input type="file" name="post_image" accept="image/*"
                                     class="form-control file-Image-input">
                                 <span class="error-message"></span>
-                                <img class="img-edit-product" src="{{ URL::to('/uploads/post/' . $edit_p->post_image) }}">
+                                <img class="img-edit-product" id="img-edit-{{ $edit_p->post_id }}"
+                                    src="{{ URL::to('/uploads/post/' . $edit_p->post_image) }}">
                             </div>
                         </div>
                     </div>
@@ -108,7 +109,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Nội dung</label>
-                                <textarea name="post_content" class="form-control ckeditor" id="ckeditor_add_post_content" required>{{ $edit_p->post_content }}</textarea>
+                                <textarea name="post_content" class="form-control" id="summernote_edit_post" required>{{ $edit_p->post_content }}</textarea>
                             </div>
                         </div>
                     </div>

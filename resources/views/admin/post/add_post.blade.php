@@ -1,6 +1,6 @@
 @extends('admin_layout')
 @section('admin_content')
-    <form role="form" action="{{ URL::to('Admin/save-post') }}" method="post" enctype="multipart/form-data" id="saveForm">
+    <form role="form" action="{{ URL::to('Admin/save-post') }}" method="post" enctype="multipart/form-data" id="addForm">
         {{ csrf_field() }}
         <div class="header-title">
             <div class="">
@@ -92,7 +92,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Nội dung</label>
-                            <textarea name="post_content" class="form-control ckeditor" id="ckeditor_add_post_content" required>{{ old('post_content') }}</textarea>
+                            <textarea name="post_content" class="form-control" id="summernote_post" required></textarea>
                         </div>
                     </div>
                 </div>

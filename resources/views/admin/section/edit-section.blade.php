@@ -51,10 +51,9 @@
                                         value="{{ $edit_value->section_slug }}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Mô tả<small class="note">(không bắt
-                                            buộc)</small></label>
+                                    <label>Mô tả<small class="note">(không bắt buộc)</small></label>
                                     <textarea style="resize:none" rows="4" type="password" name="section_product_desc" class="form-control"
-                                        placeholder="Nhập vào mô tả cho chuyên mục của sản phẩm">{{ $edit_value->section_desc }}</textarea>
+                                        placeholder="Nhập vào mô tả cho chuyên mục của sản phẩm">{{ $edit_value->section_description }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Trạng thái</label>

@@ -1,7 +1,7 @@
 @extends('admin_layout')
 @section('admin_content')
     <form role="form" action="{{ URL::to('Admin/save-customer') }}" method="post" enctype="multipart/form-data"
-        id="saveForm">
+        id="addForm">
         {{ csrf_field() }}
         <div class="row header-title">
             <div class="col-md-3">

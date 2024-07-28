@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -192,5 +193,22 @@ class AdminController extends Controller
             );
         }
         return response()->json($chart_data);
+    }
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/summernote');
+            // Tạo thư mục nếu chưa tồn tại
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+            $file->move($destinationPath, $filename);
+            $url = asset('uploads/summernote/' . $filename);
+
+            return response()->json(['url' => $url]);
+        }
+        return response()->json(['error' => 'No file uploaded'], 400);
     }
 }

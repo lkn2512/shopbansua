@@ -2,7 +2,7 @@
 @section('admin_content')
     @foreach ($edit_video as $key => $edit_value)
         <form role="form" action="{{ URL::to('Admin/update-video/' . $edit_value->video_id) }}" method="post"
-            id="saveForm">
+            id="editForm">
             @csrf
             <div class="header-title">
                 <div class="">
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <div class="card-body" style="height: 300px">
-                            <span>{!! $edit_value->video_iframe !!}</span>
+                            <span id="video-edit-{{ $edit_value->video_id }}">{!! $edit_value->video_iframe !!}</span>
                         </div>
                     </div>
                 </div>

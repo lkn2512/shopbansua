@@ -55,11 +55,9 @@ class VideoController extends Controller
             $video->video_description = $data['video_description'];
             $video->video_status = 1;
             $video->save();
-            Toastr::success('Thêm video thành công');
-            return redirect()->back();
+            return response()->json(['success' => 'Thêm video thành công.']);
         } catch (\Throwable $th) {
-            Toastr::error('Thêm video thất bại');
-            return redirect()->back();
+            return response()->json(['error' => 'Lỗi bất định, vui lòng tải lại trang!']);
         }
     }
     public function unactive_video($video_id)
@@ -91,14 +89,26 @@ class VideoController extends Controller
         $video->video_slug = $data['video_slug'];
         $video->video_link = $data['video_link'];
         $video->video_code_link = $sub_link;
+
+        $newIframeVideo = null;
+
         $video->video_iframe =  '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' . $sub_link . '"
             title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
         $video->video_description = $data['video_description'];
         $video->save();
-        Toastr::success('Đã cập nhật các thay đổi!');
-        return redirect()->back();
+
+        $newIframeVideo = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' . $sub_link . '"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+
+        return response()->json([
+            'success' => 'Đã cập nhật thay đổi.',
+            'id' => $video_id,
+            'newIframeVideo' => $newIframeVideo
+        ]);
     }
     public function delete_video($video_id)
     {
@@ -110,7 +120,7 @@ class VideoController extends Controller
             } else {
                 Product::where('video_id', $video_id)->update(['video_id' => NULL]);
                 $video->delete();
-                return response()->json(['status' => 'success', 'message' => 'Một video đã bị xoá và video_id đã được đặt lại là NULL cho các sản phẩm liên quan.']);
+                return response()->json(['status' => 'success', 'message' => 'Một video đã bị xoá']);
             }
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => 'Có lỗi xảy ra khi xoá video.', 'error' => $e->getMessage()]);

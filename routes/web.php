@@ -208,6 +208,7 @@ Route::prefix('Admin')->group(function () {
     Route::group(['prefix' => '/laravel-filemanager', 'middleware'], function () {
         Lfm::routes();
     });
+    Route::post('/upload-image', [AdminController::class, 'uploadImage'])->name('upload_image');
 });
 
 

@@ -1,7 +1,7 @@
 @extends('admin_layout')
 @section('admin_content')
-    <form action="{{ URL::to('Admin/save-holiday-event') }}" method="POST" onsubmit="return validateFormCheck()"
-        enctype="multipart/form-data" autocomplete="off">
+    <form action="{{ URL::to('Admin/save-holiday-event') }}" method="POST" enctype="multipart/form-data" autocomplete="off"
+        id="addForm">
         @csrf
         <div class="header-title">
             <div class="">
@@ -21,8 +21,7 @@
             <div class="btn-header">
                 <a href="javascript:location.reload(true)">
                     <button type="button" class="btn-ref refesh-page"><i class="fa-solid fa-arrows-rotate"></i> Tải lại
-                        trang
-                    </button>
+                        trang</button>
                 </a>
                 <a href="">
                     <button type="submit" class="btn-add">
@@ -30,8 +29,7 @@
                     </button>
                 </a>
                 <a href="{{ URL::to('Admin/holiday-event') }}">
-                    <button type="button" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Trở về
-                    </button>
+                    <button type="button" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Trở về</button>
                 </a>
             </div>
         </div>
@@ -53,12 +51,10 @@
                             <label for="event_date">Ngày kết thúc<small class="note"><span
                                         class="required">*</span></small></label>
                             <input type="date" name="event_end_date" id="event_end_date" class="form-control" required>
-                            <div class="error-message"></div>
+                            <div class="error-message" id="error-message"></div>
                         </div>
                         <div class="form-group">
-                            <label>Hình ảnh sự kiện
-                                <small class="note"><span class="required">*</span></small>
-                            </label>
+                            <label>Hình ảnh sự kiện<small class="note"><span class="required">*</span></small></label>
                             <input type="file" name="event_image" required
                                 class="form-control file-Image-input preview-image" accept="image/*"
                                 onchange="previewImage(this)">
@@ -122,7 +118,6 @@
                                             <div class="text-center">
                                                 <img class="img-product-event"
                                                     src="/uploads/product/{{ $product->product_image }}">
-
                                             </div>
                                             @if ($product->promotional_price > 0)
                                                 <span class="product-promotional">Khuyến mãi</span>
@@ -137,38 +132,4 @@
             </div>
         </div>
     </form>
-    <script>
-        function validateFormCheck() {
-            var checkboxes = document.querySelectorAll('input[name="products[]"]');
-            var productIds = [];
-
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    productIds.push(checkbox.value);
-                }
-            });
-            // Kiểm tra xem có ít nhất 4 sản phẩm đã được chọn chưa
-            if (productIds.length < 4) {
-                alert('Vui lòng chọn ít nhất 4 sản phẩm.');
-                return false;
-            }
-
-            // Kiểm tra ngày kết thúc phải lớn hơn ngày diễn ra
-            var eventStartDate = document.getElementById('event_date').value;
-            var eventEndDate = document.getElementById('event_end_date').value;
-
-            if (eventEndDate <= eventStartDate) {
-                var errorMessage = document.querySelector('.error-message');
-                errorMessage.textContent = 'Ngày kết thúc phải lớn hơn ngày diễn ra.';
-                errorMessage.style.display = 'block';
-                return false;
-            } else {
-                var errorMessage = document.querySelector('.error-message');
-                errorMessage.textContent = ''; // Reset error message
-                errorMessage.style.display = 'none';
-            }
-
-            return true; // Nếu các điều kiện đều hợp lệ, cho phép submit form
-        }
-    </script>
 @endsection
