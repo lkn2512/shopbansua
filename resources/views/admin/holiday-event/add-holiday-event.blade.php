@@ -117,7 +117,7 @@
                                             </label>
                                             <div class="text-center">
                                                 <img class="img-product-event"
-                                                    src="/uploads/product/{{ $product->product_image }}">
+                                                    src="{{ asset('/uploads/product/' . $product->product_image) }}">
                                             </div>
                                             @if ($product->promotional_price > 0)
                                                 <span class="product-promotional">Khuyến mãi</span>
