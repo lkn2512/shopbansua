@@ -15,14 +15,14 @@
                 @foreach ($category_by_id as $key => $product)
                     <div class="col-lg-3 col-md-4 col-sm-6 product-content p-2">
                         <div class="productinfo">
-                            <a class="img-center" href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
+                            <a class="img-center" href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
                                 <img class="img-products"
                                     src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
                                 @if ($product->promotional_price > 0)
                                     <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                                 @endif
                             </a>
-                            <a href="{{ URL::to('/chi-tiet-san-pham/' . $product->product_id) }}">
+                            <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
                                 <p class="product-name">{{ $product->product_name }}</p>
                             </a>
                             <div class="price-product">
@@ -81,9 +81,9 @@
                         </div>
                     </div>
                 @endforeach
-                <footer class="panel-footer">
+                {{-- <footer class="panel-footer">
                     {!! $category_by_id->withQueryString()->appends(Request::all())->links('pagination::bootstrap-4') !!}
-                </footer>
+                </footer> --}}
             </div>
         </div>
     </div>

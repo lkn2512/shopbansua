@@ -28,8 +28,7 @@
         </select>
     </form>
     <p class="sortBy">Mức giá cụ thể</p>
-    <form>
-        @csrf
+    <form id="form-price">
         <p>
             <label for="amount"></label>
             <input class="sliderRangeInput" type="text" id="amount" readonly="">

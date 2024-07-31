@@ -16,11 +16,10 @@
                 <div class="col-lg-8 col-md-5 col-sm-7 ">
                     <div class="row d-flex justify-content-between align-items-center">
                         <div class="search_box col-lg-11 col-md-9 col-sm-9 ">
-                            <form action="{{ URL::to('/search-items') }}" autocomplete="off" method="POST">
-                                {{ csrf_field() }}
+                            <form action="{{ URL::to('/search-items') }}" autocomplete="off" method="GET">
                                 <div class="input-group">
                                     <input type="text" name="keywords_submit" placeholder="Tìm kiếm" id="keywords"
-                                        class="form-control" />
+                                        class="form-control" value="{{ request('keywords_submit') }}" />
                                     <button type="submit" class="btn btn-search-info">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>

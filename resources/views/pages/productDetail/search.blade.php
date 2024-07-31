@@ -7,13 +7,13 @@
         @foreach ($search_product as $key => $searh_pro)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
                 <div class="productinfo">
-                    <a class="img-center" href="{{ URL::to('/chi-tiet-san-pham/' . $searh_pro->product_id) }}">
+                    <a class="img-center" href="{{ URL::to('chi-tiet-san-pham/' . $searh_pro->product_id) }}">
                         <img class="img-products" src="{{ URL::to('/uploads/product/' . $searh_pro->product_image) }}" />
                         @if ($searh_pro->promotional_price > 0)
                             <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                         @endif
                     </a>
-                    <a href="{{ URL::to('/chi-tiet-san-pham/' . $searh_pro->product_id) }}">
+                    <a href="{{ URL::to('chi-tiet-san-pham/' . $searh_pro->product_id) }}">
                         <p class="product-name">{{ $searh_pro->product_name }}</p>
                     </a>
                     <div class="price-product">
@@ -71,8 +71,5 @@
                 </div>
             </div>
         @endforeach
-        <footer class="panel-footer">
-            {!! $search_product->withQueryString()->appends(Request::all())->links('pagination::bootstrap-4') !!}
-        </footer>
     </div>
 @endsection

@@ -218,7 +218,6 @@ Route::get('/', [HomeController::class, 'index']);
 // Route::get('/trang-chu', 'HomeController@index');
 Route::get('/lien-he', [ContactController::class, 'lien_he']);
 Route::post('/product-tabs', [CategoryProductController::class, 'product_tabs']);
-
 //post
 Route::get('/danh-muc-bai-viet/{cate_post_id}', [PostController::class, 'danh_muc_bai_viet']);
 Route::get('/bai-viet/{post_id}', [PostController::class, 'bai_viet']);
@@ -230,7 +229,7 @@ Route::get('/san-pham-noi-bat', [HomeController::class, 'all_featuredProducts'])
 Route::get('/duoc-quan-tam-nhieu', [HomeController::class, 'all_product_view']);
 
 //search
-Route::post('/search-items', [HomeController::class, 'search_items']);
+Route::get('/search-items', [HomeController::class, 'search_items']);
 Route::post('/autocomplete-ajax', [HomeController::class, 'autocomplete_ajax']);
 
 //Danh muc san pham trang chu

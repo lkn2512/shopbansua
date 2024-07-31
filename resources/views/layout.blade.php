@@ -35,12 +35,11 @@
             </div>
         </div>
     </div>
-    @include('pages.chat.chat-with-admin')
     @include('pages.footer.footer')
 
-    <script src="{{ asset('/frontend/js/jquery.js') }}"></script>
+    <script src="{{ asset('/frontend/js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('/frontend/js/jquery.scrollUp.min.js') }}"></script>
     <script src="{{ asset('/frontend/js/bootstrap.bundle.min.js') }}"></script>
-    {{-- <script src="{{ asset('/frontend/js/jquery.scrollUp.min.js') }}"></script> --}}
     <script src="{{ asset('/frontend/js/price-range.js') }}"></script>
     <script src="{{ asset('/frontend/js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('/frontend/js/main.js') }}"></script>
@@ -64,7 +63,6 @@
         </script>
         {{ Session::forget('message') }}
     @endif
-
     {{-- Chọn địa chỉ hành chính --}}
     <script>
         $(document).ready(function() {
@@ -161,26 +159,71 @@
     {{-- input number --}}
 
     <!-- Lọc giá tiền từ... đến ....-->
+    {{-- <script>
+    $(document).ready(function() {
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(amount);
+        };
+        // var min_price = <?php// echo $min_price; ?> ?> ?>;
+        // var max_price = <?php //echo $max_price;
+        ?>;
+        var min_price = {{ $min_price }};
+        var max_price = {{ $max_price }};
+        $("#slider-range").slider({
+            orientation: "horizontal",
+            range: true,
+            min: min_price,
+            max: max_price,
+            step: 1000,
+            values: [min_price, max_price],
+            slide: function(event, ui) {
+                var start_price = formatCurrency(ui.values[0]);
+                var end_price = formatCurrency(ui.values[1]);
+
+                $("#amount").val(start_price + " - " + end_price);
+                $("#start_price").val(ui.values[0]);
+                $("#end_price").val(ui.values[1]);
+            }
+        });
+        var start_price = formatCurrency($("#slider-range").slider("values", 0));
+        var end_price = formatCurrency($("#slider-range").slider("values", 1));
+        $("#amount").val(start_price + " - " + end_price);
+    });
+</script> --}}
     <script>
         $(document).ready(function() {
-
             function formatCurrency(amount) {
                 return new Intl.NumberFormat('vi-VN', {
                     style: 'currency',
                     currency: 'VND'
                 }).format(amount);
             };
-            // var min_price = <?php echo $min_price; ?>;
-            // var max_price = <?php echo $max_price; ?>;
             var min_price = {{ $min_price }};
             var max_price = {{ $max_price }};
+            var sliderMoved = false; // Khởi tạo biến để theo dõi xem thanh trượt đã được di chuyển hay chưa
+
+            // Hàm để lấy giá trị từ URL
+            function getParameterByName(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+            // Lấy giá trị từ URL
+            var start_price_from_url = parseInt(getParameterByName('start_price')) || min_price;
+            var end_price_from_url = parseInt(getParameterByName('end_price')) || max_price;
+
+            // Khởi tạo thanh trượt với giá trị từ URL
             $("#slider-range").slider({
                 orientation: "horizontal",
                 range: true,
                 min: min_price,
                 max: max_price,
                 step: 1000,
-                values: [min_price, max_price],
+                values: [start_price_from_url, end_price_from_url],
                 slide: function(event, ui) {
                     var start_price = formatCurrency(ui.values[0]);
                     var end_price = formatCurrency(ui.values[1]);
@@ -188,11 +231,28 @@
                     $("#amount").val(start_price + " - " + end_price);
                     $("#start_price").val(ui.values[0]);
                     $("#end_price").val(ui.values[1]);
+                    sliderMoved = true; // Đánh dấu là đã kéo thanh trượt
                 }
             });
+
+            // Thiết lập giá trị ban đầu cho các trường nhập liệu
             var start_price = formatCurrency($("#slider-range").slider("values", 0));
             var end_price = formatCurrency($("#slider-range").slider("values", 1));
             $("#amount").val(start_price + " - " + end_price);
+
+            // Ngăn chặn việc gửi biểu mẫu nếu người dùng chưa kéo thanh trượt
+            $("#form-price").on("submit", function(event) {
+                if (!sliderMoved) {
+                    event.preventDefault(); // Ngăn chặn gửi biểu mẫu
+                    alert("Các sản phẩm hiện tại đã được lọc đúng với giá!");
+                } else {
+                    // Giữ lại giá trị thanh trượt
+                    $("#slider-range").slider("values", [
+                        $("#start_price").val(),
+                        $("#end_price").val()
+                    ]);
+                }
+            });
         });
     </script>
     <!-- Lọc giá tiền từ... đến ....-->

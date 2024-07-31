@@ -115,37 +115,36 @@ class HomeController extends Controller
             $sort_by = $_GET['sort_by'];
             switch ($sort_by) {
                 case 'new':
-                    $all_product_new = $query->orderBy('product_id', 'desc')->paginate(20);
+                    $all_product_new = $query->orderBy('product_id', 'desc')->paginate(4);
                     break;
                 case 'old':
-                    $all_product_new = $query->orderBy('product_id', 'asc')->paginate(20);
+                    $all_product_new = $query->orderBy('product_id', 'asc')->paginate(4);
                     break;
                 case 'giam_dan':
-                    $all_product_new = $query->orderBy('product_price', 'desc')->paginate(20);
+                    $all_product_new = $query->orderBy('product_price', 'desc')->paginate(4);
                     break;
                 case 'tang_dan':
-                    $all_product_new = $query->orderBy('product_price', 'asc')->paginate(20);
+                    $all_product_new = $query->orderBy('product_price', 'asc')->paginate(4);
                     break;
                 case 'kytu_az':
-                    $all_product_new = $query->orderBy('product_name', 'asc')->paginate(20);
+                    $all_product_new = $query->orderBy('product_name', 'asc')->paginate(4);
                     break;
                 case 'kytu_za':
-                    $all_product_new = $query->orderBy('product_name', 'desc')->paginate(20);
+                    $all_product_new = $query->orderBy('product_name', 'desc')->paginate(4);
                     break;
                 default:
-                    $all_product_new = $query->orderBy('product_id', 'desc')->paginate(20);
+                    $all_product_new = $query->orderBy('product_id', 'desc')->paginate(4);
                     break;
             }
         } elseif (isset($_GET['start_price']) && isset($_GET['end_price'])) {
             $min_prices = $_GET['start_price'];
             $max_prices = $_GET['end_price'];
-            $all_product_new = $query->whereBetween('product_price', [$min_prices, $max_prices])->orderBy('product_price', 'asc')->paginate(20);
+            $all_product_new = $query->whereBetween('product_price', [$min_prices, $max_prices])->orderBy('product_price', 'asc')->paginate(4);
         } else {
-            $all_product_new = $query->orderBy('product_id', 'desc')->paginate(20);
+            $all_product_new = $query->orderBy('product_id', 'desc')->paginate(4);
         }
         return view('pages.product-all.all_product_new')->with(compact('all_product_new', 'min_price', 'max_price', 'category_filter', 'brand_filter'));
     }
-
     public function all_product_selling()
     {
         $query = Product::where('product_status', '1')->where('product_condition', '1')->where('product_sold', '>', 0);
@@ -295,28 +294,38 @@ class HomeController extends Controller
         return view('pages.product-all.all-product-view')->with(compact('product_view', 'min_price', 'max_price', 'category_filter', 'brand_filter'));
     }
 
-
     public function search_items(Request $request)
     {
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
+        $keywords = $request->input('keywords_submit');
 
-        $keywords = $request->keywords_submit;
+        $search_product = DB::table('tbl_product')
+            ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
+            ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+            ->where('product_status', '1')
+            ->where('product_condition', '1')
+            ->where(function ($query) use ($keywords) {
+                $query->where('product_name', 'like', '%' . $keywords . '%')
+                    ->orWhere('category_name', 'like', '%' . $keywords . '%')
+                    ->orWhere('brand_name', 'like', '%' . $keywords . '%');
+            })
+            ->get();
 
-        $search_product = DB::table('tbl_product')->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
-            ->where('product_status', '1')->where('product_condition', '1')
-            ->where('product_name', 'like', '%' . $keywords . '%')
-            ->orWhere('category_name', 'like', '%' . $keywords . '%')
-            ->orWhere('brand_name', 'like', '%' . $keywords . '%')
-            ->paginate(24);
-        $count_search_product = DB::table('tbl_product')->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
-            ->where('product_status', '1')->where('product_condition', '1')
-            ->where('product_name', 'like', '%' . $keywords . '%')
-            ->orWhere('category_name', 'like', '%' . $keywords . '%')
-            ->orWhere('brand_name', 'like', '%' . $keywords . '%')
+        $count_search_product = DB::table('tbl_product')
+            ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
+            ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+            ->where('product_status', '1')
+            ->where('product_condition', '1')
+            ->where(function ($query) use ($keywords) {
+                $query->where('product_name', 'like', '%' . $keywords . '%')
+                    ->orWhere('category_name', 'like', '%' . $keywords . '%')
+                    ->orWhere('brand_name', 'like', '%' . $keywords . '%');
+            })
             ->count();
-        return view('pages.productDetail.search')->with(compact('search_product', 'keywords', 'count_search_product', 'category', 'brand'));
+
+        return view('pages.productDetail.search')
+            ->with(compact('search_product', 'keywords', 'count_search_product'));
     }
+
     public function autocomplete_ajax(Request $request)
     {
         $data = $request->all();

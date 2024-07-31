@@ -11,18 +11,18 @@
             <div class="row category-product">
                 <span class="text">Sản phẩm mới nhất</span>
             </div>
-            <div class="row product-row-container">
+            <div class="row product-row-container" id="search-products">
                 @foreach ($all_product_new as $key => $value)
                     <div class="col-lg-3 col-md-4 col-sm-6 product-content p-2">
                         <div class="productinfo">
-                            <a class="img-center" href="{{ URL::to('/chi-tiet-san-pham/' . $value->product_id) }}">
+                            <a class="img-center" href="{{ URL::to('chi-tiet-san-pham/' . $value->product_id) }}">
                                 <img class="img-products"
                                     src="{{ URL::to('/uploads/product/' . $value->product_image) }}" />
                                 @if ($value->promotional_price > 0)
                                     <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                                 @endif
                             </a>
-                            <a href="{{ URL::to('/chi-tiet-san-pham/' . $value->product_id) }}">
+                            <a href="{{ URL::to('chi-tiet-san-pham/' . $value->product_id) }}">
                                 <p class="underline product-name">{{ $value->product_name }}</p>
                             </a>
                             <div class="price-product">
