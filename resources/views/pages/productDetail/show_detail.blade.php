@@ -13,7 +13,7 @@
         {{-- Chi tiết sản phẩm --}}
         <div class="product-details row">
             <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="view-product text-center">
+                <div class="view-product">
                     <ul id="imageGallery">
                         <li data-thumb="{{ URL::to('uploads/product/' . $value->product_image) }}"
                             data-src="{{ URL::to('uploads/product/' . $value->product_image) }}">
@@ -32,15 +32,15 @@
             </div>
             <div class="col-lg-5 col-md-6 col-sm-12">
                 <div class="product-information">
-                    <span class="name">{{ $value->product_name }}
-                        <span class="logo">KN-MILK uy tín và chất lượng
-                        </span>
+                    <span class="name">{{ $value->product_name }}</span>
+                    <div class="slogan-favo">
                         <input class="favorite-product" type="hidden" data-product_id="{{ $value->product_id }}"
                             data-customer_id="{{ Session::get('customer_id') }}">
+                        <span class="slogan">KN-MILK uy tín và chất lượng</span>
                         <div id="show_favorite">
                             {{-- Hiển thị trạng thái sản phẩm yêu thích --}}
                         </div>
-                    </span>
+                    </div>
                     <div class="row row-information">
                         <div class="col-lg-3 col-md-3 col-sm-3">
                             <span class="title">Mã SP:</span>

@@ -2156,12 +2156,11 @@ h2.title:before {
   padding: 20px;
   background: white;
   margin: 0px;
-  margin-bottom: 20px;
   display: block;
 }
 
 .comment .comment-write {
-  margin-bottom: 60px;
+  margin-bottom: 50px;
   display: block;
 }
 
@@ -2383,11 +2382,8 @@ h2.title:before {
 
 
 .view-product {
-  position: relative;
-  padding-top: 10%;
-  padding-left: 10%;
-  padding-right: 10%;
-  padding-bottom: 10%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .view-product ul li {
@@ -2564,7 +2560,6 @@ h2.title:before {
 }
 
 .product-information {
-  padding: 10px;
   position: relative;
 }
 
@@ -2573,11 +2568,9 @@ h2.title:before {
   font-size: 28px;
   font-weight: 400;
   margin-top: 10px;
-  margin-bottom: 20px;
   text-transform: capitalize;
   line-height: 1.4;
   word-wrap: break-word;
-  border-bottom: 1px solid rgb(224, 224, 224);
   display: block;
 }
 
@@ -2591,14 +2584,49 @@ h2.title:before {
   display: block;
 }
 
-.product-information .name .logo {
-  display: block;
-  padding-top: 10px;
-  font-size: 14px;
-  text-transform: uppercase;
-  color: black;
-  opacity: 0.7;
+.slogan-favo {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(224, 224, 224);
 }
+
+.slogan-favo .slogan {
+  text-transform: uppercase;
+  opacity: 0.7;
+  color: black;
+  font-weight: 400;
+}
+
+.button_favorite {
+  border-radius: 5px;
+  border: none;
+  background: none;
+}
+
+.button_favorite:hover {
+  background: none;
+}
+
+.button_favorite .favorite-text {
+  font-size: 16px;
+  background: none;
+  color: #103667;
+}
+
+.button_favorite .favorite-text:hover {
+  font-weight: 500;
+}
+
+.button_favorite .favorite-text .icon-favo {
+  padding-right: 5px;
+}
+
+.favorite-red {
+  color: red;
+  font-size: 20px;
+}
+
 
 .row-information {
   margin-block: 20px;
@@ -2699,53 +2727,6 @@ h2.title:before {
   font-size: 22px;
   font-weight: 700;
 }
-
-.button_favorite {
-  position: absolute;
-  top: 90px;
-  right: 10px;
-  float: right;
-  border-radius: 5px;
-  border: none;
-  background: none;
-}
-
-.button_favorite:hover {
-  background: none;
-}
-
-.button_favorite .favorite-text {
-  font-size: 16px;
-  background: none;
-  color: #103667;
-}
-
-.button_favorite .favorite-text:hover {
-  font-weight: 500;
-}
-
-.button_favorite .favorite-text .icon-favo {
-  padding-right: 5px;
-}
-
-.favorite-default {
-  position: absolute;
-  top: 90px;
-  right: 10px;
-  font-size: 20px;
-  margin-top: 15px;
-}
-
-.favorite-red {
-  position: absolute;
-  top: 90px;
-  right: 10px;
-  color: red;
-  font-size: 20px;
-  margin-top: 15px;
-}
-
-
 
 
 .product-information .quantity {

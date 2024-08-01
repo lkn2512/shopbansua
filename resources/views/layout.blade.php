@@ -37,7 +37,7 @@
     </div>
     @include('pages.footer.footer')
 
-    <script src="{{ asset('/frontend/js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('/frontend/js/jquery.js') }}"></script>
     <script src="{{ asset('/frontend/js/jquery.scrollUp.min.js') }}"></script>
     <script src="{{ asset('/frontend/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('/frontend/js/price-range.js') }}"></script>
@@ -158,6 +158,7 @@
     </script>
     {{-- input number --}}
 
+
     <!-- Lọc giá tiền từ... đến ....-->
     <script>
         $(document).ready(function() {
@@ -221,6 +222,7 @@
         });
     </script>
     <!-- Lọc giá tiền từ... đến ....-->
+
 
     <!-- Sắp xếp theo....-->
     <script>

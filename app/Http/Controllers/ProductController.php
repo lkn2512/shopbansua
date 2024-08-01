@@ -151,8 +151,8 @@ class ProductController extends Controller
             $output .= '<hr>';
         }
         $output .= '</div>';
-        $pagination = $comments->links('pagination::bootstrap-4');
-        $output .= '<footer class="panel-footer">' . $pagination . '</footer>';
+        $pagination = $comments->links('pagination-custom');
+        $output .= '<div class="panel-footer">' . $pagination . '</div>';
 
         return response()->json([
             'output' => $output
