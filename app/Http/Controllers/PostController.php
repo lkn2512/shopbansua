@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use App\Models\CategoryPost;
 use App\Models\Post;
 
@@ -22,7 +20,7 @@ class PostController extends Controller
         if ($catepost->isEmpty()) {
             abort(404);
         }
-        $post = Post::where('post_status', '1')->where('cate_post_id', $cate_post_id)->orderBy('post_id', 'desc')->paginate(5);
+        $post = Post::where('post_status', '1')->where('cate_post_id', $cate_post_id)->orderBy('post_id', 'desc')->paginate(10);
         return view('pages.post.category_post')->with(compact('category', 'category_post', 'cate_id', 'post', 'catepost'));
     }
 

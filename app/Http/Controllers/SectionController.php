@@ -78,7 +78,6 @@ class SectionController extends Controller
         } else {
             $productSec = $query->orderBy('product_id', 'desc')->paginate(20);
         }
-        // Lấy dữ liệu sản phẩm và phân trang
         $productSec = $query->paginate(20);
 
         return view('pages.section.show-section')->with(compact('min_price', 'max_price', 'section', 'productSec', 'category_filter', 'brand_filter', 'category'));

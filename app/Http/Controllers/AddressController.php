@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\ProvinceCity;
 use App\Models\District;
 use App\Models\Wards;

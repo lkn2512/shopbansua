@@ -9,7 +9,6 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Shipping;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Request;
 
 class PrintPDFController extends Controller
 {

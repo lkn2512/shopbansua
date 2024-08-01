@@ -71,5 +71,8 @@
                 </div>
             </div>
         @endforeach
+        <div class="panel-footer">
+            {{ $search_product->withQueryString()->appends(Request::all())->links('pagination-custom') }}
+        </div>
     </div>
 @endsection

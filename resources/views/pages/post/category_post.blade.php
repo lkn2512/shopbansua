@@ -22,7 +22,7 @@
                 </div>
             @endforeach
             <footer class="panel-footer">
-                {!! $post->withQueryString()->appends(Request::all())->links('pagination::bootstrap-5') !!}
+                {!! $post->withQueryString()->appends(Request::all())->links('pagination-custom') !!}
             </footer>
         </div>
         <div class="col-md-3">

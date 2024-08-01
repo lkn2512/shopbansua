@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\CategoryProduct;
 use Brian2694\Toastr\Facades\Toastr;
-use Brian2694\Toastr\Toastr as ToastrToastr;
 
 class CartController extends Controller
 {

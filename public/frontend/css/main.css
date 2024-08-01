@@ -836,14 +836,8 @@ input {
 .btn-search-info {
   height: 50px;
   width: 50px;
-  border: 1px solid #00B2BF;
-  background-color: #00B2BF;
-}
-
-.btn-search-info:active,
-.btn-search-info:hover {
-  border: 1px solid #00B2BF;
-  background-color: #00B2BF;
+  border: 1px solid #00B2BF !important;
+  background-color: #00B2BF !important;
 }
 
 .input-group input {
@@ -2050,18 +2044,6 @@ h2.title:before {
 #advertisement img {
   width: 100%;
 }
-
-.pagination {
-  display: inline-block;
-  margin-top: 1px;
-}
-
-
-.pagination li a:hover {
-  background: rgb(60, 60, 204);
-  color: #fff;
-}
-
 
 /*************************
 *******breadcrumb CSS******
@@ -5839,19 +5821,16 @@ select.form-controls {
 
 /* Loại bỏ viền và nền của .panel-footer */
 .panel-footer {
-  border: none;
-  background: none;
   margin-top: 20px;
 }
 
-/* Hiển thị các số trang theo chiều ngang */
 .pagination {
-  display: flex;
-  align-items: center;
-  justify-content: right;
+  clear: both;
+  visibility: visible;
+  opacity: 1;
+  z-index: 10000;
 }
 
-/* Điều chỉnh kiểu hiển thị của các số trang */
 .pagination .page-link {
   padding: 5px 15px;
   border: 1px solid rgb(224, 224, 224);
@@ -5859,7 +5838,6 @@ select.form-controls {
   background-color: #fff !important;
 }
 
-/* Điều chỉnh kiểu hiển thị của số trang được chọn */
 .pagination .page-item.active .page-link {
   background-color: #103667 !important;
   border-color: #103667 !important;

@@ -81,9 +81,9 @@
                         </div>
                     </div>
                 @endforeach
-                {{-- <footer class="panel-footer">
-                    {!! $category_by_id->withQueryString()->appends(Request::all())->links('pagination::bootstrap-4') !!}
-                </footer> --}}
+                <footer class="panel-footer">
+                    {!! $category_by_id->withQueryString()->appends(Request::all())->links('pagination-custom') !!}
+                </footer>
             </div>
         </div>
     </div>

@@ -115,33 +115,33 @@ class HomeController extends Controller
             $sort_by = $_GET['sort_by'];
             switch ($sort_by) {
                 case 'new':
-                    $all_product_new = $query->orderBy('product_id', 'desc')->paginate(4);
+                    $all_product_new = $query->orderBy('product_id', 'desc')->paginate(20);
                     break;
                 case 'old':
-                    $all_product_new = $query->orderBy('product_id', 'asc')->paginate(4);
+                    $all_product_new = $query->orderBy('product_id', 'asc')->paginate(20);
                     break;
                 case 'giam_dan':
-                    $all_product_new = $query->orderBy('product_price', 'desc')->paginate(4);
+                    $all_product_new = $query->orderBy('product_price', 'desc')->paginate(20);
                     break;
                 case 'tang_dan':
-                    $all_product_new = $query->orderBy('product_price', 'asc')->paginate(4);
+                    $all_product_new = $query->orderBy('product_price', 'asc')->paginate(20);
                     break;
                 case 'kytu_az':
-                    $all_product_new = $query->orderBy('product_name', 'asc')->paginate(4);
+                    $all_product_new = $query->orderBy('product_name', 'asc')->paginate(20);
                     break;
                 case 'kytu_za':
-                    $all_product_new = $query->orderBy('product_name', 'desc')->paginate(4);
+                    $all_product_new = $query->orderBy('product_name', 'desc')->paginate(20);
                     break;
                 default:
-                    $all_product_new = $query->orderBy('product_id', 'desc')->paginate(4);
+                    $all_product_new = $query->orderBy('product_id', 'desc')->paginate(20);
                     break;
             }
         } elseif (isset($_GET['start_price']) && isset($_GET['end_price'])) {
             $min_prices = $_GET['start_price'];
             $max_prices = $_GET['end_price'];
-            $all_product_new = $query->whereBetween('product_price', [$min_prices, $max_prices])->orderBy('product_price', 'asc')->paginate(4);
+            $all_product_new = $query->whereBetween('product_price', [$min_prices, $max_prices])->orderBy('product_price', 'asc')->paginate(20);
         } else {
-            $all_product_new = $query->orderBy('product_id', 'desc')->paginate(4);
+            $all_product_new = $query->orderBy('product_id', 'desc')->paginate(20);
         }
         return view('pages.product-all.all_product_new')->with(compact('all_product_new', 'min_price', 'max_price', 'category_filter', 'brand_filter'));
     }
@@ -308,7 +308,7 @@ class HomeController extends Controller
                     ->orWhere('category_name', 'like', '%' . $keywords . '%')
                     ->orWhere('brand_name', 'like', '%' . $keywords . '%');
             })
-            ->get();
+            ->paginate(30);
 
         $count_search_product = DB::table('tbl_product')
             ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
@@ -330,7 +330,7 @@ class HomeController extends Controller
     {
         $data = $request->all();
         if ($data['query']) {
-            $product = Product::where('product_status', 1)->where('product_name', 'LIKE', '%' . $data['query'] . '%')->limit(5)->get();
+            $product = Product::where('product_status', 1)->where('product_name', 'LIKE', '%' . $data['query'] . '%')->limit(10)->get();
             $output = ' <ul class="dropdown-menu dropdown-hover" style="display:block;  border-radius: 0;">';
             foreach ($product as $key => $value) {
                 $output .= '<li><a class="dropdown-item item-hover li-search-ajax"><i class="fa-solid fa-magnifying-glass"></i>&ensp;' . $value->product_name . '</a></li>';

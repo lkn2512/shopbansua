@@ -16,21 +16,17 @@ class OrderController extends Controller
 {
     public function history_order()
     {
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
         $customer_id = Session::get('customer_id');
         if ($customer_id) {
             $order = Order::where('customer_id', $customer_id)->orderby('created_at', 'desc')->paginate(16);
             $order_first = Order::where('customer_id', $customer_id)->first();
-            return view('pages.history.historyOrder')->with(compact('order', 'category', 'brand', 'order_first'));
+            return view('pages.history.historyOrder')->with(compact('order', 'order_first'));
         } else {
             return view('pages.account-customer.sign-in');
         }
     }
     public function view_history_order($order_code)
     {
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
         $customer_id = Session::get('customer_id');
         if ($customer_id) {
             $order = Order::where('customer_id', $customer_id)->where('order_code', $order_code)->orderby('created_at', 'desc')->get();
@@ -66,7 +62,7 @@ class OrderController extends Controller
             }
             $qty_count = OrderDetails::with('product')->where('order_code', $order_code)->sum('product_sales_quantity');
 
-            return view('pages.history.viewHistoryOrder')->with(compact('order', 'category', 'brand', 'shipping', 'order_detail', 'qty_count', 'product_feeship', 'order_status', 'coupon_number', 'coupon_condition', 'getOrder', 'order_code', 'product_coupon', 'coupon_name', 'order_total', 'order_reason_cancel'));
+            return view('pages.history.viewHistoryOrder')->with(compact('order', 'shipping', 'order_detail', 'qty_count', 'product_feeship', 'order_status', 'coupon_number', 'coupon_condition', 'getOrder', 'order_code', 'product_coupon', 'coupon_name', 'order_total', 'order_reason_cancel'));
         } else {
             return view('pages.account-customer.sign-in');
         }

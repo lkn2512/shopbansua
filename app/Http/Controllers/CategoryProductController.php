@@ -84,7 +84,7 @@ class CategoryProductController extends Controller
             $query->whereBetween('product_price', [$min_prices, $max_prices])->orderBy('product_price', 'asc');
         }
         // Lấy dữ liệu sản phẩm và phân trang
-        $category_by_id = $query->get();
+        $category_by_id = $query->paginate(20);
 
         return view('pages.category.show_category')
             ->with(compact('category_filter', 'brand_filter', 'category_by_id', 'category_name', 'min_price', 'max_price'));

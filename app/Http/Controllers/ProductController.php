@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use App\Models\CategoryProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +17,6 @@ class ProductController extends Controller
 {
     public function details_product(Request $request, $product_id)
     {
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_name', 'asc')->get();
-        $brand = Brand::where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
 
         // chi tiết sản phẩm
         $detail_product = Product::orderBy('product_id', 'desc')
@@ -77,7 +73,7 @@ class ProductController extends Controller
             $starPercentages[$star] = $totalRatings > 0 ? ($count / $totalRatings) * 100 : 0;
         }
         return view('pages.productDetail.show_detail')
-            ->with(compact('category', 'brand', 'detail_product', 'related', 'same_brand', 'gallery', 'product_cate', 'category_id', 'product_name', 'product_id', 'product_id', 'customer', 'favorite', 'promotional_product', 'product', 'averageRating', 'starPercentages'));
+            ->with(compact('detail_product', 'related', 'same_brand', 'gallery', 'product_cate', 'category_id', 'product_name', 'product_id', 'product_id', 'customer', 'favorite', 'promotional_product', 'product', 'averageRating', 'starPercentages'));
     }
 
     public function load_comment(Request $request)

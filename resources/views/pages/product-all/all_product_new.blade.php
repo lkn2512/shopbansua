@@ -81,10 +81,9 @@
                         </div>
                     </div>
                 @endforeach
-                <div class="top-20"></div>
-                <footer class="panel-footer">
-                    {!! $all_product_new->withQueryString()->appends(Request::all())->links('pagination::bootstrap-5') !!}
-                </footer>
+                <div class="panel-footer">
+                    {{ $all_product_new->withQueryString()->appends(Request::all())->links('pagination-custom') }}
+                </div>
             </div>
         </div>
     </div>

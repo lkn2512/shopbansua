@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use App\Models\CategoryProduct;
 use App\Models\Customer;
 use App\Models\Order;
 use Brian2694\Toastr\Facades\Toastr;
@@ -18,9 +16,6 @@ class CustomerController extends Controller
     {
         $customer_id = Session::get('customer_id');
         if ($customer_id) {
-            $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
-            $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
-
             $query = Order::with('customer')->where('customer_id', $customer_id);
 
             $customer = Customer::where('customer_id', $customer_id)->get();
@@ -33,7 +28,7 @@ class CustomerController extends Controller
             $orders = Order::where('customer_id', $customer_id);
             $order_average = $orders->avg('order_total');
 
-            return view('pages.customer-page.info-customer')->with(compact('category', 'brand', 'customer', 'order_total', 'order_delivered', 'order_delivered_count', 'order', 'order_average'));
+            return view('pages.customer-page.info-customer')->with(compact('customer', 'order_total', 'order_delivered', 'order_delivered_count', 'order', 'order_average'));
         } else {
             return Redirect::to('login');
         }
@@ -42,11 +37,8 @@ class CustomerController extends Controller
     {
         $customer_id = Session::get('customer_id');
         if ($customer_id) {
-            $category = CategoryProduct::where('category_status', '1')->orderBy('category_id', 'desc')->get();
-            $brand = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
-
             $customer = Customer::where('customer_id', $customer_id)->get();
-            return view('pages.customer-page.setting-customer')->with(compact('category', 'brand', 'customer'));
+            return view('pages.customer-page.setting-customer')->with(compact('customer'));
         } else {
             return Redirect::to('login');
         }

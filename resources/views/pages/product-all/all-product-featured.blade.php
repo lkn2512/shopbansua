@@ -81,10 +81,9 @@
                         </div>
                     </div>
                 @endforeach
-                <div class="top-20"></div>
-                <footer class="panel-footer" style=" margin-right: 20px;">
-                    {!! $featuredProducts->withQueryString()->appends(Request::all())->links('pagination::bootstrap-4') !!}
-                </footer>
+                <div class="panel-footer">
+                    {!! $featuredProducts->withQueryString()->appends(Request::all())->links('pagination-custom') !!}
+                </div>
             </div>
         </div>
     </div>

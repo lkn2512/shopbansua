@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactCustomer;
 use App\Models\Customer;
-use Illuminate\Support\Facades\DB;
 use App\Models\Information;
 use App\Models\Notification;
 use Carbon\Carbon;
@@ -17,8 +16,6 @@ class ContactController extends Controller
 {
     public function lien_he()
     {
-        $category = DB::table('tbl_category_product')->where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand = DB::table('tbl_brand')->where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
         $contact = Information::get();
         $customer_id = Session::get('customer_id');
         if ($customer_id) {
@@ -26,7 +23,7 @@ class ContactController extends Controller
         } else {
             return redirect()->to('login')->with('message', 'Vui lòng đăng nhập để gửi liên hệ.');
         }
-        return view('pages.contact.contact')->with(compact('category', 'brand', 'contact', 'customer'));
+        return view('pages.contact.contact')->with(compact('contact', 'customer'));
     }
     public function send_contact_customer(Request $request)
     {

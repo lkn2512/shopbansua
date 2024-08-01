@@ -159,41 +159,6 @@
     {{-- input number --}}
 
     <!-- Lọc giá tiền từ... đến ....-->
-    {{-- <script>
-    $(document).ready(function() {
-
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('vi-VN', {
-                style: 'currency',
-                currency: 'VND'
-            }).format(amount);
-        };
-        // var min_price = <?php// echo $min_price; ?> ?> ?>;
-        // var max_price = <?php //echo $max_price;
-        ?>;
-        var min_price = {{ $min_price }};
-        var max_price = {{ $max_price }};
-        $("#slider-range").slider({
-            orientation: "horizontal",
-            range: true,
-            min: min_price,
-            max: max_price,
-            step: 1000,
-            values: [min_price, max_price],
-            slide: function(event, ui) {
-                var start_price = formatCurrency(ui.values[0]);
-                var end_price = formatCurrency(ui.values[1]);
-
-                $("#amount").val(start_price + " - " + end_price);
-                $("#start_price").val(ui.values[0]);
-                $("#end_price").val(ui.values[1]);
-            }
-        });
-        var start_price = formatCurrency($("#slider-range").slider("values", 0));
-        var end_price = formatCurrency($("#slider-range").slider("values", 1));
-        $("#amount").val(start_price + " - " + end_price);
-    });
-</script> --}}
     <script>
         $(document).ready(function() {
             function formatCurrency(amount) {
