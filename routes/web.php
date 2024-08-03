@@ -219,8 +219,8 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/lien-he', [ContactController::class, 'lien_he']);
 Route::post('/product-tabs', [CategoryProductController::class, 'product_tabs']);
 //post
-Route::get('/danh-muc-bai-viet/{cate_post_id}', [PostController::class, 'danh_muc_bai_viet']);
-Route::get('/bai-viet/{post_id}', [PostController::class, 'bai_viet']);
+Route::get('/danh-muc-bai-viet/{cate_post_slug}', [PostController::class, 'danh_muc_bai_viet']);
+Route::get('/bai-viet/{post_slug}', [PostController::class, 'bai_viet']);
 
 // all-product-home
 Route::get('/all-products-new', [HomeController::class, 'all_products_new']);
@@ -251,7 +251,9 @@ Route::post('/delete-favorite', [FavoritesListController::class, 'delete_favorit
 Route::post('/check-favorite', [FavoritesListController::class, 'checkFavorite'])->name('checkFavorite');
 
 //bài viết footer
-Route::get('/quy-dinh-chung/{post_id}', [PostController::class, 'quy_dinh_chung']);
+Route::get('/{cate_post_slug}/{post_slug}', [PostController::class, 'post_footer']);
+Route::get('/pages/{cate_post_slug}/{post_slug}', [PostController::class, 'post_header']);
+
 
 //cart -  giỏ hàng
 Route::post('/save-cart', [CartController::class, 'save_cart']);

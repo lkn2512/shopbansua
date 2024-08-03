@@ -12,7 +12,7 @@
                             <a href="{{ URL::to('Admin/dashboard') }}">Tổng quan</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ URL::to('Admin/all-category-product') }}">Quản lý tin tức - bài viết</a>
+                            <a href="{{ URL::to('Admin/list-post') }}">Quản lý bài viết</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
                             Chỉnh sửa tin tức
@@ -45,7 +45,14 @@
                             <div class="form-group">
                                 <label>Tiêu đề tin tức<small class="note"><span class="required">*</span></small></label>
                                 <input type="text" name="post_title" required class="form-control" maxlength="60"
-                                    placeholder="Nhập vào tiêu đề tin tức" value="{{ $edit_p->post_title }}">
+                                    placeholder="Nhập vào tiêu đề tin tức" value="{{ $edit_p->post_title }}"
+                                    data-slug-source="post">
+                            </div>
+                            <div class="form-group">
+                                <label>Slug<small class="note"><span class="required">*</span><span> (tự
+                                            động)</span></small></label>
+                                <input type="text" name="post_slug" class="form-control" placeholder="Nhập vào slug"
+                                    required data-slug-target="post" value="{{ $edit_p->post_slug }}">
                             </div>
                             <div class="form-group">
                                 <label>Hình ảnh<small class="note"><span class="required">*</span></small></label>
@@ -67,7 +74,7 @@
                                                 <a href="{{ URL::to('Admin/add-category-post') }}">Thêm mới</a>
                                             </span>
                                         </label>
-                                        <select class="form-select" name="cate_post_id">
+                                        <select class="form-select select2" name="cate_post_id">
                                             @foreach ($cate_post as $key => $cate_p)
                                                 @if ($cate_p->cate_post_id == $edit_p->cate_post_id)
                                                     <option value="{{ $cate_p->cate_post_id }}" selected>

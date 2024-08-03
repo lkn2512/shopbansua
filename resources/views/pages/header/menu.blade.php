@@ -138,10 +138,10 @@
                             <li class="submenu">
                                 <a href="javascript:;">Blog</a>
                                 <ul class="sub-ul">
-                                    @foreach ($category_post_frontend as $blog)
+                                    @foreach ($category_post_default as $blog)
                                         <li class="sub-li">
-                                            <a class="{{ Request::is('danh-muc-bai-viet/' . $blog->cate_post_id) ? 'active' : '' }}"
-                                                href="{{ URL::to('danh-muc-bai-viet/' . $blog->cate_post_id) }}">{{ $blog->cate_post_name }}
+                                            <a class="{{ Request::is('danh-muc-bai-viet/' . $blog->cate_post_slug) ? 'active' : '' }}"
+                                                href="{{ URL::to('danh-muc-bai-viet/' . $blog->cate_post_slug) }}">{{ $blog->cate_post_name }}
                                             </a>
                                         </li>
                                     @endforeach
@@ -159,19 +159,18 @@
                                     @endforeach
                                 </ul>
                             </li>
-                            <li class="scroll-to-section "><a class="{{ Request::is('lien-he') ? 'active' : '' }}"
+                            <li class="scroll-to-section ">
+                                <a class="{{ Request::is('lien-he') ? 'active' : '' }}"
                                     href="{{ URL::to('/lien-he') }}">Liên hệ với chúng tôi</a>
                             </li>
-                            <li class="scroll-to-section "><a class="{{ Request::is('tuyen-dung') ? 'active' : '' }}"
-                                    href="{{ URL::to('/tuyen-dung') }}">Tuyển dụng</a>
-                            </li>
-                            <li class="scroll-to-section "><a
-                                    class="{{ Request::is('nha-cung-cap') ? 'active' : '' }}"
-                                    href="{{ URL::to('/nha-cung-cap') }}">Nhà cung cấp</a>
-                            </li>
-                            <li class="scroll-to-section "><a class="{{ Request::is('Mua-si') ? 'active' : '' }}"
-                                    href="{{ URL::to('/Mua-si') }}">Mua sỉ</a>
-                            </li>
+                            @foreach ($post_header as $category)
+                                <li class="scroll-to-section">
+                                    <a
+                                        href="{{ URL::to('pages/' . $category['cate_post_slug'] . '/' . $category['post_slug']) }}">
+                                        {{ $category['cate_post_name'] }}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </nav>
                 </div>

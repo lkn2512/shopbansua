@@ -47,7 +47,7 @@
                                 ? 'active'
                                 : '' }}">
                             <i class="nav-icon fa-solid fa-table-list"></i>
-                            <p>Danh mục tin tức</p>
+                            <p>Danh mục bài viết</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -116,7 +116,7 @@
                                 ? 'active'
                                 : '' }}">
                             <i class="nav-icon fa-solid fa-blog"></i>
-                            <p>Tin tức - Bài viết</p>
+                            <p>Bài viết</p>
                         </a>
                     </li>
                     <li

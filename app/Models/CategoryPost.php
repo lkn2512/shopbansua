@@ -9,11 +9,11 @@ class CategoryPost extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['cate_post_name', 'cate_post_status', 'cate_post_desc'];
+    protected $fillable = ['cate_post_name', 'cate_post_slug', 'cate_post_status', 'cate_post_desc', 'cate_post_positions'];
     protected $primaryKey = 'cate_post_id';
     protected $table = 'tbl_category_post';
     public function post()
     {
-        return $this->hasMany('App\Models\Post');
+        return $this->hasMany(Post::class, 'cate_post_id', 'cate_post_id');
     }
 }

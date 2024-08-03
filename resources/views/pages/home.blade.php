@@ -486,14 +486,15 @@
             <div class="product-information">
                 <span class="name">
                     {{ $best_selling->product_name }}
-                    <span class="logo">KN-MILK uy tín và chất lượng
-                    </span>
+                </span>
+                <div class="slogan-favo">
                     <input class="favorite-product" type="hidden" data-product_id="{{ $best_selling->product_id }}"
                         data-customer_id="{{ Session::get('customer_id') }}">
+                    <span class="slogan">KN-MILK uy tín và chất lượng</span>
                     <div id="show_favorite">
                         {{-- Hiển thị trạng thái sản phẩm yêu thích --}}
                     </div>
-                </span>
+                </div>
                 <div class="row row-information">
                     <div class="col-lg-3 col-md-4 col-sm-3">
                         <span class="title">Mã SP:</span>

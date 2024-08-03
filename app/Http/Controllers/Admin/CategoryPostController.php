@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCategoryPostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Models\CategoryPost;
 use App\Models\Post;
-use Brian2694\Toastr\Facades\Toastr;
 
 class CategoryPostController extends Controller
 {
@@ -53,10 +51,12 @@ class CategoryPostController extends Controller
         } else {
             $category_post = new CategoryPost();
             $category_post->cate_post_name = $data['cate_post_name'];
+            $category_post->cate_post_slug = $data['cate_post_slug'];
             $category_post->cate_post_desc = $data['cate_post_desc'];
             $category_post->cate_post_status = $data['cate_post_status'];
+            $category_post->cate_post_positions = $data['cate_post_positions'];
             $category_post->save();
-            return response()->json(['success' => 'Thêm danh mục tin tức thành công!']);
+            return response()->json(['success' => 'Thêm danh mục bài viết thành công!']);
         }
     }
 
@@ -64,14 +64,14 @@ class CategoryPostController extends Controller
     {
         $this->AuthLogin();
         CategoryPost::where('cate_post_id', $cate_post_id)->update(['cate_post_status' => 0]);
-        return response()->json(['status' => 'success', 'message' => 'Danh mục tin tức đã được ẩn.']);
+        return response()->json(['status' => 'success', 'message' => 'Danh mục bài viết đã được ẩn.']);
     }
 
     public function active_category_post($cate_post_id)
     {
         $this->AuthLogin();
         CategoryPost::where('cate_post_id', $cate_post_id)->update(['cate_post_status' => 1]);
-        return response()->json(['status' => 'success', 'message' => 'Danh mục tin tức đã được hiển thị.']);
+        return response()->json(['status' => 'success', 'message' => 'Danh mục bài viết đã được hiển thị.']);
     }
     public function edit_category_post($cate_post_id)
     {
@@ -86,12 +86,14 @@ class CategoryPostController extends Controller
         $data = $request->all();
         $existing = CategoryPost::where('cate_post_name', $data['cate_post_name'])->where('cate_post_id', '!=', $cate_post_id)->exists();
         if ($existing) {
-            return response()->json(['error' => 'Danh mục tin tức đã tồn tại.']);
+            return response()->json(['error' => 'Danh mục bài viết đã tồn tại.']);
         } else {
             $category_post = CategoryPost::find($cate_post_id);
             $category_post->cate_post_name = $data['cate_post_name'];
+            $category_post->cate_post_slug = $data['cate_post_slug'];
             $category_post->cate_post_desc = $data['cate_post_desc'];
             $category_post->cate_post_status = $data['cate_post_status'];
+            $category_post->cate_post_positions = $data['cate_post_positions'];
             $category_post->save();
             return response()->json(['success' => 'Đã cập nhật thay đổi.']);
         }
@@ -99,14 +101,22 @@ class CategoryPostController extends Controller
     public function delete_category_post($cate_post_id)
     {
         $this->AuthLogin();
+        $categoryPost = CategoryPost::find($cate_post_id);
+
+        if (!$categoryPost) {
+            return response()->json(['status' => 'error', 'message' => 'Danh mục không tồn tại!']);
+        }
+
+        if ($categoryPost->cate_post_positions == 1 || $categoryPost->cate_post_positions == 2) {
+            return response()->json(['status' => 'info', 'message' => 'Danh mục này là bắt buộc.']);
+        }
+
         $PostCount = Post::where('cate_post_id', $cate_post_id)->count();
-        if ($cate_post_id == 36 || $cate_post_id == 37) {
-            return response()->json(['status' => 'warning', 'message' => 'Danh mục này là bắt buộc.']);
-        } elseif ($PostCount > 0) {
-            return response()->json(['status' => 'info', 'message' => 'Không thể xoá danh mục này vì có tin tức liên quan!']);
+        if ($PostCount > 0) {
+            return response()->json(['status' => 'info', 'message' => 'Không thể xoá danh mục này vì có bài viết liên quan!']);
         } else {
             CategoryPost::where('cate_post_id', $cate_post_id)->delete();
-            return response()->json(['status' => 'success', 'message' => 'Một danh mục tin tức đã bị xoá']);
+            return response()->json(['status' => 'success', 'message' => 'Một danh mục bài viết đã bị xoá']);
         }
     }
 }

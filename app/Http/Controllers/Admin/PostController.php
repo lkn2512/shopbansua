@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\CategoryPost;
 use App\Models\Post;
-use Brian2694\Toastr\Facades\Toastr;
 
 class PostController extends Controller
 {
@@ -34,6 +33,7 @@ class PostController extends Controller
         $data = $request->all();
         $post = new Post();
         $post->post_title = $data['post_title'];
+        $post->post_slug = $data['post_slug'];
         $post->post_desc = $data['post_desc'];
         $post->post_content = $data['post_content'];
         $post->post_status = $data['post_status'];
@@ -90,6 +90,7 @@ class PostController extends Controller
         $data = $request->all();
         $post = Post::find($post_id);
         $post->post_title = $data['post_title'];
+        $post->post_slug = $data['post_slug'];
         $post->post_desc = $data['post_desc'];
         $post->post_content = $data['post_content'];
         $post->post_status = $data['post_status'];

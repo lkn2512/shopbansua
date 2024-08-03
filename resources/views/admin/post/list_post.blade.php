@@ -2,8 +2,7 @@
 @section('admin_content')
     <div class="header-title">
         <div class="">
-            <h3 class="title-content">Quản lý tin tức - bài viết <span
-                    class="count-number">({{ number_Format($count_post) }})</span>
+            <h3 class="title-content">Quản lý bài viết <span class="count-number">({{ number_Format($count_post) }})</span>
             </h3>
         </div>
         <div class="btn-header">
@@ -12,7 +11,7 @@
                 </button>
             </a>
             <a href="{{ URL::to('Admin/add-post') }}">
-                <button type="button" class="btn-add-page"><i class="fa-solid fa-plus"></i>Thêm tin tức</button>
+                <button type="button" class="btn-add-page"><i class="fa-solid fa-plus"></i>Thêm bài viết</button>
             </a>
         </div>
     </div>
@@ -24,7 +23,6 @@
                 <th>STT</th>
                 <th>Hình ảnh</th>
                 <th>Tiêu đề</th>
-                <th>Mô tả ngắn</th>
                 <th>Danh mục</th>
                 <th>Trạng thái</th>
                 <th>Tác vụ</th>
@@ -35,8 +33,7 @@
                 <tr id="post-row-{{ $post->post_id }}">
                     <td>{{ $i++ }}</td>
                     <td><img class="img-post" src="{{ asset('uploads/post/' . $post->post_image) }}"></td>
-                    <td>{{ $post->post_title }}</td>
-                    <td class="text-auto">{{ $post->post_desc }}</td>
+                    <td class="width200">{{ $post->post_title }}</td>
                     <td>{{ $post->cate_post_name }}</td>
                     <td>
                         <button type="button" class="toggle-status btn {{ $post->post_status == 1 ? 'active' : '' }}"

@@ -169,7 +169,6 @@
             });
         });
     </script>
-
     {{-- Summernote --}}
 
     {{-- Xoá dữ liệu trong table --}}
@@ -242,16 +241,6 @@
         });
     </script>
     {{-- sử dụng data table --}}
-
-    {{-- loading button add and save --}}
-    {{-- <script>
-        document.getElementById('saveForm').addEventListener('submit', function() {
-            var addBtn = document.querySelector('.btn-add');
-            addBtn.classList.add('loading');
-            addBtn.disabled = true;
-        });
-    </script> --}}
-    {{-- loading button add and save --}}
 
     {{-- Kiểm tra input file ảnh --}}
     <script>
@@ -824,7 +813,7 @@
     {{-- Tự động tạo slug --}}
     <script>
         function removeVietnameseDiacritics(str) {
-            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
         }
 
         function getRandomString(length) {

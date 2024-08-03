@@ -13,7 +13,7 @@
                     <div class="col-lg-9 col-md-7 col-sm-6 post-desc">
                         <h3 class="title">{{ $po->post_title }}</h3>
                         <p class="text-desc">{{ $po->post_desc }}</p>
-                        <a href="{{ URL::to('bai-viet/' . $po->post_id) }}">
+                        <a href="{{ URL::to('bai-viet/' . $po->post_slug) }}">
                             <button type="button" class="btn btn-view-continue">Xem tiếp
                                 <i class="fa-solid fa-angle-right"></i>
                             </button>
@@ -21,15 +21,15 @@
                     </div>
                 </div>
             @endforeach
-            <footer class="panel-footer">
+            <div class="panel-footer">
                 {!! $post->withQueryString()->appends(Request::all())->links('pagination-custom') !!}
-            </footer>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="post-page-right">
                 <h3>DANH MỤC BLOG</h3>
-                @foreach ($category_post as $key => $cate)
-                    <a href="{{ URL::to('danh-muc-bai-viet/' . $cate->cate_post_id) }}">
+                @foreach ($category_post_default as $key => $cate)
+                    <a href="{{ URL::to('danh-muc-bai-viet/' . $cate->cate_post_slug) }}">
                         <p>{{ $cate->cate_post_name }}</p>
                     </a>
                 @endforeach

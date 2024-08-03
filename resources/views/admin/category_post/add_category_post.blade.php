@@ -10,7 +10,7 @@
                         <a href="{{ URL::to('Admin/dashboard') }}">Tổng quan</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ URL::to('Admin/all-category-post') }}">Danh mục tin tức</a>
+                        <a href="{{ URL::to('Admin/all-category-post') }}">Danh mục bài viết</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         Thêm danh mục tin tức
@@ -35,20 +35,41 @@
                         <div class="form-group">
                             <label>Tên danh mục<small class="note"><span class="required">*</span></small></label>
                             <input type="text" name="cate_post_name" required class="form-control"
-                                placeholder="Nhập tên danh mục tin tức" maxlength="100" id="check_name">
+                                placeholder="Nhập tên danh mục tin tức" maxlength="100" id="check_name"
+                                data-slug-source="cate_post_slug">
                             <span id="error-message" class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Slug<small class="note"><span class="required">*</span><span> (tự
+                                        động)</span></small></label>
+                            <input type="text" name="cate_post_slug" class="form-control" placeholder="Nhập vào slug"
+                                required data-slug-target="cate_post_slug">
                         </div>
                         <div class="form-group">
                             <label>Mô tả<small class="note">(không bắt buộc)</small></label>
                             <textarea style="resize:none" rows="4" name="cate_post_desc"
                                 class="form-control"placeholder="Nhập vào mô tả cho danh mục tin tức"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label>Trạng thái</label>
-                            <select class="form-select" name="cate_post_status">
-                                <option value="1" selected>Hiển thị</option>
-                                <option value="0">Ẩn</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Trạng thái</label>
+                                    <select class="form-select" name="cate_post_status">
+                                        <option value="1" selected>Hiển thị</option>
+                                        <option value="0">Ẩn</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Vị trí</label>
+                                    <select class="form-select" name="cate_post_positions">
+                                        <option value="0">Mặc định</option>
+                                        <option value="1">Đầu trang</option>
+                                        <option value="2">Cuối trang</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@
                         <a href="{{ URL::to('Admin/dashboard') }}">Tổng quan</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ URL::to('Admin/all-category-product') }}">Quản lý tin tức - bài viết</a>
+                        <a href="{{ URL::to('Admin/list-post') }}">Quản lý bài viết</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         Thêm tin tức
@@ -36,7 +36,6 @@
                 </a>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-5">
                 <div class="card">
@@ -44,7 +43,14 @@
                         <div class="form-group">
                             <label>Tiêu đề tin tức<small class="note"><span class="required">*</span></small></label>
                             <input type="text" name="post_title" required class="form-control" maxlength="60"
-                                placeholder="Nhập vào tiêu đề tin tức" value="{{ old('post_title') }}">
+                                placeholder="Nhập vào tiêu đề tin tức" value="{{ old('post_title') }}"
+                                data-slug-source="post" data-slug-source="cate_post_slug">
+                        </div>
+                        <div class="form-group">
+                            <label>Slug<small class="note"><span class="required">*</span><span> (tự
+                                        động)</span></small></label>
+                            <input type="text" name="post_slug" class="form-control" placeholder="Nhập vào slug" required
+                                data-slug-target="post">
                         </div>
                         <div class="form-group">
                             <label>Hình ảnh<small class="note"><span class="required">*</span></small></label>
@@ -54,27 +60,22 @@
                             <img src="{{ URL::to('backend/images/no-image.png') }}" alt="" id="preview_image"
                                 class="img-review">
                         </div>
-                        <div class="form-group">
-                            <label>Mô tả ngắn<small class="note"><span class="required">*</span></small></label>
-                            <textarea maxlength="250" style="resize:none" rows="4" name="post_desc" class="form-control"
-                                placeholder="Nhập vào mô tả ngắn cho tin tức" required>{{ old('post_desc') }}</textarea>
-                        </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="form-group">
                                     <label>Danh mục bài viết</label>
-                                    <select class="form-select" name="cate_post_id">
+                                    <select class="form-select select2" name="cate_post_id">
                                         @foreach ($cate_post as $key => $cate)
                                             <option value="{{ $cate->cate_post_id }}">{{ $cate->cate_post_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Trạng thái</label>
                                     <select class="form-select" name="post_status">
@@ -90,6 +91,11 @@
             <div class="col-md-7">
                 <div class="card">
                     <div class="card-body">
+                        <div class="form-group">
+                            <label>Mô tả ngắn<small class="note"><span class="required">*</span></small></label>
+                            <textarea maxlength="250" style="resize:none" rows="4" name="post_desc" class="form-control"
+                                placeholder="Nhập vào mô tả ngắn cho tin tức" required>{{ old('post_desc') }}</textarea>
+                        </div>
                         <div class="form-group">
                             <label>Nội dung</label>
                             <textarea name="post_content" class="form-control" id="summernote_post" required></textarea>

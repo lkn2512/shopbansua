@@ -158,66 +158,59 @@ class ManageProductController extends Controller
     public function update_product(Request $request, $product_id)
     {
         $this->AuthLogin();
-        try {
-            $data = array();
-            $number_price = filter_var($request->product_price, FILTER_SANITIZE_NUMBER_INT);
-            $number_cost = filter_var($request->product_cost, FILTER_SANITIZE_NUMBER_INT);
-            $number_quantity = filter_var($request->product_quantity, FILTER_SANITIZE_NUMBER_INT);
-            $number_promotional_price = filter_var($request->promotional_price, FILTER_SANITIZE_NUMBER_INT);
+        $data = array();
+        $number_price = filter_var($request->product_price, FILTER_SANITIZE_NUMBER_INT);
+        $number_cost = filter_var($request->product_cost, FILTER_SANITIZE_NUMBER_INT);
+        $number_quantity = filter_var($request->product_quantity, FILTER_SANITIZE_NUMBER_INT);
+        $number_promotional_price = filter_var($request->promotional_price, FILTER_SANITIZE_NUMBER_INT);
 
-            $data['product_code'] = $request->product_code;
-            $data['product_name'] = $request->product_name;
-            $data['product_slug'] = $request->product_slug;
-            $data['product_cost'] = $number_cost;
-            $data['product_price'] = $number_price;
-            $data['product_quantity'] = $number_quantity;
-            if ($number_promotional_price) {
-                $data['promotional_price'] = $number_promotional_price;
-            } else {
-                $data['promotional_price'] = 0;
-            }
-            // Xử lý khi chọn video và lưu vào CSDL
-            if ($request->selected_video) {
-                $data['video_id'] = $request->selected_video;
-            }
-            $data['product_content'] = $request->product_content;
-            $data['category_id'] = $request->product_cate;
-            $data['brand_id'] = $request->product_brand;
-            $data['section_id'] = $request->section_id;
-            $data['product_status'] = $request->product_status;
-            $data['product_condition'] = $request->product_condition;
-
-            $new_image_path = null;
-            $get_image = $request->file('product_image');
-            if ($get_image) {
-                $mime_type = $get_image->getClientMimeType();
-                if (strpos($mime_type, 'image') !== false) {
-                    $product = Product::find($product_id);
-                    $product_image = $product->product_image;
-                    if ($product_image && file_exists(public_path('uploads/product/' . $product_image))) {
-                        unlink(public_path('uploads/product/' . $product_image));
-                    }
-                    $get_name_image = $get_image->getClientOriginalName();
-                    $name_image = current(explode('.', $get_name_image));
-                    $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
-                    $get_image->move(public_path('uploads/product/'), $new_image);
-                    $data['product_image']  = $new_image;
-
-                    $new_image_path = asset('uploads/product/' . $new_image);
-                } else {
-                    // return Redirect()->back()->with('error_alert', 'Lỗi định dạng file!');
-                }
-            }
-            Product::where('product_id', $product_id)->update($data);
-            // Toastr::success('Đã cập nhật các thay đổi!', '');
-            return response()->json([
-                'success' => 'Đã cập nhật các thay đổi.',
-                'id' => $product_id,
-                'new_image_path' => $new_image_path
-            ]);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error_alert', 'Lỗi bất định, vui lòng tải lại trang.');
+        $data['product_code'] = $request->product_code;
+        $data['product_name'] = $request->product_name;
+        $data['product_slug'] = $request->product_slug;
+        $data['product_cost'] = $number_cost;
+        $data['product_price'] = $number_price;
+        $data['product_quantity'] = $number_quantity;
+        if ($number_promotional_price) {
+            $data['promotional_price'] = $number_promotional_price;
+        } else {
+            $data['promotional_price'] = 0;
         }
+        // Xử lý khi chọn video và lưu vào CSDL
+        if ($request->selected_video) {
+            $data['video_id'] = $request->selected_video;
+        }
+        $data['product_content'] = $request->product_content;
+        $data['category_id'] = $request->product_cate;
+        $data['brand_id'] = $request->product_brand;
+        $data['section_id'] = $request->section_id;
+        $data['product_status'] = $request->product_status;
+        $data['product_condition'] = $request->product_condition;
+
+        $new_image_path = null;
+        $get_image = $request->file('product_image');
+        if ($get_image) {
+            $mime_type = $get_image->getClientMimeType();
+            if (strpos($mime_type, 'image') !== false) {
+                $product = Product::find($product_id);
+                $product_image = $product->product_image;
+                if ($product_image && file_exists(public_path('uploads/product/' . $product_image))) {
+                    unlink(public_path('uploads/product/' . $product_image));
+                }
+                $get_name_image = $get_image->getClientOriginalName();
+                $name_image = current(explode('.', $get_name_image));
+                $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
+                $get_image->move(public_path('uploads/product/'), $new_image);
+                $data['product_image']  = $new_image;
+
+                $new_image_path = asset('uploads/product/' . $new_image);
+            }
+        }
+        Product::where('product_id', $product_id)->update($data);
+        return response()->json([
+            'success' => 'Đã cập nhật các thay đổi.',
+            'id' => $product_id,
+            'new_image_path' => $new_image_path
+        ]);
     }
     public function delete_product($product_id)
     {

@@ -5784,6 +5784,13 @@ select.form-controls {
   font-weight: 600;
 }
 
+.post-title-single {
+  text-align: center;
+  color: #103667;
+  margin-block: 20px;
+  text-transform: uppercase;
+}
+
 .content-post {
   font-size: 18px;
   text-align: left;

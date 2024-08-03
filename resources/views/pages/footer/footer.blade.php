@@ -15,26 +15,22 @@
             </div>
         </div>
         <div class="row pt-4">
-            <div class="col-md-3 col-lg-6 order-md-last">
-                <div class="row justify-content-end">
-                    <div class="col-md-12 col-lg-9 text-md-right ">
-                        <h2 class="footer-heading"><a class="logo">KN-Milk</a></h2>
-                        @foreach ($contact_footer as $cont)
-                            <label class="slogan">{{ $cont->slogan_image }}</label>
-                        @endforeach
-                        <p class="copyright">
-                            Copyright &copy;
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script> Bản quyền | Trang web được thực hiện bởi <i class="ion-ios-heart"
-                                aria-hidden="true"></i><b>Lê Kim Ngọc - CK22V7K516</b>
-                        </p>
-                    </div>
-                </div>
+            <div class="col-lg-5 col-md-6 order-md-last">
+                <h2 class="footer-heading"><a class="logo">KN-Milk</a></h2>
+                @foreach ($contact_footer as $cont)
+                    <label class="slogan">{{ $cont->slogan_image }}</label>
+                @endforeach
+                <p class="copyright">
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> Bản quyền | Trang web được thực hiện bởi <i class="ion-ios-heart"
+                        aria-hidden="true"></i><b>Lê Kim Ngọc - CK22V7K516</b>
+                </p>
             </div>
-            <div class="col-md-9 col-lg-6">
+            <div class="col-lg-7 col-md-6">
                 <div class="row">
-                    <div class="col-md-4 ">
+                    <div class="col">
                         <h2 class="footer-heading">Giới thiệu</h2>
                         <ul class="list-unstyled">
                             <li>
@@ -54,24 +50,21 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-4 ">
-                        <h2 class="footer-heading">Dịch vụ</h2>
-                        <ul class="list-unstyled">
-                            @foreach ($post_footerService as $pF)
-                                <li><a href="{{ url('/quy-dinh-chung/' . $pF->post_id) }}"
-                                        class="py-1 d-block">{{ $pF->post_title }}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="col-md-4 ">
-                        <h2 class="footer-heading">Chính sách</h2>
-                        <ul class="list-unstyled">
-                            @foreach ($post_footerPolicy as $pFP)
-                                <li><a href="{{ url('/quy-dinh-chung/' . $pFP->post_id) }}"
-                                        class="py-1 d-block">{{ $pFP->post_title }}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    @foreach ($category_post_footer as $category)
+                        <div class="col">
+                            <h2 class="footer-heading">{{ $category->cate_post_name }}</h2>
+                            <ul class="list-unstyled">
+                                @foreach ($post_footer[$category->cate_post_slug] as $post)
+                                    <li>
+                                        <a href="{{ url('/' . $post->category_post->cate_post_slug . '/' . $post->post_slug) }}"
+                                            class="py-1 d-block">
+                                            {{ $post->post_title }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
