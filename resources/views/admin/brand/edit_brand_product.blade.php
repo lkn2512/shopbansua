@@ -42,8 +42,14 @@
                                 <label>Tên thương hiệu<small class="note"><span class="required">*</span></small></label>
                                 <input type="text" value="{{ $edit_value->brand_name }}" name="brand_product_name"
                                     required class="form-control" placeholder="Nhập vào thương hiệu cho sản phẩm"
-                                    maxlength="50">
+                                    maxlength="50" data-slug-source="brand">
                                 <span id="error-message" class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Slug<small class="note"><span class="required">*</span><span> (tự
+                                            động)</span></small></label>
+                                <input type="text" name="brand_slug" class="form-control" placeholder="Nhập vào slug"
+                                    required data-slug-target="brand" value="{{ $edit_value->brand_slug }}">
                             </div>
                             <div class="form-group">
                                 <label>Mô tả<small class="note">(không bắt buộc)</small></label>

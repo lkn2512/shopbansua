@@ -26,7 +26,6 @@
             <tr class="position-sticky top-0 z-3">
                 <th>STT</th>
                 <th>Tên thương hiệu</th>
-                <th>Mô tả chi tiết</th>
                 <th>Sản phẩm</th>
                 <th>Trạng thái</th>
                 <th>Tác vụ</th>
@@ -37,7 +36,6 @@
                 <tr id="brand-row-{{ $value->brand_id }}">
                     <td>{{ $i++ }}</td>
                     <td>{{ $value->brand_name }}</td>
-                    <td class="text-auto">{{ $value->brand_desc }}</td>
                     <td>{{ number_format($product_counts[$value->brand_id]) }}</td>
                     <td>
                         <button type="button" class="toggle-status btn {{ $value->brand_status == 1 ? 'active' : '' }}"

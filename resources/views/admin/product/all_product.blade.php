@@ -52,7 +52,7 @@
                     </td>
                     <td>{{ $pro->product_code }}</td>
                     <td class="width300">
-                        <a class="text-black" href="{{ url('chi-tiet-san-pham/' . $pro->product_id) }}"
+                        <a class="text-black" href="{{ url('chi-tiet-san-pham/' . $pro->product_slug) }}"
                             target="_blank">{{ $pro->product_name }}</a>
                     </td>
                     <td>{{ number_format($pro->product_cost, 0, ',', '.') }}đ</td>

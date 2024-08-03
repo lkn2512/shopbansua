@@ -15,14 +15,13 @@
                 @foreach ($productSec as $key => $value)
                     <div class="col-lg-3 col-md-4 col-sm-6 product-content p-2">
                         <div class="productinfo">
-                            <a class="img-center" href="{{ URL::to('chi-tiet-san-pham/' . $value->product_id) }}">
-                                <img class="img-products"
-                                    src="{{ URL::to('/uploads/product/' . $value->product_image) }}" />
+                            <a class="img-center">
+                                <img class="img-products" src="{{ URL::to('/uploads/product/' . $value->product_image) }}" />
                                 @if ($value->promotional_price > 0)
                                     <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                                 @endif
                             </a>
-                            <a href="{{ URL::to('chi-tiet-san-pham/' . $value->product_id) }}">
+                            <a href="{{ URL::to('chi-tiet-san-pham/' . $value->product_slug) }}">
                                 <p class="underline product-name">{{ $value->product_name }}</p>
                             </a>
                             <div class="price-product">
@@ -82,34 +81,10 @@
                     </div>
                 @endforeach
                 <div class="top-20"></div>
-                <footer class="panel-footer">
+                <div class="panel-footer">
                     {!! $productSec->withQueryString()->appends(Request::all())->links('pagination-custom') !!}
-                </footer>
+                </div>
             </div>
         </div>
     </div>
-
-
-    <script>
-        document.querySelectorAll('.form-check-input').forEach(function(element) {
-            element.addEventListener('change', function() {
-                let params = new URLSearchParams(window.location.search);
-                let filterType = this.dataset.filter;
-                let values = [];
-
-                document.querySelectorAll(`.${filterType}-filter:checked`).forEach(function(
-                    checkedElement) {
-                    values.push(checkedElement.value);
-                });
-
-                if (values.length > 0) {
-                    params.set(filterType, values.join(','));
-                } else {
-                    params.delete(filterType);
-                }
-
-                window.location.search = params.toString();
-            });
-        });
-    </script>
 @endsection

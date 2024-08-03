@@ -108,7 +108,7 @@ class CategoryProductController extends Controller
                     $output .= ' <span class="header-image-promotional">Khuyến mãi đặc biệt</span>';
                 }
                 $output .= '</a>
-                            <a href="' . url('chi-tiet-san-pham/' . $val->product_id) . '">
+                            <a href="' . url('chi-tiet-san-pham/' . $val->product_slug) . '">
                                 <p class="product-name">' . $val->product_name . '</p>
                             </a>';
                 $output .= '<div class="price-product">';

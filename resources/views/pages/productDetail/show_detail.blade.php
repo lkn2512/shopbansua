@@ -12,19 +12,17 @@
         </nav>
         {{-- Chi tiết sản phẩm --}}
         <div class="product-details row">
-            <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="col-lg-4 col-md-6 col-sm-12 ">
                 <div class="view-product">
                     <ul id="imageGallery">
                         <li data-thumb="{{ URL::to('uploads/product/' . $value->product_image) }}"
                             data-src="{{ URL::to('uploads/product/' . $value->product_image) }}">
-                            <img class="img-ligtSlider" src="{{ URL::to('uploads/product/' . $value->product_image) }}"
-                                alt="" />
+                            <img class="img-ligtSlider" src="{{ URL::to('uploads/product/' . $value->product_image) }}" />
                         </li>
                         @foreach ($gallery as $key => $gal)
                             <li data-thumb="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}"
                                 data-src="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}">
-                                <img class="img-ligtSlider" src="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}"
-                                    alt="" />
+                                <img class="img-ligtSlider" src="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}" />
                             </li>
                         @endforeach
                     </ul>
@@ -93,8 +91,7 @@
                     <div class="text-sold">Đã bán
                         {{ number_format($value->product_sold) }}</div>
                     @if ($value->product_condition == '0' || $value->product_quantity <= '0')
-                        <img class="img-condition" src="{{ URL::to('frontend/images/product-details/sold_out.png') }}"
-                            alt="">
+                        <img class="img-condition" src="{{ URL::to('frontend/images/product-details/sold_out.png') }}">
                         <p class="soldout-note mt-4"> Sản phẩm này đã bán hết, vui
                             lòng quay lại sau.</p>
                     @else
@@ -199,7 +196,7 @@
                                         <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                                     @endif
                                 </a>
-                                <a href="{{ URL::to('chi-tiet-san-pham/' . $relate->product_id) }}">
+                                <a href="{{ URL::to('chi-tiet-san-pham/' . $relate->product_slug) }}">
                                     <p class="product-name">{{ $relate->product_name }}</p>
                                 </a>
                                 <div class="price-product">
@@ -367,7 +364,7 @@
                                     <img class="img-products"
                                         src="{{ URL::to('/uploads/product/' . $product->product_image) }}" />
                                 </a>
-                                <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
+                                <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_slug) }}">
                                     <p class="product-name-table underline">{{ $product->product_name }}</p>
                                 </a>
                                 <div class="price-product">
@@ -440,7 +437,7 @@
                                     <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                                 @endif
                             </a>
-                            <a href="{{ URL::to('chi-tiet-san-pham/' . $relate->product_id) }}">
+                            <a href="{{ URL::to('chi-tiet-san-pham/' . $relate->product_slug) }}">
                                 <p class="product-name">{{ $relate->product_name }}</p>
                             </a>
                             <div class="price-product">

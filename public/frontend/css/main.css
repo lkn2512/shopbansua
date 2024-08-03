@@ -21,6 +21,9 @@ body {
   object-fit: cover;
   height: 350px;
   border-radius: 5px;
+  width: 100%;
+  max-width: none;
+  display: block;
 }
 
 .carousel-caption {
@@ -2339,7 +2342,6 @@ h2.title:before {
 
 .star.filled {
   color: #FF9900;
-  /* Màu sao đã đánh giá */
 }
 
 .login-comment {
@@ -2382,14 +2384,22 @@ h2.title:before {
 
 
 .view-product {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
 }
 
 .view-product ul li {
-  width: 50%;
+  width: 100%;
   height: auto;
   list-style: none;
+}
+
+.view-product ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .view-product ul li .img-ligtSlider {
@@ -2401,7 +2411,6 @@ h2.title:before {
   background: #FE980F;
   bottom: 0;
   color: #FFFFFF;
-
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 0;
@@ -2452,7 +2461,6 @@ h2.title:before {
 .text-information .row {
   padding-top: 15px;
 }
-
 
 .rating-summary {
   width: 100%;
@@ -2561,6 +2569,7 @@ h2.title:before {
 
 .product-information {
   position: relative;
+  margin-left: 20px;
 }
 
 .product-information .name {
@@ -3786,9 +3795,6 @@ textarea {
   padding: 3px 10px;
   border: 1px solid #103667;
 }
-
-
-
 
 .summary-order .title {
   font-weight: bold;
@@ -5511,7 +5517,7 @@ select.form-controls {
 .shopping-cart .product-item .product-title>a:hover,
 .wishlist-table .product-item .product-title>a:hover,
 .order-table .product-item .product-title>a:hover {
-  text-decoration: underline !important;
+  text-decoration: underline;
 }
 
 .shopping-cart .product-item .product-title small,

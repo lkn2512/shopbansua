@@ -16,3 +16,25 @@
         </div>
     @endforeach
 </div>
+<script>
+    document.querySelectorAll('.form-check-input').forEach(function(element) {
+        element.addEventListener('change', function() {
+            let params = new URLSearchParams(window.location.search);
+            let filterType = this.dataset.filter;
+            let values = [];
+
+            document.querySelectorAll(`.${filterType}-filter:checked`).forEach(function(
+                checkedElement) {
+                values.push(checkedElement.value);
+            });
+
+            if (values.length > 0) {
+                params.set(filterType, values.join(','));
+            } else {
+                params.delete(filterType);
+            }
+
+            window.location.search = params.toString();
+        });
+    });
+</script>

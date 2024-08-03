@@ -15,3 +15,23 @@
         </div>
     @endforeach
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function handleFilterChange() {
+            let params = new URLSearchParams(window.location.search);
+            let brands = [];
+            document.querySelectorAll('.brand-filter:checked').forEach(function(element) {
+                brands.push(element.value);
+            });
+            if (brands.length > 0) {
+                params.set('brand', brands.join(','));
+            } else {
+                params.delete('brand');
+            }
+            window.location.search = params.toString();
+        }
+        document.querySelectorAll('.brand-filter').forEach(function(element) {
+            element.addEventListener('change', handleFilterChange);
+        });
+    });
+</script>

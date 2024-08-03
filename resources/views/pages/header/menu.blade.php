@@ -160,6 +160,9 @@
                                 </ul>
                             </li>
                             <li class="scroll-to-section ">
+                                <a class="" href="{{ URL::to('/danh-sach-thuong-hieu') }}">Thương hiệu</a>
+                            </li>
+                            <li class="scroll-to-section ">
                                 <a class="{{ Request::is('lien-he') ? 'active' : '' }}"
                                     href="{{ URL::to('/lien-he') }}">Liên hệ với chúng tôi</a>
                             </li>

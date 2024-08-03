@@ -52,6 +52,7 @@ class BrandController extends Controller
         } else {
             $brand = new Brand();
             $brand->brand_name = $data['brand_product_name'];
+            $brand->brand_slug = $data['brand_slug'];
             $brand->brand_desc = $data['brand_product_desc'];
             $brand->brand_status = $data['brand_product_status'];
             $brand->save();
@@ -91,6 +92,7 @@ class BrandController extends Controller
         } else {
             $brand = Brand::find($brand_id);
             $brand->brand_name = $data['brand_product_name'];
+            $brand->brand_slug = $data['brand_slug'];
             $brand->brand_desc = $data['brand_product_desc'];
             $brand->brand_status = $data['brand_product_status'];
             $brand->save();

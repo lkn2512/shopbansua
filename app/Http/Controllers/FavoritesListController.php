@@ -59,7 +59,7 @@ class FavoritesListController extends Controller
                     $output .= '    <span class="header-image-promotional">Khuyến mãi đặc biệt</span>';
                 }
                 $output .= '    </a>
-                                <a href="' . url('chi-tiet-san-pham/' . $product->product_id) . '">
+                                <a href="' . url('chi-tiet-san-pham/' . $product->product_slug) . '">
                                     <p class="product-name">' . $product->product_name . '</p>
                                 </a>';
                 $output .= '    <div class="price-product">';

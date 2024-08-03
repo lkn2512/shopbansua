@@ -21,9 +21,10 @@ class HomeController extends Controller
         $category = DB::table('tbl_category_product')->where('category_status', '1')->orderBy('category_name', 'asc')->get();
         $brand = DB::table('tbl_brand')->where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
         $all_product_new = Product::where('product_status', '1')->where('product_condition', '1')->orderBy('product_id', 'desc')->limit(12)->get();
-        $slider = Slider::orderby('slider_id', 'desc')->where('slider_status', '1')->get();
+        $slider = Slider::with('product')->orderby('slider_id', 'desc')->where('slider_status', '1')->get();
 
-        $best_selling = Product::with('gallery')->where('product_status', '1')->where('product_condition', '1')->where('product_sold', '>', 0)->orderBy('product_sold', 'desc')->first();
+        $best_selling = Product::with('gallery')->where('product_status', '1')->where('product_sold', '>', 0)->orderBy('product_sold', 'desc')->first();
+
         if ($best_selling) {
             // Lấy tất cả các gallery của sản phẩm đó
             $galleries = $best_selling->gallery;

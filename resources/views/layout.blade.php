@@ -158,7 +158,6 @@
     </script>
     {{-- input number --}}
 
-
     <!-- Lọc giá tiền từ... đến ....-->
     <script>
         $(document).ready(function() {
@@ -222,7 +221,6 @@
         });
     </script>
     <!-- Lọc giá tiền từ... đến ....-->
-
 
     <!-- Sắp xếp theo....-->
     <script>

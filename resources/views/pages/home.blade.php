@@ -35,7 +35,7 @@
                             <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                         @endif
                     </a>
-                    <a href="{{ URL::to('chi-tiet-san-pham/' . $new->product_id) }}">
+                    <a href="{{ URL::to('chi-tiet-san-pham/' . $new->product_slug) }}">
                         <p class="product-name">{{ $new->product_name }}</p>
                     </a>
                     <div class="price-product">
@@ -106,7 +106,7 @@
                             <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                         @endif
                     </a>
-                    <a href="{{ URL::to('chi-tiet-san-pham/' . $sell->product_id) }}">
+                    <a href="{{ URL::to('chi-tiet-san-pham/' . $sell->product_slug) }}">
                         <p class="product-name">{{ $sell->product_name }}</p>
                     </a>
                     <div class="price-product">
@@ -182,14 +182,14 @@
                         <span class="holiday-name">{{ $value->event_name }}</span>
                         <span class="holiday-end-date countdown-timer"
                             data-end-date="{{ \Carbon\Carbon::parse($value->event_end_date)->format('Y-m-d H:i:s') }}"></span>
-                        <img src="{{ asset('/uploads/event/' . $value->event_image) }}" alt="">
+                        <img src="{{ asset('/uploads/event/' . $value->event_image) }}">
                     </div>
                     <div class="col-lg-7 col-md-6 col-sm-6 holiday-right">
                         <div class="featured-carousel owl-carousel">
                             @foreach ($productsByEvent[$value->holiday_event_id] as $product)
                                 <div class="item">
                                     <div class="blog-entry">
-                                        <a href="#" class="block-20 d-flex align-items-start"
+                                        <a class="block-20 d-flex align-items-start"
                                             style="background-image: url('{{ URL::to('/uploads/product/' . $product->product_image) }}');">
                                             @if ($product->promotional_price > 0)
                                                 {{-- <span class="header-image-promotional">Khuyến mãi đặc biệt</span> --}}
@@ -200,8 +200,8 @@
                                                 </div>
                                             @endif
                                         </a>
-                                        <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
-                                            <p class="heading-product-name">{{ $product->product_name }}</p>
+                                        <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_slug) }}">
+                                            <p class="heading-product-name underline">{{ $product->product_name }}</p>
                                         </a>
                                         <div class="price-product">
                                             @if ($product->promotional_price > 0)
@@ -325,7 +325,7 @@
                             <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                         @endif
                     </a>
-                    <a href="{{ URL::to('chi-tiet-san-pham/' . $avgRat->product_id) }}">
+                    <a href="{{ URL::to('chi-tiet-san-pham/' . $avgRat->product_slug) }}">
                         <p class="product-name">{{ $avgRat->product_name }}</p>
                     </a>
                     <div class="price-product">
@@ -399,7 +399,7 @@
                             <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                         @endif
                     </a>
-                    <a href="{{ URL::to('chi-tiet-san-pham/' . $view->product_id) }}">
+                    <a href="{{ URL::to('chi-tiet-san-pham/' . $view->product_slug) }}">
                         <p class="product-name">{{ $view->product_name }}</p>
                     </a>
                     <div class="price-product">
@@ -470,13 +470,12 @@
                     <li data-thumb="{{ URL::to('uploads/product/' . $best_selling->product_image) }}"
                         data-src="{{ URL::to('uploads/product/' . $best_selling->product_image) }}">
                         <img class="img-ligtSlider"
-                            src="{{ URL::to('uploads/product/' . $best_selling->product_image) }}" alt="" />
+                            src="{{ URL::to('uploads/product/' . $best_selling->product_image) }}" />
                     </li>
                     @foreach ($galleries as $key => $gal)
                         <li data-thumb="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}"
                             data-src="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}">
-                            <img class="img-ligtSlider" src="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}"
-                                alt="" />
+                            <img class="img-ligtSlider" src="{{ URL::to('uploads/gallery/' . $gal->gallery_image) }}" />
                         </li>
                     @endforeach
                 </ul>
@@ -547,10 +546,8 @@
                 <div class="text-sold">Đã bán
                     {{ number_format($best_selling->product_sold) }}</div>
                 @if ($best_selling->product_condition == '0' || $best_selling->product_quantity <= '0')
-                    <img class="img-condition" src="{{ URL::to('frontend/images/product-details/sold_out.png') }}"
-                        alt="">
-                    <p class="soldout-note"><i class="fa-solid fa-circle-info"></i> Sản phẩm này đã bán hết, vui lòng
-                        quay lại sau.</p>
+                    <img class="img-condition" src="{{ URL::to('frontend/images/product-details/sold_out.png') }}">
+                    <p class="soldout-note mt-4"> Sản phẩm này đã bán hết, vui lòng quay lại sau!</p>
                 @else
                     <form>
                         @csrf
@@ -577,7 +574,7 @@
                             <input type="hidden" class="cart_product_qty_{{ $best_selling->product_id }}"
                                 value="1">
                             <a class="view-detail"
-                                href="{{ URL::to('chi-tiet-san-pham/' . $best_selling->product_id) }}" type="button">
+                                href="{{ URL::to('chi-tiet-san-pham/' . $best_selling->product_slug) }}" type="button">
                                 Xem chi tiết
                             </a>
                             <button type="button" class="add-to-cart buy-now" name="add-to-cart"
@@ -647,7 +644,7 @@
                                 <span class="header-image-promotional">Khuyến mãi đặc biệt</span>
                             @endif
                         </a>
-                        <a href="{{ URL::to('chi-tiet-san-pham/' . $proSec->product_id) }}">
+                        <a href="{{ URL::to('chi-tiet-san-pham/' . $proSec->product_slug) }}">
                             <p class="product-name">{{ $proSec->product_name }}</p>
                         </a>
                         <div class="price-product">

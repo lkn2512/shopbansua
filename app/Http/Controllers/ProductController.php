@@ -15,55 +15,100 @@ use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
-    public function details_product(Request $request, $product_id)
+    // public function details_product(Request $request, $product_id)
+    // {
+    //     // chi tiết sản phẩm
+    //     $detail_product = Product::orderBy('product_id', 'desc')
+    //         ->with('category')->with('brand')->with('video')
+    //         ->where('product_id', $product_id)->get();
+    //     if ($detail_product->isEmpty()) {
+    //         abort(404);
+    //     }
+    //     foreach ($detail_product as $val) {
+    //         $category_id = $val->category_id;
+    //         $brand_id = $val->brand_id;
+    //         $product_id = $val->product_id;
+    //         $product_cate = $val->category->category_name;
+    //         $product_name = $val->product_name;
+    //     }
+    //     //Thư viện hình ảnh
+    //     $gallery = Gallery::where('product_id', $product_id)->get();
+    //     // yêu thích
+    //     $favorite = FavoritesList::where('customer_id', Session::get('customer_id'))->where('product_id', $product_id)->first();
+    //     // sản phẩm liên quan
+    //     $related = DB::table('tbl_product')
+    //         ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
+    //         ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+    //         ->where('tbl_category_product.category_id', $category_id)
+    //         ->where('product_condition', '1')
+    //         ->where('product_status', '1')
+    //         ->whereNotIn('tbl_product.product_id', [$product_id])->get();
+    //     // sản phẩm cùng thương hiệu
+    //     $same_brand = DB::table('tbl_product')
+    //         ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
+    //         ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+    //         ->where('tbl_brand.brand_id', $brand_id) // Lấy sản phẩm cùng thương hiệu
+    //         // ->where('tbl_category_product.category_id', '!=', $category_id) // Không thuộc cùng loại
+    //         ->where('product_condition', '1')
+    //         ->where('product_status', '1')
+    //         ->whereNotIn('tbl_product.product_id', [$product_id])
+    //         ->limit(12)
+    //         ->get();
+    //     $customer = Customer::where('customer_id', Session::get('customer_id'))->get();
+    //     //update-views
+    //     $product = Product::where('product_id', $product_id)->first();
+    //     $product->product_view = $product->product_view + 1;
+    //     $product->save();
+    //     //Sản phẩm khuyến mãi
+    //     $promotional_product = Product::where('product_status', '1')->where('promotional_price', '>', '0')->whereNotIn('product_id', [$product_id])->inRandomOrder()->limit(5)->get();
+    //     // Tính toán giá trị trung bình
+    //     $product = Product::find($product_id);
+    //     $averageRating = $product->averageRating();
+    //     // Tính toán phần trăm đánh giá theo từng sao
+    //     $totalRatings = $product->ratings()->count();
+    //     $starPercentages = [];
+    //     for ($star = 5; $star >= 1; $star--) {
+    //         $count = $product->ratings()->where('rating', $star)->count();
+    //         $starPercentages[$star] = $totalRatings > 0 ? ($count / $totalRatings) * 100 : 0;
+    //     }
+    //     return view('pages.productDetail.show_detail')
+    //         ->with(compact('detail_product', 'related', 'same_brand', 'gallery', 'product_cate', 'category_id', 'product_name', 'product_id', 'product_id', 'customer', 'favorite', 'promotional_product', 'product', 'averageRating', 'starPercentages'));
+    // }
+    public function details_product(Request $request, $product_slug)
     {
-
-        // chi tiết sản phẩm
-        $detail_product = Product::orderBy('product_id', 'desc')
-            ->with('category')->with('brand')->with('video')
-            ->where('product_id', $product_id)->get();
-        if ($detail_product->isEmpty()) {
+        // Tìm sản phẩm dựa trên product_slug
+        $product = Product::where('product_slug', $product_slug)->with('category', 'brand', 'video')->first();
+        if (!$product) {
             abort(404);
         }
-        foreach ($detail_product as $val) {
-            $category_id = $val->category_id;
-            $brand_id = $val->brand_id;
-            $product_id = $val->product_id;
-            $product_cate = $val->category->category_name;
-            $product_name = $val->product_name;
-        }
-        //Thư viện hình ảnh
+        $product_id = $product->product_id;
+        $category_id = $product->category_id;
+        $brand_id = $product->brand_id;
+        $product_cate = $product->category->category_name;
+        $product_name = $product->product_name;
+
+        //chi tiết sản phẩm
+        $detail_product = Product::orderBy('product_id', 'desc')->with('category')->with('brand')->with('video')->where('product_id', $product_id)->get();
+
+        // Thư viện hình ảnh
         $gallery = Gallery::where('product_id', $product_id)->get();
-        // yêu thích
+        // Yêu thích
         $favorite = FavoritesList::where('customer_id', Session::get('customer_id'))->where('product_id', $product_id)->first();
-        // sản phẩm liên quan
-        $related = DB::table('tbl_product')
-            ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
-            ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
-            ->where('tbl_category_product.category_id', $category_id)
-            ->where('product_condition', '1')
-            ->where('product_status', '1')
-            ->whereNotIn('tbl_product.product_id', [$product_id])->get();
-        // sản phẩm cùng thương hiệu
-        $same_brand = DB::table('tbl_product')
-            ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
-            ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
-            ->where('tbl_brand.brand_id', $brand_id) // Lấy sản phẩm cùng thương hiệu
-            // ->where('tbl_category_product.category_id', '!=', $category_id) // Không thuộc cùng loại
-            ->where('product_condition', '1')
-            ->where('product_status', '1')
-            ->whereNotIn('tbl_product.product_id', [$product_id])
-            ->limit(12)
-            ->get();
+        // Sản phẩm liên quan
+        $related = Product::where('category_id', $category_id)->where('product_condition', '1')->where('product_status', '1')->where('product_id', '!=', $product_id)->get();
+        // Sản phẩm cùng thương hiệu
+        $same_brand = Product::where('brand_id', $brand_id)->where('product_condition', '1')->where('product_status', '1')->where('product_id', '!=', $product_id)->limit(12)->get();
+
         $customer = Customer::where('customer_id', Session::get('customer_id'))->get();
-        //update-views
-        $product = Product::where('product_id', $product_id)->first();
+
+        // Update views
         $product->product_view = $product->product_view + 1;
         $product->save();
-        //Sản phẩm khuyến mãi
+
+        // Sản phẩm khuyến mãi
         $promotional_product = Product::where('product_status', '1')->where('promotional_price', '>', '0')->whereNotIn('product_id', [$product_id])->inRandomOrder()->limit(5)->get();
+
         // Tính toán giá trị trung bình
-        $product = Product::find($product_id);
         $averageRating = $product->averageRating();
         // Tính toán phần trăm đánh giá theo từng sao
         $totalRatings = $product->ratings()->count();
@@ -73,7 +118,7 @@ class ProductController extends Controller
             $starPercentages[$star] = $totalRatings > 0 ? ($count / $totalRatings) * 100 : 0;
         }
         return view('pages.productDetail.show_detail')
-            ->with(compact('detail_product', 'related', 'same_brand', 'gallery', 'product_cate', 'category_id', 'product_name', 'product_id', 'product_id', 'customer', 'favorite', 'promotional_product', 'product', 'averageRating', 'starPercentages'));
+            ->with(compact('product', 'related', 'same_brand', 'gallery', 'product_cate', 'category_id', 'product_name', 'product_id', 'customer', 'favorite', 'promotional_product', 'averageRating', 'starPercentages', 'detail_product'));
     }
 
     public function load_comment(Request $request)

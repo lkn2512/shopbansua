@@ -88,7 +88,7 @@ class CartController extends Controller
                             $message = "Số lượng bạn đặt đã vượt quá số lượng trong kho của chúng tôi cho sản phẩm {$item['product_name']}.";
                             return Redirect()->back()->with('message', $message);
                         }
-                        break; // Break out of inner loop once found
+                        break;
                     }
                 }
             }
@@ -117,8 +117,7 @@ class CartController extends Controller
                         </div>
                         <div class="col-md-6">
                             <span class="name">
-                                <a href="' . url('chi-tiet-san-pham/' . $value['product_id']) . '" class="name-product-cart">
-                            ' . $value['product_name'] . '</a>
+                                <a class="name-product-cart">' . $value['product_name'] . '</a>
                             </span>
                             <span class="price">' . number_format($value['product_price'], 0, ',', '.') . 'đ</span>
                             <button class="remove-cart-view" data-session-id="' . $value['session_id'] . '">Loại bỏ</button>

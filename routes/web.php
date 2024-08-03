@@ -234,10 +234,13 @@ Route::post('/autocomplete-ajax', [HomeController::class, 'autocomplete_ajax']);
 
 //Danh muc san pham trang chu
 Route::get('/danh-muc-san-pham/{category_id}', [CategoryproductController::class, 'show_category_home']);
-Route::get('/thuong-hieu-san-pham/{brand_id}', [BrandProduct::class, 'show_brand_home']);
-Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
-
+// Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
+Route::get('/chi-tiet-san-pham/{product_slug}', [ProductController::class, 'details_product']);
 Route::get('/chuyen-muc-san-pham/{section_slug}', [SectionController::class, 'chuyen_muc_san_pham']);
+
+//thương hiệu sản phẩm
+Route::get('/danh-sach-thuong-hieu', [BrandProduct::class, 'show_brand_product']);
+Route::get('/thuong-hieu-san-pham/{brand_slug}', [BrandProduct::class, 'brand_products']);
 
 //comment - bình luận
 Route::post('/load-comment', [ProductController::class, 'load_comment']);
@@ -253,7 +256,6 @@ Route::post('/check-favorite', [FavoritesListController::class, 'checkFavorite']
 //bài viết footer
 Route::get('/{cate_post_slug}/{post_slug}', [PostController::class, 'post_footer']);
 Route::get('/pages/{cate_post_slug}/{post_slug}', [PostController::class, 'post_header']);
-
 
 //cart -  giỏ hàng
 Route::post('/save-cart', [CartController::class, 'save_cart']);
