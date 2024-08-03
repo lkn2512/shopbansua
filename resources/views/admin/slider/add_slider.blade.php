@@ -100,7 +100,7 @@
                             foreach ($slider as $key => $slide) {
                                 $i++;
                             ?>
-                            <img src="/uploads/slider/{{ $slide->slider_image }}" class="banner-img">
+                            <img src="{{ asset('uploads/slider/' . $slide->slider_image) }}" class="banner-img">
                             <?php
                             }
                         ?>
