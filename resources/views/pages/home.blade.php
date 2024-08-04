@@ -24,7 +24,44 @@
         </div>
     </div>
 
-    <h2 class="title-product">Sản phẩm mới nhất</h2>
+    <div class="row experience-row">
+        <div class="col-lg-6 col-md-6 col-xs-12 experience-left">
+            <div class="custom-left-text-content">
+                <div class="custom-section-heading">
+                    <h6>Mang lại trải nghiệm</h6>
+                    <h2>Sữa Chất Lượng Cao Cho Sức Khỏe Toàn Diện</h2>
+                </div>
+                <p>
+                    Chào mừng bạn đến với cửa hàng sữa của chúng tôi, nơi cung cấp sản phẩm sữa chất lượng cao,
+                    <span class="highlight">an toàn</span> và
+                    <span class="highlight">giàu dinh dưỡng</span>.
+                    Với nguyên liệu sạch và hương vị tuyệt hảo, sữa của chúng tôi chăm sóc sức khỏe và hỗ trợ
+                    <span class="highlight">phát triển toàn diện</span> cho mọi lứa tuổi.
+                </p>
+                <p>Hãy đến với chúng tôi để tận hưởng sự <span class="highlight">khác biệt</span> và yên tâm trong từng lựa
+                    chọn, vì sức
+                    khỏe của bạn luôn là ưu tiên hàng đầu của chúng tôi.</p>
+                <div class="row">
+                    <div class="col-4">
+                        <img src="{{ asset('frontend/images/home/s2.jpg') }}" alt="">
+                    </div>
+                    <div class="col-4">
+                        <img src="{{ asset('frontend/images/home/s3.jpg') }}" alt="">
+                    </div>
+                    <div class="col-4">
+                        <img src="{{ asset('frontend/images/home/s4.jpg') }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-12 custom-right-content">
+            <div class="thumb">
+                <img src="{{ asset('frontend/images/home/s1.png') }}" alt="">
+            </div>
+        </div>
+    </div>
+
+    <h2 class="title-product-home">Sản phẩm mới nhất</h2>
     <div class="row product-row-container">
         @foreach ($all_product_new as $key => $new)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
@@ -95,7 +132,7 @@
         </div>
     </div>
 
-    <h2 class="title-product">Sản phẩm bán chạy được nhiều người tin dùng</h2>
+    <h2 class="title-product-home">Được nhiều người tin dùng</h2>
     <div class="row product-row-container">
         @foreach ($selling_product as $key => $sell)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
@@ -169,6 +206,39 @@
         </div>
     </div>
 
+    <section class="milk-content">
+        <h2 class="title-product-home mb-3">Sử Dụng Sữa Trong Ẩm Thực</h2>
+        <div class="milk-grid">
+            <article class="milk-item">
+                <img src="{{ asset('frontend/images/home/st-sua.jpg') }}" alt="Sinh Tố Sữa" class="milk-image">
+                <h3 class="article-title">Sinh Tố Sữa</h3>
+                <p class="article-content">Sinh tố sữa là một thức uống bổ dưỡng và ngon miệng. Bạn có thể kết hợp sữa với
+                    trái cây tươi như chuối, dâu, hoặc xoài để có một ly sinh tố giàu vitamin và khoáng chất.</p>
+            </article>
+            <article class="milk-item">
+                <img src="{{ asset('frontend/images/home/banh-flan.jpg') }}" alt="Bánh Flan" class="milk-image">
+                <h3 class="article-title">Bánh Flan</h3>
+                <p class="article-content">Bánh flan là món tráng miệng thơm ngon, được làm từ sữa, trứng và đường. Bánh có
+                    vị ngọt thanh, mềm mịn và rất được yêu thích trong các bữa tiệc.</p>
+            </article>
+            <article class="milk-item">
+                <img src="{{ asset('frontend/images/home/mon-ngot.jpg') }}" alt="Món Ngọt Với Sữa" class="milk-image">
+                <h3 class="article-title">Món Ngọt Với Sữa</h3>
+                <p class="article-content">Sữa có thể được sử dụng trong nhiều món ngọt như chè, kem, và bánh ngọt. Nó giúp
+                    tăng độ ngọt và làm phong phú thêm hương vị cho món ăn.</p>
+            </article>
+            <article class="milk-item">
+                <img src="{{ asset('frontend/images/home/sua-trong-nau-an.png') }}" alt="Sữa Trong Nấu Ăn"
+                    class="milk-image">
+                <h3 class="article-title">Sữa Trong Nấu Ăn</h3>
+                <p class="article-content">Sữa không chỉ là thức uống mà còn là nguyên liệu quan trọng trong nấu ăn. Bạn có
+                    thể sử dụng sữa để làm nước sốt, soup, hoặc các món hầm để tăng độ béo và hương vị.</p>
+            </article>
+        </div>
+    </section>
+    <style>
+
+    </style>
     {{-- sự kiện sản phẩm --}}
     @php
         use Carbon\Carbon;
@@ -177,7 +247,7 @@
     @foreach ($holidayEvent as $value)
         @if ($currentDate >= $value->event_date && $currentDate <= $value->event_end_date)
             <section class="ftco-section-holiday">
-                <div class="row mt-4">
+                <div class="row mt-4 mb-4">
                     <div class="col-lg-5 col-md-6 col-sm-6 holiday-left">
                         <span class="holiday-name">{{ $value->event_name }}</span>
                         <span class="holiday-end-date countdown-timer"
@@ -314,7 +384,7 @@
     @endforeach
     {{-- sự kiện sản phẩm --}}
 
-    <h2 class="title-product">Sản phẩm nổi bật</h2>
+    <h2 class="title-product-home">Sản phẩm nổi bật</h2>
     <div class="row product-row-container">
         @foreach ($featuredProducts as $key => $avgRat)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
@@ -388,7 +458,7 @@
         </div>
     </div>
 
-    <h2 class="title-product">Được quan tâm nhiều nhất</h2>
+    <h2 class="title-product-home">Được quan tâm nhiều nhất</h2>
     <div class="row product-row-container">
         @foreach ($view_product as $key => $view)
             <div class="col-lg-2 col-md-4 col-sm-6 product-content">
@@ -462,8 +532,7 @@
         </div>
     </div>
 
-    <h2 class="title-product">Best selling!</h2>
-    <div class="product-details row mb-5">
+    <div class="product-details row mb-5 mt-5">
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="view-product text-center">
                 <ul id="imageGallery">
@@ -630,9 +699,8 @@
             </div>
         </div>
     </div>
-
     @foreach ($sections_products as $section)
-        <h2 class="title-product">{{ $section['section_name'] }}</h2>
+        <h2 class="title-product-home">{{ $section['section_name'] }}</h2>
         <div class="row product-row-container">
             @foreach ($section['products'] as $key => $proSec)
                 <div class="col-lg-2 col-md-4 col-sm-6 product-content">
