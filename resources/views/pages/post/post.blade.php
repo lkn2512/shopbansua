@@ -15,7 +15,7 @@
             <span class="content-post">{!! $post->post_content !!}</span>
         </div>
         <div class="col-md-3">
-            <div class="post-right position-sticky top-0">
+            <div class="post-right">
                 <h2>TIN TỨC LIÊN QUAN</h2>
                 @foreach ($related_post as $key => $re_po)
                     <div class="row post-info mb-2">

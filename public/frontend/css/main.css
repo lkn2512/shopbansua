@@ -5649,101 +5649,111 @@ select.form-controls {
 /*************************
 *******post CSS******
 **************************/
-
-.post-page-left {
-  background: white;
-  border: 1px solid rgb(230, 230, 230);
-  padding: 20px;
-}
-
-.post-page-left .title-post {
-  padding-bottom: 15px;
+.category-title {
   font-size: 20px;
+  margin-bottom: 1em;
+  font-weight: bold;
   text-transform: uppercase;
-  margin-bottom: 10px;
-  padding-left: 0px;
   color: #103667;
-  font-weight: 500;
 }
 
-.post-page-right {
+.post-item {
   background: white;
-  border: 1px solid rgb(230, 230, 230);
-  padding: 20px;
+  overflow: hidden;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 8px;
 }
 
-.post-page-right h3 {
-  padding-bottom: 15px;
-  color: #103667;
-  font-weight: 500;
+.post-item:hover {
+  transform: translateY(-10px);
+}
+
+.card-body-content {
+  padding-block: 30px;
+}
+
+.img-post {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.post-title {
   font-size: 20px;
-}
-
-.post-page-right p {
-  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: black;
-  padding-top: 5px;
-  text-transform: capitalize;
 }
 
-.post-page-right p:hover {
-  text-decoration: underline;
+.post-desc {
+  margin-bottom: 1em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: black;
 }
 
-.post-info .post-desc {
-  padding: 0px;
+.blog-categories {
+  padding: 15px;
+  background-color: white;
+  border: 2px solid #103667;
+  border-radius: 8px;
+  transition: all 0.3s;
+  box-sizing: border-box;
+}
+
+.blog-categories:hover {
+  transform: scale(1.05);
+}
+
+.category-link {
+  display: flex;
+  align-items: center;
+  padding-block: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s, padding-left 0.3s, transform 0.3s;
+  text-decoration: none;
+  color: #103667;
+}
+
+.category-link p {
+  margin: 0;
+  padding: 0 0.5em;
+  font-size: 18px;
+  flex-grow: 1;
+}
+
+.category-link i {
+  font-size: 18px;
+}
+
+.category-link.active,
+.category-link:hover {
+  background-color: #dcebf8;
   padding-left: 10px;
+  transform: translateX(5px);
+}
+
+.category-link.active p,
+.category-link:hover p {
+  transition: color 0.3s;
 }
 
 .post-info .img-post {
   width: 100%;
   height: auto;
 }
-
-.post-info .post-desc .title {
-  padding-top: 0px;
-  font-size: 22px;
-  color: #103667;
-  text-transform: capitalize;
-}
-
-.post-info .post-desc .text-desc {
-  color: #1C1C1C;
-  font-size: 18px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.btn-view-continue {
-  background-color: #CD2626;
-  border: 1px solid #CD2626;
-  border-radius: 5px;
-  font-size: 12px;
-  color: white;
-  height: 20px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  padding-right: 7px;
-}
-
-.btn-view-continue:hover {
-  background-color: #CD2626;
-  border: 1px solid #CD2626;
-  color: white;
-  text-decoration: underline;
-}
-
-
-.category-post-right {
-  border: 1px solid rgb(230, 230, 230);
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: -10px;
-}
-
 
 .post-left {
   background-color: white;
