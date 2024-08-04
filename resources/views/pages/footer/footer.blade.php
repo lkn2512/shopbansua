@@ -1,5 +1,5 @@
-<footer class="footer">
-    <div class="container">
+<footer class="footer-main">
+    <div class="container-xl">
         <div class="row align-items-center align-items-stretch">
             <div class="col-md-4 d-flex align-items-center">
                 <label class="footer_title_top">Đăng ký để nhận tin tức và các thông báo khuyển mãi mới nhất của chúng
@@ -56,7 +56,7 @@
                             <ul class="list-unstyled">
                                 @foreach ($post_footer[$category->cate_post_slug] as $post)
                                     <li>
-                                        <a href="{{ url('/' . $post->category_post->cate_post_slug . '/' . $post->post_slug) }}"
+                                        <a href="{{ url('huong-dan/' . $post->category_post->cate_post_slug . '/' . $post->post_slug) }}"
                                             class="py-1 d-block">
                                             {{ $post->post_title }}
                                         </a>

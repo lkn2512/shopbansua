@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\CategoryProduct;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
@@ -59,6 +60,7 @@ class CartController extends Controller
                 }
             }
             Session::put('cart', $cart);
+            return Redirect()->back();
         }
     }
     public function delete_all_product_cart()

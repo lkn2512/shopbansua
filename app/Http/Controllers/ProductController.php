@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use App\Models\Gallery;
 use App\Models\Comment;
 use App\Models\Customer;
@@ -175,12 +175,21 @@ class ProductController extends Controller
             $output .= '            </div>';
             $output .= '        </div>';
             $output .= '    </div>';
+
+            //lấy 1 hình ảnh trong đường dẫn
+            $directory = public_path('uploads/user');
+            $files = File::files($directory);
+            $firstImage = '';
+            if (!empty($files)) {
+                $firstImage = $files[0]->getFilename();
+                $imageUrl = url('uploads/user/' . $firstImage);
+            }
             foreach ($comment_reply as $comm_rep) {
                 if ($comm_rep->comment_parent_comment == $comm->comment_id) {
                     $output .= '    <div class="row comment-reply-admin">';
                     $output .= '        <div class="col-lg-1 col-md-2 col-sm-2">';
                     $output .= '            <div class="image-comment text-center">';
-                    $output .= '                <img src="' . url('/uploads/user/162367734844593.jpg') . '">';
+                    $output .= '                 <img src="' . $imageUrl . '">';
                     $output .= '            </div>';
                     $output .= '        </div>';
                     $output .= '        <div class="col-lg-11 col-md-10 col-sm-10">';

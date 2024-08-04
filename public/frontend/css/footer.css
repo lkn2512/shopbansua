@@ -1,21 +1,11 @@
-.ftco-section {
-    padding: 12em 0;
-}
-
-.ftco-section h2 {
-    margin-bottom: 0;
-}
-
-footer {
-    border-top: 1px solid rgb(214, 214, 214);
-    margin-top: 50px;
-    padding-top: 50px !important;
-    background: white;
+.footer-main {
+    border-top: 1px solid rgb(224, 224, 224);
+    padding-top: 30px !important;
     position: relative;
     overflow: hidden;
     z-index: 0;
     padding-bottom: 20px;
-    color: black;
+    margin-top: 30px;
 }
 
 .footer_title_top {

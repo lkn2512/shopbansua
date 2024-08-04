@@ -37,7 +37,6 @@
                             @endif
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>{{ $value2->slider_name }}</h5>
-                                {{-- <p>Some representative placeholder content for the first slide.</p> --}}
                             </div>
                         </div>
                     @endforeach

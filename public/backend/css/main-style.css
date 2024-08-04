@@ -171,6 +171,12 @@
     color: white;
 }
 
+.user-panel .image img {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 100%;
+}
+
 .btn-filter {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -422,6 +428,7 @@
     border-radius: 100px;
     margin-top: -30px;
     margin-left: 20px;
+    object-fit: cover;
 }
 
 .row-background .name-admin {

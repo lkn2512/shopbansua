@@ -234,8 +234,8 @@ Route::post('/autocomplete-ajax', [HomeController::class, 'autocomplete_ajax']);
 
 //Danh muc san pham trang chu
 Route::get('/danh-muc-san-pham/{category_id}', [CategoryproductController::class, 'show_category_home']);
-// Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
 Route::get('/chi-tiet-san-pham/{product_slug}', [ProductController::class, 'details_product']);
+
 Route::get('/chuyen-muc-san-pham/{section_slug}', [SectionController::class, 'chuyen_muc_san_pham']);
 
 //thương hiệu sản phẩm
@@ -254,7 +254,7 @@ Route::post('/delete-favorite', [FavoritesListController::class, 'delete_favorit
 Route::post('/check-favorite', [FavoritesListController::class, 'checkFavorite'])->name('checkFavorite');
 
 //bài viết footer
-Route::get('/{cate_post_slug}/{post_slug}', [PostController::class, 'post_footer']);
+Route::get('/huong-dan/{cate_post_slug}/{post_slug}', [PostController::class, 'post_footer']);
 Route::get('/pages/{cate_post_slug}/{post_slug}', [PostController::class, 'post_header']);
 
 //cart -  giỏ hàng
