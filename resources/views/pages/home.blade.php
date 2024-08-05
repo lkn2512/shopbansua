@@ -533,6 +533,7 @@
     </div>
 
     <div class="product-details row mb-5 mt-5">
+        <img src="{{ asset('frontend/images/home/top-selling3.png') }}" alt="" class="img-top-selling">
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="view-product text-center">
                 <ul id="imageGallery">

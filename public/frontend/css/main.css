@@ -2393,6 +2393,13 @@ h2.title:before {
   margin-right: 10px;
 }
 
+.img-top-selling {
+  width: auto;
+  height: 100px;
+  position: absolute;
+  z-index: 2;
+  margin-left: -10px
+}
 
 .view-product {
   padding-top: 20px;
