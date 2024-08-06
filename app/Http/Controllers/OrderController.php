@@ -19,8 +19,7 @@ class OrderController extends Controller
         $customer_id = Session::get('customer_id');
         if ($customer_id) {
             $order = Order::where('customer_id', $customer_id)->orderby('created_at', 'desc')->paginate(16);
-            $order_first = Order::where('customer_id', $customer_id)->first();
-            return view('pages.history.historyOrder')->with(compact('order', 'order_first'));
+            return view('pages.history.historyOrder')->with(compact('order'));
         } else {
             return view('pages.account-customer.sign-in');
         }
@@ -75,7 +74,6 @@ class OrderController extends Controller
             $order->order_reason_cancle = $data['reason'];
             $order->order_status = 3;
             $order->save();
-        } else {
         }
     }
 }

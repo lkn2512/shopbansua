@@ -8,14 +8,13 @@
         // Tạo mảng chữ cái có trong danh sách thương hiệu
         $availableChars = $groupedBrands->keys()->sort()->toArray();
     @endphp
-
-    <h2 class="title-product text-center mb-3">Thương hiệu sản phẩm</h2>
+    <h2 class="title-product text-center m-0 mb-3">Thương hiệu sản phẩm</h2>
     <nav id="navbar-example2" class="navbar mb-3 card">
         <a class="navbar-brand">Chữ cái</a>
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills" style="height: 50px">
             @foreach ($availableChars as $char)
                 <li class="nav-item">
-                    <a class="nav-link" href="#scrollspyHeading{{ $char }}">{{ $char }}</a>
+                    <a class="nav-link char-hover" href="#scrollspyHeading{{ $char }}">{{ $char }}</a>
                 </li>
             @endforeach
         </ul>

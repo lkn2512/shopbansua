@@ -775,7 +775,7 @@
             }
             var _token = document.querySelector('input[name="_token"]').value;
             $.ajax({
-                url: "{{ url('/huy-don-hang') }}",
+                url: "{{ url('huy-don-hang/') }}",
                 method: 'POST',
                 data: {
                     order_code: order_code,
@@ -783,9 +783,13 @@
                     _token: _token
                 },
                 success: function(data) {
+                    console.log(order_code, reason, _token);
                     alert('Huỷ đơn hàng thành công');
                     location.reload();
                 },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
             });
         }
     </script>

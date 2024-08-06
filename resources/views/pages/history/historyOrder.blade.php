@@ -9,10 +9,8 @@
         </ol>
     </nav>
     <div class="history-order-content">
-        <div class="history-order-title">
-            <div class="row title-product">
-                <h2 class="text">LỊCH SỬ ĐƠN HÀNG CỦA BẠN</h2>
-            </div>
+        <div class="history-order-title mb-2">
+            <h2 class="title-product">LỊCH SỬ ĐƠN HÀNG CỦA BẠN</h2>
             <div class="view-toggle">
                 <span class="title">Chế độ hiển thị:</span>
                 <img class="img-icon-medium" id="toggleViewIcon" src="{{ asset('frontend/images/home/grid.png') }}"
@@ -58,9 +56,8 @@
                                     alt=""><span>Xem chi tiết</span>
                             </a>
                             @if ($orders->order_status == 1)
-                                <a href="{{ URL::to('cancle-order/' . $orders->order_code) }}"
-                                    class="card-link destroy-order" data-bs-toggle="modal" data-bs-target="#cancleOrder"
-                                    data-bs-whatever="@mdo">
+                                <a href="" class="card-link destroy-order" data-bs-toggle="modal"
+                                    data-bs-target="#cancleOrder" data-bs-whatever="@mdo">
                                     <img class="img-icon-medium" src="{{ asset('frontend/images/home/cancel_order.png') }}"
                                         alt=""><span>Huỷ đơn hàng</span>
                                 </a>
@@ -86,9 +83,9 @@
                     @php $i=1;@endphp
                     @foreach ($order as $key => $orders)
                         <tr>
-                            <td class="p-3 ">{{ $i++ }}</td>
-                            <td class="p-3 ">#{{ $orders->order_code }}</td>
-                            <td class="p-3 ">
+                            <td class="p-3">{{ $i++ }}</td>
+                            <td class="p-3">#{{ $orders->order_code }}</td>
+                            <td class="p-3">
                                 @if ($orders->order_status == 1)
                                     <a class="order-status-waitting">Đang chờ xử lý...</a>
                                 @elseif($orders->order_status == 2)
@@ -113,8 +110,7 @@
                                         <span>Xem chi tiết</span>
                                     </a>
                                     @if ($orders->order_status == 1)
-                                        <a href="{{ URL::to('cancle-order/' . $orders->order_code) }}"
-                                            class="card-link destroy-order" data-bs-toggle="modal"
+                                        <a href="" class="card-link destroy-order" data-bs-toggle="modal"
                                             data-bs-target="#cancleOrder" data-bs-whatever="@mdo">
                                             <img class="img-icon-medium"
                                                 src="{{ asset('frontend/images/home/cancel_order.png') }}" alt="">
@@ -129,7 +125,7 @@
             </table>
         </div>
         <div class="panel-footer">
-            {!! $order->withQueryString()->appends(Request::all())->links('pagination::bootstrap-4') !!}
+            {!! $order->withQueryString()->appends(Request::all())->links('pagination-custom') !!}
         </div>
     </div>
 
@@ -182,9 +178,18 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn bg-secondary-subtle" data-bs-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn bg-success text-white" id="{{ $order_first->order_code }}"
-                            onclick="cancellation_order(this.id)" disabled>Xác nhận
+                        <button type="button" class="btn bg-success text-white" id="confirm-button"
+                            onclick="cancellation_order(this.dataset.orderCode)" disabled>
+                            Xác nhận
                         </button>
+                        @foreach ($order as $orders)
+                            @if ($orders->order_status == 1)
+                                <script>
+                                    document.getElementById('confirm-button').dataset.orderCode = "{{ $orders->order_code }}";
+                                    document.getElementById('confirm-button').disabled = false; // Kích hoạt nút
+                                </script>
+                            @endif
+                        @endforeach
                     </div>
                 </form>
             </div>

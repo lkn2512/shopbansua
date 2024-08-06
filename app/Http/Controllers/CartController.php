@@ -145,8 +145,12 @@ class CartController extends Controller
     public function show_cart_quantity()
     {
         $cart_quantity = count(Session::get('cart'));
-        $ouput = '';
-        $ouput .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">' . $cart_quantity . '</span>';
-        echo $ouput;
+        if ($cart_quantity) {
+            $ouput = '';
+            $ouput .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">' . $cart_quantity . '</span>';
+            echo $ouput;
+        } else {
+            echo $ouput = '';
+        }
     }
 }
