@@ -90,10 +90,13 @@
                     src="{{ URL::to('/frontend/images/home/checkout.png') }}" alt="">Thanh toán
             </a>
             <input class="favorite_customer_id" type="hidden" value="{{ Session::get('customer_id') }}">
-            <a href="#" class="show-favorites" data-bs-toggle="modal" data-bs-target="#favorites">
-                <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/favorite.png') }}">Danh
-                sách yêu thích
-            </a>
+            <form>
+                @csrf
+                <a href="#" class="show-favorites" data-bs-toggle="modal" data-bs-target="#favorites">
+                    <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/favorite.png') }}">Danh
+                    sách yêu thích
+                </a>
+            </form>
             <a href="{{ url('history-order') }}">
                 <img class="icon-offcan" src="{{ URL::to('/frontend/images/home/history.png') }}">Lịch
                 sử đơn hàng

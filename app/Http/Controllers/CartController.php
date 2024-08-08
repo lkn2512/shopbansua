@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Models\CategoryProduct;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Redirect;
 
@@ -40,14 +38,10 @@ class CartController extends Controller
             );
         }
         Session::put('cart', $cart);
-        Session::save();
     }
     public function your_cart()
     {
-        $category = CategoryProduct::where('category_status', '1')->orderBy('category_name', 'asc')->get();
-        $brand = Brand::where('brand_status', '1')->orderBy('brand_name', 'asc')->get();
-
-        return view('pages.cart.cart_ajax')->with(compact('category', 'brand'));
+        return view('pages.cart.cart_ajax');
     }
 
     public function delete_product_cart($session_id)
@@ -74,6 +68,7 @@ class CartController extends Controller
             return Redirect()->back();
         }
     }
+
     public function update_cart(Request $request)
     {
         $data = $request->all();
@@ -87,7 +82,7 @@ class CartController extends Controller
                         if ($qty <= $item['product_quantity']) {
                             $cart[$session]['product_qty'] = $qty;
                         } else {
-                            $message = "Số lượng bạn đặt đã vượt quá số lượng trong kho của chúng tôi cho sản phẩm {$item['product_name']}.";
+                            $message = "Số lượng bạn đặt đã vượt quá số lượng trong kho của chúng tôi";
                             return Redirect()->back()->with('message', $message);
                         }
                         break;
@@ -99,9 +94,9 @@ class CartController extends Controller
         } else {
             $message = 'Giỏ hàng trống hoặc không tồn tại';
         }
-
         return Redirect()->back()->with('message', $message);
     }
+
 
     public function hover_cart_view()
     {

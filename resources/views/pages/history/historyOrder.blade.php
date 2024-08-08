@@ -20,49 +20,51 @@
         </div>
         <div id="gridView" class="row">
             @foreach ($order as $key => $orders)
-                <div class="col-md-3">
-                    <div class="card mb-0 mb-4 rounded">
-                        <div class="card-body p-4">
-                            <h6 class="card-subtitle">Mã đơn hàng</h6>
-                            <h5 class="card-title">
-                                <span>#{{ $orders->order_code }}</span>
-                            </h5>
-                            <span class="status-btn">
-                                @if ($orders->order_status == 1)
-                                    <button class="bg-Pending btn-status"><i class="fas fa-clock"></i>Đang chờ xử
-                                        lý...</button>
-                                @elseif($orders->order_status == 2)
-                                    <button class="bg-delivered btn-status"><i class="fas fa-check-circle"></i>Đã giao
-                                        hàng</button>
-                                @else
-                                    <button class="bg-Canceled btn-status"><i class="fas fa-times-circle"></i>Đã bị
-                                        huỷ</button>
-                                @endif
-                            </span>
-                            <span class="card-text date-order">Ngày đặt:
-                                @php
-                                    $createdAt = \Carbon\Carbon::parse($orders->created_at);
-                                    echo '<span>' . $createdAt->format('H:i, d-m-Y') . '</span>';
-                                @endphp
-                            </span>
-                            <span class="card-text price price-order">
-                                {{ number_format($orders->order_total, 0, ',', '.') }}đ
-                            </span>
-                        </div>
-                        <div class="card-footer bg-transparent history-footer">
-                            <a href="{{ URL::to('view-history-order/' . $orders->order_code) }}"
-                                class="card-link view-detail-history">
-                                <img class="img-icon-medium" src="{{ asset('frontend/images/home/detail.png') }}"
-                                    alt=""><span>Xem chi tiết</span>
-                            </a>
-                            @if ($orders->order_status == 1)
-                                <a href="" class="card-link destroy-order" data-bs-toggle="modal"
-                                    data-bs-target="#cancleOrder" data-bs-whatever="@mdo">
-                                    <img class="img-icon-medium" src="{{ asset('frontend/images/home/cancel_order.png') }}"
-                                        alt=""><span>Huỷ đơn hàng</span>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="items-grid mb-4 p-4">
+                        <div class="flex-center-between">
+                            <div>
+                                <h6 class="card-subtitle">Mã đơn hàng</h6>
+                                <h5>#{{ $orders->order_code }}</h5>
+                            </div>
+                            <div>
+                                <a href="{{ URL::to('view-history-order/' . $orders->order_code) }}"
+                                    class="card-link view-detail-history" title="Xem chi tiết">
+                                    <input type="hidden" name="order_code" value="{{ $orders->order_code }}">
+                                    <img class="img-icon-medium" src="{{ asset('frontend/images/home/detail.png') }}"
+                                        alt="">
                                 </a>
+                                @if ($orders->order_status == 1)
+                                    <a href="" class="card-link destroy-order" data-bs-toggle="modal"
+                                        data-bs-target="#cancleOrder" data-bs-whatever="@mdo" title="Huỷ đơn hàng">
+                                        <img class="img-icon-medium"
+                                            src="{{ asset('frontend/images/home/cancel_order.png') }}" alt="">
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                        <hr class="mt-2 mb-2">
+                        <div class="status-btn">
+                            @if ($orders->order_status == 1)
+                                <button class="bg-Pending btn-status"><i class="fas fa-clock"></i>Đang chờ xử
+                                    lý...</button>
+                            @elseif($orders->order_status == 2)
+                                <button class="bg-delivered btn-status"><i class="fas fa-check-circle"></i>Đã giao
+                                    hàng</button>
+                            @else
+                                <button class="bg-Canceled btn-status"><i class="fas fa-times-circle"></i>Đã bị
+                                    huỷ</button>
                             @endif
                         </div>
+                        <span class="card-text date-order">Ngày đặt:
+                            @php
+                                $createdAt = \Carbon\Carbon::parse($orders->created_at);
+                                echo '<span>' . $createdAt->format('H:i, d-m-Y') . '</span>';
+                            @endphp
+                        </span>
+                        <span class="card-text price price-order">
+                            {{ number_format($orders->order_total, 0, ',', '.') }}đ
+                        </span>
                     </div>
                 </div>
             @endforeach
@@ -100,21 +102,21 @@
                                     echo $createdAt->format('H:i, d-m-Y');
                                 @endphp
                             </td>
-                            <td class="p-3 ">{{ number_format($orders->order_total, 0, ',', '.') }}đ</td>
-                            <td class="p-3 ">
-                                <div class="history-footer">
+                            <td class="p-3">{{ number_format($orders->order_total, 0, ',', '.') }}đ</td>
+                            <td class="p-3 width100">
+                                <div class="flex-center-between">
                                     <a href="{{ URL::to('view-history-order/' . $orders->order_code) }}"
                                         class="card-link view-detail-history">
-                                        <img class="img-icon-medium" src="{{ asset('frontend/images/home/detail.png') }}"
-                                            alt="">
-                                        <span>Xem chi tiết</span>
+                                        <input type="hidden" name="order_code" value="{{ $orders->order_code }}">
+                                        <img class="img-icon-medium" src="{{ asset('frontend/images/home/detail.png') }}">
+                                        <span>Xem</span>
                                     </a>
                                     @if ($orders->order_status == 1)
                                         <a href="" class="card-link destroy-order" data-bs-toggle="modal"
                                             data-bs-target="#cancleOrder" data-bs-whatever="@mdo">
                                             <img class="img-icon-medium"
-                                                src="{{ asset('frontend/images/home/cancel_order.png') }}" alt="">
-                                            <span>Huỷ đơn hàng</span>
+                                                src="{{ asset('frontend/images/home/cancel_order.png') }}">
+                                            <span>Huỷ</span>
                                         </a>
                                     @endif
                                 </div>
@@ -178,24 +180,34 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn bg-secondary-subtle" data-bs-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn bg-success text-white" id="confirm-button"
-                            onclick="cancellation_order(this.dataset.orderCode)" disabled>
+                        <button type="button" class="btn bg-success text-white" id="confirm-button" disabled>
                             Xác nhận
                         </button>
-                        @foreach ($order as $orders)
-                            @if ($orders->order_status == 1)
-                                <script>
-                                    document.getElementById('confirm-button').dataset.orderCode = "{{ $orders->order_code }}";
-                                    document.getElementById('confirm-button').disabled = false; // Kích hoạt nút
-                                </script>
-                            @endif
-                        @endforeach
                     </div>
                 </form>
             </div>
         </div>
     </div>
     {{-- Modal hiển thị khi nhấn huỷ đơn hàng --}}
+    <script>
+        let selectedOrderCode = "";
+        // Bật nút "Xác nhận" khi người dùng chọn đơn hàng để hủy
+        document.querySelectorAll('.destroy-order').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                selectedOrderCode = this.closest('tr').querySelector('input[name="order_code"]').value;
+                document.getElementById('confirm-button').disabled = false; // Bật nút "Xác nhận"
+            });
+        });
+        // Gọi hàm cancellation_order khi nhấn nút "Xác nhận"
+        document.getElementById('confirm-button').addEventListener('click', function() {
+            if (selectedOrderCode) {
+                cancellation_order(selectedOrderCode);
+            } else {
+                alert('Bạn chưa chọn đơn hàng để hủy.');
+            }
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

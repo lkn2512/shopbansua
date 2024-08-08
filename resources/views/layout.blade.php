@@ -63,6 +63,7 @@
         </script>
         {{ Session::forget('message') }}
     @endif
+
     {{-- Chọn địa chỉ hành chính --}}
     <script>
         $(document).ready(function() {
@@ -660,7 +661,7 @@
     <!-- Không được nhập khoảng trắng ở các ký tự đầu-->
 
     <!-- Đặt hàng-->
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('.send_order').click(function() {
                 // Kiểm tra các trường nhập liệu bằng Parsley
@@ -732,6 +733,77 @@
                             }
                         });
                 }
+            });
+        });
+    </script> --}}
+    <script>
+        $(document).ready(function() {
+            $('.send_order').click(function() {
+                swal({
+                        title: "Xác nhận đơn hàng!",
+                        text: "Bạn có chắc là muốn đặt đơn hàng này?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "bg-default",
+                        confirmButtonText: "Xác nhận",
+                        cancelButtonClass: "bg-body-secondary",
+                        cancelButtonText: "Suy nghĩ lại",
+                        closeOnConfirm: false,
+                    },
+                    function(isConfirm) {
+                        if (isConfirm) {
+                            var shipping_name = $('.shipping_name').val();
+                            var shipping_phone = $('.shipping_phone').val();
+
+                            var shipping_address_city = $('.shipping_address_province').val();
+                            var shipping_address_district = $('.shipping_address_district').val();
+                            var shipping_address_wards = $('.shipping_address_wards').val();
+
+                            var shipping_address = $('.shipping_address').val();
+                            var shipping_notes = $('.shipping_notes').val();
+                            var shipping_email = $('.shipping_email').val();
+                            var shipping_method = $('.payment_select').val();
+                            var order_fee = $('.order_fee').val();
+                            var order_coupon = $('.order_coupon').val();
+                            var order_total = $('.order_total').val();
+                            var _token = $('input[name="_token"]').val();
+
+                            $.ajax({
+                                url: "{{ url('/confirm-order') }}",
+                                method: 'POST',
+                                data: {
+                                    shipping_name: shipping_name,
+                                    shipping_phone: shipping_phone,
+                                    shipping_address_city: shipping_address_city,
+                                    shipping_address_district: shipping_address_district,
+                                    shipping_address_wards: shipping_address_wards,
+                                    shipping_address: shipping_address,
+                                    shipping_notes: shipping_notes,
+                                    shipping_email: shipping_email,
+                                    shipping_method: shipping_method,
+                                    order_fee: order_fee,
+                                    order_coupon: order_coupon,
+                                    order_total: order_total,
+                                    _token: _token
+                                },
+                                success: function(data) {
+                                    swal({
+                                            title: "Đặt hàng thành công!",
+                                            text: "Chúng tôi đã nhận được đơn đặt hàng của bạn.",
+                                            type: "success",
+                                            confirmButtonClass: "bg-primary text-white",
+                                            confirmButtonText: "OK"
+                                        },
+                                        function(isConfirm) {
+                                            if (isConfirm) {
+                                                window.location.href =
+                                                    "{{ url('/') }}";
+                                            }
+                                        })
+                                },
+                            });
+                        }
+                    });
             });
         });
     </script>

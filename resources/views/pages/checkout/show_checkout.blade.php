@@ -149,8 +149,8 @@
                             <span>Tổng đơn hàng</span> <span>{{ number_format($total, 0, ',', '.') }}đ</span>
                         </div>
                         <div class="d-flex justify-content-between mb-1">
-                            <span>Giảm giá</span>
-                            <span class="text-danger">
+                            <span>Mã giảm giá</span>
+                            <span class="coupon-used">
                                 @if (Session::get('coupon'))
                                     @foreach (Session::get('coupon') as $key => $cou)
                                         @if ($cou['coupon_condition'] == 1)
@@ -171,7 +171,7 @@
                             </span>
                         </div>
                         <hr>
-                        <div class="d-flex justify-content-between mb-4">
+                        <div class="d-flex justify-content-between">
                             <strong>Thành tiền</strong>
                             <strong class="text-dark">
                                 <?php
@@ -203,6 +203,8 @@
                     </div>
                 </div>
             </div>
+        @else
+            <span class="text-center m-3">Hiện chưa có sản phẩm nào để thanh toán!</span>
         @endif
     </div>
 @endsection
