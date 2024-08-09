@@ -45,6 +45,8 @@
                             value="{{ $searh_pro->product_id }}">
                         <input type="hidden" class="cart_product_name_{{ $searh_pro->product_id }}"
                             value="{{ $searh_pro->product_name }}">
+                        <input type="hidden" class="cart_product_slug_{{ $searh_pro->product_id }}"
+                            value="{{ $searh_pro->product_slug }}">
                         <input type="hidden" class="cart_product_image_{{ $searh_pro->product_id }}"
                             value="{{ $searh_pro->product_image }}">
                         <input type="hidden" class="cart_product_quantity_{{ $searh_pro->product_id }}"

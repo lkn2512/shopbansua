@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
@@ -29,6 +27,7 @@ class CartController extends Controller
                 'session_id' => $session_id,
                 'product_id' => $data['cart_product_id'],
                 'product_name' => $data['cart_product_name'],
+                'product_slug' => $data['cart_product_slug'],
                 'product_image' => $data['cart_product_image'],
                 'product_quantity' => $data['cart_product_quantity'],
                 'product_qty' => $data['cart_product_qty'],
@@ -90,13 +89,11 @@ class CartController extends Controller
                 }
             }
             Session::put('cart', $cart);
-            Toastr::success('Đã cập nhật số lượng sản phẩm', '', ['positionClass' => 'toast-bottom-right']);
         } else {
             $message = 'Giỏ hàng trống hoặc không tồn tại';
         }
         return Redirect()->back()->with('message', $message);
     }
-
 
     public function hover_cart_view()
     {
@@ -114,7 +111,7 @@ class CartController extends Controller
                         </div>
                         <div class="col-md-6">
                             <span class="name">
-                                <a class="name-product-cart">' . $value['product_name'] . '</a>
+                                <a href="' . url('chi-tiet-san-pham/' . $value['product_slug']) . '" class="name-product-cart">' . $value['product_name'] . '</a>
                             </span>
                             <span class="price">' . number_format($value['product_price'], 0, ',', '.') . 'đ</span>
                             <button class="remove-cart-view" data-session-id="' . $value['session_id'] . '">Loại bỏ</button>

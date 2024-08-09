@@ -140,6 +140,8 @@ class CategoryProductController extends Controller
                                     value="' . $val->product_id . '">
                                 <input type="hidden" class="cart_product_name_' . $val->product_id . '"
                                     value="' . $val->product_name . '">
+                                <input type="hidden" class="cart_product_name_' . $val->product_id . '"
+                                    value="' . $val->product_slug . '">
                                 <input type="hidden" class="cart_product_image_' . $val->product_id . '"
                                     value="' . $val->product_image . '">
                                 <input type="hidden" class="cart_product_quantity_' . $val->product_id . '"

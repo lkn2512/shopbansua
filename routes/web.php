@@ -280,7 +280,6 @@ Route::post('/add-customer', [LoginCustomerController::class, 'add_customer']);
 
 //checkout -  thanh toán
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
-Route::get('/payment', [CheckoutController::class, 'payment']);
 Route::post('/save-checkout-customer', [CheckoutController::class, 'save_checkout_customer']);
 Route::post('/select-delivery-home', [CheckoutController::class, 'select_delivery_home']);
 Route::post('/calculate-fee', [CheckoutController::class, 'calculate_fee']);

@@ -54,6 +54,8 @@
                                     value="{{ $value->product_id }}">
                                 <input type="hidden" class="cart_product_name_{{ $value->product_id }}"
                                     value="{{ $value->product_name }}">
+                                <input type="hidden" class="cart_product_slug_{{ $new->product_id }}"
+                                    value="{{ $value->product_slug }}">
                                 <input type="hidden" class="cart_product_image_{{ $value->product_id }}"
                                     value="{{ $value->product_image }}">
                                 <input type="hidden" class="cart_product_quantity_{{ $value->product_id }}"

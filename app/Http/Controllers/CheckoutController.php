@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\Shipping;
 use App\Models\Order;
@@ -11,29 +10,40 @@ use App\Models\OrderDetails;
 use App\Models\Coupon;
 use App\Models\Notification;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Redirect;
 
 class CheckoutController extends Controller
 {
-
     public function checkout()
     {
-        $category = DB::table('tbl_category_product')->where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand = DB::table('tbl_brand')->where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
-
         $customer_id = Session::get('customer_id');
         if ($customer_id) {
-            $latestOrder = Order::where('customer_id', $customer_id)->latest()->first();
-
-            if ($latestOrder) {
-                $shipping_id = $latestOrder->shipping_id;
-                $shippingInfoLast = Shipping::with('province')->with('district')->with('wards')->where('shipping_id', $shipping_id)->first();
+            $cart = Session::get('cart');
+            $exceeded = false;
+            if ($cart) {
+                foreach ($cart as $key => $val) {
+                    if ($val['product_qty'] > $val['product_quantity']) {
+                        $exceeded = true;
+                        break;
+                    }
+                }
+                if ($exceeded) {
+                    return Redirect::to('your-cart')->with('message', 'Không thể thanh toán. Một vài sản phẩm bạn đặt đã vượt quá số lượng trong kho của chúng tôi');
+                } else {
+                    $latestOrder = Order::where('customer_id', $customer_id)->latest()->first();
+                    if ($latestOrder) {
+                        $shipping_id = $latestOrder->shipping_id;
+                        $shippingInfoLast = Shipping::with('province')->with('district')->with('wards')->where('shipping_id', $shipping_id)->first();
+                    } else {
+                        $shippingInfoLast = null;
+                    }
+                    return view('pages.checkout.show_checkout')->with(compact('shippingInfoLast'));
+                }
             } else {
-                $shippingInfoLast = null;
+                return Redirect::to('your-cart');
             }
-            return view('pages.checkout.show_checkout')->with(compact('category', 'brand', 'shippingInfoLast'));
         } else {
-            return view('pages.account-customer.sign-in');
+            return Redirect::to('login');
         }
     }
 
@@ -101,12 +111,10 @@ class CheckoutController extends Controller
             return Redirect()->back();
         }
     }
-    public function payment()
-    {
-        $cate_product = DB::table('tbl_category_product')->where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
-        return view('pages.checkout.payment')->with('category', $cate_product)->with('brand', $brand_product);
-    }
+    // public function payment()
+    // {
+    //     return view('pages.checkout.payment')->with('category', $cate_product)->with('brand', $brand_product);
+    // }
 
     public function confirm_order(Request $request)
     {
@@ -163,7 +171,6 @@ class CheckoutController extends Controller
         $notification->message = 'Đơn hàng mới';
         $notification->order_code = $order->order_code;
         $notification->save();
-
 
         Session::forget('coupon');
         Session::forget('cart');

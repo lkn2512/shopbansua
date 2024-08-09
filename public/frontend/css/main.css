@@ -1851,6 +1851,8 @@ h2.title:before {
 
 .promotional-product {
   margin-top: 14px;
+  position: sticky;
+  top: 50px;
 }
 
 .unFavorite {
@@ -5666,6 +5668,9 @@ select.form-controls {
   padding: 20px;
   background: white;
   border: 1px solid rgb(224, 224, 224);
+  position: sticky;
+  top: 50px;
+  width: 100%;
 }
 
 .summary-cart .title {

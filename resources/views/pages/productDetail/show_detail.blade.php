@@ -101,6 +101,8 @@
                                 value="{{ $value->product_id }}">
                             <input type="hidden" class="cart_product_name_{{ $value->product_id }}"
                                 value="{{ $value->product_name }}">
+                            <input type="hidden" class="cart_product_slug_{{ $value->product_id }}"
+                                value="{{ $value->product_slug }}">
                             <input type="hidden" class="cart_product_image_{{ $value->product_id }}"
                                 value="{{ $value->product_image }}">
                             <input type="hidden" class="cart_product_quantity_{{ $value->product_id }}"
@@ -227,6 +229,8 @@
                                         value="{{ $relate->product_id }}">
                                     <input type="hidden" class="cart_product_name_{{ $relate->product_id }}"
                                         value="{{ $relate->product_name }}">
+                                    <input type="hidden" class="cart_product_slug_{{ $relate->product_id }}"
+                                        value="{{ $relate->product_slug }}">
                                     <input type="hidden" class="cart_product_image_{{ $relate->product_id }}"
                                         value="{{ $relate->product_image }}">
                                     <input type="hidden" class="cart_product_quantity_{{ $relate->product_id }}"
@@ -356,7 +360,7 @@
             </div>
             {{-- Sản phẩm khuyến mãi --}}
             <div class="col-lg-2 col-md-3 col-sm-3">
-                <div class="position-sticky top-0 promotional-product">
+                <div class="promotional-product">
                     @foreach ($promotional_product as $key => $product)
                         <div class="col-lg-12 product-content">
                             <div class="productinfo">
@@ -389,6 +393,8 @@
                                         value="{{ $product->product_id }}">
                                     <input type="hidden" class="cart_product_name_{{ $product->product_id }}"
                                         value="{{ $product->product_name }}">
+                                    <input type="hidden" class="cart_product_slug_{{ $product->product_id }}"
+                                        value="{{ $product->product_slug }}">
                                     <input type="hidden" class="cart_product_image_{{ $product->product_id }}"
                                         value="{{ $product->product_image }}">
                                     <input type="hidden" class="cart_product_quantity_{{ $product->product_id }}"
@@ -468,6 +474,8 @@
                                     value="{{ $relate->product_id }}">
                                 <input type="hidden" class="cart_product_name_{{ $relate->product_id }}"
                                     value="{{ $relate->product_name }}">
+                                <input type="hidden" class="cart_product_slug_{{ $relate->product_id }}"
+                                    value="{{ $relate->product_slug }}">
                                 <input type="hidden" class="cart_product_image_{{ $relate->product_id }}"
                                     value="{{ $relate->product_image }}">
                                 <input type="hidden" class="cart_product_quantity_{{ $relate->product_id }}"

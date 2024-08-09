@@ -44,7 +44,8 @@
                                                     alt="Product"></a>
                                             <div class="product-info">
                                                 <h4 class="product-title">
-                                                    <a>{{ $cart['product_name'] }}</a>
+                                                    <a
+                                                        href="{{ url('chi-tiet-san-pham/' . $cart['product_slug']) }}">{{ $cart['product_name'] }}</a>
                                                 </h4>
                                                 <span class="sub-product">Loại: {{ $cart['category'] }}</span>
                                                 <span class="sub-product">Thương hiệu: {{ $cart['brand'] }}</span>
